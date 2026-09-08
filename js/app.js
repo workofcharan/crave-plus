@@ -33,6 +33,7 @@
     mealPlan: JSON.parse(localStorage.getItem('cravepulse_meal_plan') || '{"breakfast":null,"lunch":null,"dinner":null,"snack":null}'),
     audioEnabled: localStorage.getItem('cravepulse_audio') !== 'false',
     theme: localStorage.getItem('cravepulse_theme') || 'light',
+    currentLang: localStorage.getItem('cravepulse_lang') || 'en',
     activeTrailCity: 'hyderabad',
     activeModalDish: null,
     activeCookDish: null,
@@ -59,6 +60,12 @@
     // Theme
     themeToggleBtn: document.getElementById('themeToggleBtn'),
     themeIcon: document.getElementById('themeIcon'),
+
+    // Language Selector
+    langSelectorWidget: document.getElementById('langSelectorWidget'),
+    langToggleBtn: document.getElementById('langToggleBtn'),
+    langDropdown: document.getElementById('langDropdown'),
+    currentLangLabel: document.getElementById('currentLangLabel'),
 
     // Location
     locationDropdownToggle: document.getElementById('locationDropdownToggle'),
@@ -302,14 +309,83 @@
     toastContainer: document.getElementById('toastContainer')
   };
 
+  // --- TRANSLATION HELPER & MULTILINGUAL ENGINE (Telugu, Hindi, English) ---
+  function t(key, params = {}) {
+    const translations = window.TRANSLATIONS || {};
+    const langDict = translations[state.currentLang] || translations['en'] || {};
+    let text = langDict[key] !== undefined ? langDict[key] : ((translations['en'] && translations['en'][key] !== undefined) ? translations['en'][key] : key);
+    if (params && typeof params === 'object') {
+      Object.keys(params).forEach(k => {
+        text = text.replace(new RegExp(`\\{${k}\\}`, 'g'), params[k]);
+      });
+    }
+    return text;
+  }
+
+  function applyLanguage(lang, notify = true) {
+    if (!['en', 'te', 'hi'].includes(lang)) lang = 'en';
+    state.currentLang = lang;
+    localStorage.setItem('cravepulse_lang', lang);
+    document.documentElement.lang = lang;
+
+    const langNames = { en: 'English', te: 'తెలుగు', hi: 'हिन्दी' };
+    if (elements.currentLangLabel) {
+      elements.currentLangLabel.textContent = langNames[lang] || 'English';
+    }
+
+    document.querySelectorAll('.lang-option-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // Update all elements with data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const text = t(key);
+      if (text) el.textContent = text;
+    });
+
+    // Update all elements with data-i18n-placeholder
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const text = t(key);
+      if (text) el.placeholder = text;
+    });
+
+    // Update search inputs
+    if (elements.globalSearchInput) {
+      elements.globalSearchInput.placeholder = t('search_placeholder');
+    }
+
+    // Dynamic UI updates
+    renderTimeOfDayGreeting();
+    renderMoodFilterChips();
+    renderDietFilterPills();
+    updateLocationUI();
+    renderAllGrids();
+    if (typeof renderFoodTrails === 'function') {
+      renderFoodTrails(state.currentCityId);
+    }
+    if (typeof updatePassportUI === 'function') {
+      updatePassportUI();
+    }
+
+    if (elements.langDropdown) {
+      elements.langDropdown.classList.remove('active');
+    }
+
+    if (notify) {
+      const toastMsg = lang === 'te' ? 'భాష విజయవంతంగా తెలుగుకు మార్చబడింది' : (lang === 'hi' ? 'भाषा सफलतापूर्वक हिन्दी में बदली गई' : 'Language set to English');
+      showToast(toastMsg);
+      playSound('chime');
+    }
+  }
+
   // --- INITIALIZATION ---
   function init() {
     applyTheme(state.theme);
     initAudioUI();
-    renderTimeOfDayGreeting();
+    applyLanguage(state.currentLang, false);
     renderCitySelectorList();
-    renderMoodFilterChips();
-    renderDietFilterPills();
     updateLocationUI();
     renderFoodTrails(state.currentCityId);
     renderAllGrids();
@@ -427,21 +503,23 @@
   function getTimePeriod() {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 11) {
-      return { period: 'breakfast', label: 'Good Morning', sub: 'Kickstart with famous breakfast bites' };
+      return { period: 'breakfast', key: 'good_morning', label: 'Good Morning', sub: 'Kickstart with famous breakfast bites' };
     } else if (hour >= 11 && hour < 16) {
-      return { period: 'lunch', label: 'Good Afternoon', sub: 'Legendary lunch favorites near you' };
+      return { period: 'lunch', key: 'good_afternoon', label: 'Good Afternoon', sub: 'Legendary lunch favorites near you' };
     } else if (hour >= 16 && hour < 19) {
-      return { period: 'snack', label: 'Golden Hour', sub: 'Aromatic high-tea & street snack cravings' };
+      return { period: 'snack', key: 'golden_hour', label: 'Golden Hour', sub: 'Aromatic high-tea & street snack cravings' };
     } else if (hour >= 19 && hour < 23) {
-      return { period: 'dinner', label: 'Good Evening', sub: 'Hearty master plates & dinner delights' };
+      return { period: 'dinner', key: 'good_evening', label: 'Good Evening', sub: 'Hearty master plates & dinner delights' };
     } else {
-      return { period: 'late-night', label: 'Late Night Cravings', sub: 'Midnight cravings & night market bites' };
+      return { period: 'late-night', key: 'late_night', label: 'Midnight Cravings', sub: 'Midnight cravings & night market bites' };
     }
   }
 
   function renderTimeOfDayGreeting() {
     const info = getTimePeriod();
-    elements.timeGreetingText.textContent = `${info.label} • ${info.sub}`;
+    if (elements.timeGreetingText) {
+      elements.timeGreetingText.textContent = t(info.key) || `${info.label} • ${info.sub}`;
+    }
   }
 
   // --- LOCATION MANAGEMENT ---
@@ -809,7 +887,8 @@
     DIETARY_FILTERS.forEach(diet => {
       const pill = document.createElement('button');
       pill.className = `diet-pill ${diet.id === state.selectedDiet ? 'active' : ''}`;
-      pill.textContent = diet.label;
+      const translationKey = diet.id === 'all' ? 'all_diets' : diet.id.replace('-', '_');
+      pill.textContent = t(translationKey) || diet.label;
       pill.addEventListener('click', () => {
         state.selectedDiet = diet.id;
         renderDietFilterPills();
@@ -938,7 +1017,7 @@
       badgeHtml += `<span class="badge badge-trending"><i data-lucide="trending-up" style="width:12px;height:12px;"></i> Hot</span>`;
     }
     if (isTasted) {
-      badgeHtml += `<span class="badge" style="background:var(--emerald); color:white;"><i data-lucide="check" style="width:12px;height:12px;"></i> Tasted</span>`;
+      badgeHtml += `<span class="badge" style="background:var(--emerald); color:white;"><i data-lucide="check" style="width:12px;height:12px;"></i> ${t('tasted_badge')}</span>`;
     }
 
     // Taste tags
@@ -987,7 +1066,7 @@
         <div class="dish-footer">
           <span class="dish-price-tier">₹${dish.price} • ${dish.priceTier} • ~${dish.calories} kcal</span>
           <button class="btn btn-primary" style="padding:6px 16px; font-size:0.85rem;" data-open-detail="${dish.id}">
-            <span>View Dish</span>
+            <span>${t('view_dish')}</span>
             <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
           </button>
         </div>
@@ -2536,9 +2615,29 @@
     // Theme toggle
     elements.themeToggleBtn.addEventListener('click', toggleTheme);
 
+    // Language Dropdown Toggle
+    if (elements.langToggleBtn) {
+      elements.langToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (elements.langDropdown) {
+          elements.langDropdown.classList.toggle('active');
+        }
+      });
+    }
+
+    // Language Option Selection
+    document.querySelectorAll('.lang-option-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const selectedLang = btn.getAttribute('data-lang');
+        applyLanguage(selectedLang, true);
+      });
+    });
+
     // Location Dropdown Toggle
     elements.locationDropdownToggle.addEventListener('click', (e) => {
       e.stopPropagation();
+      if (elements.langDropdown) elements.langDropdown.classList.remove('active');
       elements.locationDropdown.classList.toggle('active');
       if (elements.locationDropdown.classList.contains('active')) {
         elements.citySearchInput.focus();
@@ -2547,6 +2646,9 @@
 
     // Close dropdown on outside click
     document.addEventListener('click', (e) => {
+      if (elements.langSelectorWidget && !elements.langSelectorWidget.contains(e.target)) {
+        if (elements.langDropdown) elements.langDropdown.classList.remove('active');
+      }
       if (!elements.locationDropdownToggle.contains(e.target)) {
         elements.locationDropdown.classList.remove('active');
       }

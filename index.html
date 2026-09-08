@@ -45,27 +45,53 @@
           <i data-lucide="map-pin" class="location-icon"></i>
         </div>
         <div class="location-info">
-          <span class="location-label">Exploring Food In</span>
+          <span class="location-label" data-i18n="exploring_in">Exploring Food In</span>
           <span class="location-current" id="currentLocationText">Hyderabad, India <i data-lucide="chevron-down" style="width:14px;height:14px;"></i></span>
         </div>
 
         <!-- Location Dropdown Menu -->
         <div class="location-dropdown" id="locationDropdown">
           <div class="dropdown-header">
-            <span>Select Food Capital</span>
+            <span data-i18n="select_capital">Select Food Capital</span>
           </div>
           <input type="text" id="citySearchInput" class="location-search-input" placeholder="Search city or cuisine (e.g., Tokyo, Rome)...">
           <div class="location-list" id="cityListContainer">
             <!-- Cities rendered dynamically -->
           </div>
           <button class="btn btn-secondary btn-full" id="autoDetectGpsBtn">
-            <i data-lucide="crosshair" style="width:14px;height:14px;"></i> Detect My Location
+            <i data-lucide="crosshair" style="width:14px;height:14px;"></i> <span data-i18n="detect_location">Detect My Location</span>
           </button>
         </div>
       </div>
 
       <!-- Nav Actions -->
       <div class="nav-actions">
+        <!-- Language Switcher (Telugu, Hindi, English) -->
+        <div class="lang-selector" id="langSelectorWidget">
+          <button class="btn btn-secondary lang-toggle-btn" id="langToggleBtn" title="Change Language / భాష / भाषा" aria-label="Language selector">
+            <i data-lucide="globe" style="color:var(--emerald); width:16px;height:16px;"></i>
+            <span id="currentLangLabel">English</span>
+            <i data-lucide="chevron-down" style="width:12px;height:12px;"></i>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <div class="dropdown-header">
+              <span data-i18n="select_language">Select Language</span>
+            </div>
+            <button class="lang-option-btn active" data-lang="en">
+              <span class="lang-badge">EN</span>
+              <span class="lang-name">English</span>
+            </button>
+            <button class="lang-option-btn" data-lang="te">
+              <span class="lang-badge">తె</span>
+              <span class="lang-name">తెలుగు (Telugu)</span>
+            </button>
+            <button class="lang-option-btn" data-lang="hi">
+              <span class="lang-badge">हि</span>
+              <span class="lang-name">हिन्दी (Hindi)</span>
+            </button>
+          </div>
+        </div>
+
         <!-- Web Audio FX Synthesizer Toggle -->
         <button class="btn btn-secondary btn-icon" id="audioToggleBtn" title="Toggle Sound FX (Web Audio API)">
           <i data-lucide="volume-2" id="audioToggleIcon" style="color:var(--emerald);"></i>
@@ -74,32 +100,32 @@
         <!-- Daily Meal Planner Trigger -->
         <button class="btn btn-secondary nav-action-btn" id="openPlannerNavBtn" title="Daily Crave Meal Planner & Nutrition Hub">
           <i data-lucide="utensils" style="color:var(--primary); width:16px;height:16px;"></i>
-          <span>Meal Plan</span>
+          <span data-i18n="meal_plan">Meal Plan</span>
           <span id="plannerCountBadge" class="nav-badge nav-badge-primary">0</span>
         </button>
 
         <!-- Taste Matcher Quiz Trigger -->
         <button class="btn btn-secondary nav-action-btn" id="openQuizBtn" title="Take AI Taste Matcher Quiz">
           <i data-lucide="sparkles" style="color:var(--emerald); width:16px;height:16px;"></i>
-          <span>Taste Quiz</span>
+          <span data-i18n="taste_quiz">Taste Quiz</span>
         </button>
 
         <!-- Food Trails Trigger -->
         <button class="btn btn-secondary nav-action-btn" id="openTrailsNavBtn" title="Explore Curated Gastronomy Trails">
           <i data-lucide="map" style="color:var(--emerald-dark); width:16px;height:16px;"></i>
-          <span>Food Trails</span>
+          <span data-i18n="food_trails">Food Trails</span>
         </button>
 
         <!-- Battle Arena Trigger -->
         <button class="btn btn-secondary nav-action-btn" id="openBattleNavBtn" title="Dish vs Dish Comparison Arena">
           <i data-lucide="swords" style="color:var(--ruby); width:16px;height:16px;"></i>
-          <span>Battle Arena</span>
+          <span data-i18n="battle_arena">Battle Arena</span>
         </button>
 
         <!-- Foodie Gastronomy Passport -->
         <button class="btn btn-secondary nav-action-btn" id="openPassportBtn" title="Your Gastronomy Passport & Tasting Badges">
           <i data-lucide="award" style="color:var(--amber); width:16px;height:16px;"></i>
-          <span>Passport</span>
+          <span data-i18n="passport">Passport</span>
           <span id="passportCountBadge" class="nav-badge nav-badge-amber">0</span>
         </button>
 
@@ -111,14 +137,14 @@
         <!-- Bookmarks/Favorites Drawer Button -->
         <button class="btn btn-secondary" id="openFavoritesBtn" title="View Saved Dishes">
           <i data-lucide="heart" style="color:var(--ruby); fill:var(--ruby); width:18px;height:18px;"></i>
-          <span>Saved</span>
+          <span data-i18n="saved">Saved</span>
           <span id="favCountBadge" class="nav-badge nav-badge-ruby">0</span>
         </button>
 
         <!-- Surprise Wheel Trigger -->
         <button class="btn btn-primary" id="headerSpinBtn">
           <i data-lucide="dices" style="width:18px;height:18px;"></i>
-          <span>Spin Wheel</span>
+          <span data-i18n="spin_wheel">Spin Wheel</span>
         </button>
       </div>
     </div>
@@ -165,7 +191,7 @@
                   <i data-lucide="x" style="width:16px;height:16px;"></i>
                 </button>
                 <button class="btn btn-primary" id="searchSubmitBtn">
-                  <span>Explore</span>
+                  <span data-i18n="search_explore">Explore</span>
                 </button>
               </div>
 
@@ -187,7 +213,7 @@
 
             <!-- Trending Quick Search Tags -->
             <div class="trending-searches">
-              <span class="trending-label">🔥 Trending:</span>
+              <span class="trending-label" data-i18n="trending">🔥 Trending:</span>
               <button class="trending-pill" data-query="Biryani">Biryani</button>
               <button class="trending-pill" data-query="Dosa">Crispy Dosa</button>
               <button class="trending-pill" data-query="Ramen">Tonkotsu Ramen</button>
@@ -205,27 +231,27 @@
             <div class="hero-cta-group">
               <button class="btn spin-wheel-btn" id="heroSpinWheelBtn">
                 <i data-lucide="dices" style="width:18px;height:18px;"></i>
-                <span>Spin Flavor Wheel</span>
+                <span data-i18n="spin_wheel">Spin Flavor Wheel</span>
               </button>
               <button class="btn btn-quiz" id="heroQuizBtn">
                 <i data-lucide="sparkles" style="width:18px;height:18px;"></i>
-                <span>Taste Matcher Quiz</span>
+                <span data-i18n="taste_quiz">Taste Matcher Quiz</span>
               </button>
               <button class="btn btn-secondary hero-mystery-btn" id="heroBlindBoxBtn">
                 <i data-lucide="gift" style="width:18px;height:18px;color:var(--amber);"></i>
-                <span>Mystery Blind Box 🎁</span>
+                <span data-i18n="mystery_box">Mystery Blind Box 🎁</span>
               </button>
               <button class="btn btn-secondary" id="heroMealPlannerBtn">
                 <i data-lucide="utensils" style="width:18px;height:18px;color:var(--emerald);"></i>
-                <span>Daily Meal Plan</span>
+                <span data-i18n="daily_meal_plan">Daily Meal Plan</span>
               </button>
               <button class="btn btn-secondary" id="heroBattleBtn">
                 <i data-lucide="swords" style="width:18px;height:18px;color:var(--ruby);"></i>
-                <span>Battle Arena</span>
+                <span data-i18n="battle_arena">Battle Arena</span>
               </button>
               <button class="btn btn-secondary" id="heroSurpriseMeBtn">
                 <i data-lucide="wand-2" style="width:18px;height:18px;"></i>
-                <span>Surprise Pick</span>
+                <span data-i18n="surprise_pick">Surprise Pick</span>
               </button>
             </div>
           </div>
@@ -272,7 +298,7 @@
       <!-- Mood & Craving Filter Slider -->
       <div class="container craving-bar-section">
         <div class="section-header-compact">
-          <span class="section-tag"><i data-lucide="flame" style="width:14px;height:14px;display:inline;"></i> What are you in the mood for?</span>
+          <span class="section-tag"><i data-lucide="flame" style="width:14px;height:14px;display:inline;"></i> <span data-i18n="mood_heading">What are you in the mood for?</span></span>
           <span id="activeFilterFeedback" style="font-size:0.85rem; color:var(--text-muted);">Showing: All Cravings</span>
         </div>
         
@@ -293,27 +319,27 @@
         <div class="advanced-toolbar" id="advancedToolbar">
           <div class="toolbar-group">
             <label class="toolbar-label" for="sortSelect">
-              <i data-lucide="arrow-up-down" style="width:14px;height:14px;color:var(--emerald);"></i> Sort By:
+              <i data-lucide="arrow-up-down" style="width:14px;height:14px;color:var(--emerald);"></i> <span data-i18n="sort_by">Sort By:</span>
             </label>
             <select id="sortSelect" class="toolbar-select">
-              <option value="trending">🔥 Trending Hotness</option>
-              <option value="rating">★ Highest Rating</option>
-              <option value="price_asc">₹ Price: Low to High</option>
-              <option value="price_desc">₹ Price: High to Low</option>
-              <option value="calories_asc">🥗 Lowest Calories</option>
-              <option value="prep_asc">⚡ Quickest Prep Time</option>
+              <option value="trending" data-i18n="sort_trending">🔥 Trending Hotness</option>
+              <option value="rating" data-i18n="sort_rating">★ Highest Rating</option>
+              <option value="price_asc" data-i18n="sort_price_asc">₹ Price: Low to High</option>
+              <option value="price_desc" data-i18n="sort_price_desc">₹ Price: High to Low</option>
+              <option value="calories_asc" data-i18n="sort_calories">🥗 Lowest Calories</option>
+              <option value="prep_asc" data-i18n="sort_prep">⚡ Quickest Prep Time</option>
             </select>
           </div>
 
           <div class="toolbar-group calorie-filter-group">
             <label class="toolbar-label" for="calorieRangeInput">
-              <i data-lucide="flame" style="width:14px;height:14px;color:var(--ruby);"></i> Max Calories: <span id="calorieValueDisplay" class="filter-val-badge">1200 kcal</span>
+              <i data-lucide="flame" style="width:14px;height:14px;color:var(--ruby);"></i> <span data-i18n="max_calories">Max Calories:</span> <span id="calorieValueDisplay" class="filter-val-badge">1200 kcal</span>
             </label>
             <input type="range" id="calorieRangeInput" min="200" max="1200" step="50" value="1200" class="toolbar-range">
           </div>
 
           <div class="toolbar-group">
-            <span class="toolbar-label"><i data-lucide="sparkles" style="width:14px;height:14px;color:var(--amber);"></i> Spice:</span>
+            <span class="toolbar-label"><i data-lucide="sparkles" style="width:14px;height:14px;color:var(--amber);"></i> <span data-i18n="spice">Spice:</span></span>
             <div class="spice-filter-pills" id="spiceFilterGroup">
               <button class="spice-pill active" data-spice="all">All</button>
               <button class="spice-pill" data-spice="0">Zero 🟢</button>
@@ -327,7 +353,7 @@
           <div class="toolbar-actions">
             <span class="matched-dishes-badge" id="matchedDishesCountBadge">Showing All Delicacies</span>
             <button class="btn btn-secondary btn-sm" id="resetFiltersBtn">
-              <i data-lucide="rotate-ccw" style="width:13px;height:13px;"></i> Reset Filters
+              <i data-lucide="rotate-ccw" style="width:13px;height:13px;"></i> <span data-i18n="reset_filters">Reset Filters</span>
             </button>
           </div>
         </div>
@@ -341,13 +367,13 @@
           <div class="section-head-left">
             <h2>
               <span class="section-icon-badge emerald"><i data-lucide="map-pin"></i></span>
-              <span>Famous in <span id="sectionCityName">Hyderabad</span></span>
+              <span><span data-i18n="famous_in">Famous in</span> <span id="sectionCityName">Hyderabad</span></span>
             </h2>
             <p id="sectionCityTagline">Must-try heritage delicacies and legendary street foods loved by locals.</p>
           </div>
           <div class="section-head-right">
             <button class="btn btn-secondary" id="switchCityQuickBtn">
-              <i data-lucide="globe" style="width:16px;height:16px;color:var(--emerald);"></i> Change City
+              <i data-lucide="globe" style="width:16px;height:16px;color:var(--emerald);"></i> <span data-i18n="change_city">Change City</span>
             </button>
           </div>
         </div>
@@ -366,7 +392,7 @@
           <div class="section-head-left">
             <h2>
               <span class="section-icon-badge ruby"><i data-lucide="sparkles"></i></span>
-              <span id="smartSuggestionsTitle">Curated Suggestions For You</span>
+              <span id="smartSuggestionsTitle" data-i18n="curated_suggestions">Curated Suggestions For You</span>
             </h2>
             <p id="smartSuggestionsSubtitle">Personalized based on your active craving filters and current time of day.</p>
           </div>
@@ -386,7 +412,7 @@
           <div class="section-head-left">
             <h2>
               <span class="section-icon-badge emerald"><i data-lucide="map"></i></span>
-              <span>Curated Culinary Food Trails</span>
+              <span data-i18n="food_trails_title">Curated Culinary Food Trails</span>
             </h2>
             <p>Epicurean day crawls crafted with iconic stops, secret spots, and authentic food culture.</p>
           </div>
@@ -411,7 +437,7 @@
           <div class="section-head-left">
             <h2>
               <span class="section-icon-badge ruby"><i data-lucide="award"></i></span>
-              <span>World Famous Culinary Icons</span>
+              <span data-i18n="world_famous">World Famous Culinary Icons</span>
             </h2>
             <p>Masterpieces from legendary gastronomic capitals around the globe.</p>
           </div>
@@ -1282,6 +1308,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="js/translations.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
 </body>
