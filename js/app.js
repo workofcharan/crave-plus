@@ -549,7 +549,7 @@
       elements.activeCityIndicator.textContent = `Currently: ${city.name}, ${city.country}`;
     }
     if (elements.globalSearchInput) {
-      elements.globalSearchInput.placeholder = `Search dishes near ${city.name} (e.g., Biryani, Dosa, Kebabs)...`;
+      elements.globalSearchInput.placeholder = t('search_placeholder') || 'Search any dish, cuisine, ingredient or city (e.g., Biryani, Ramen, Pizza, Tacos, Dosa)...';
     }
     renderCitySelectorList();
     renderCityModalGrid();
@@ -684,12 +684,9 @@
     if (!query || !query.trim()) return [];
     const q = query.toLowerCase().trim();
     const suggestions = [];
-    const currentCity = getCurrentCity();
 
-    // 1. Matching Dishes - ONLY items NEAR user's selected location / city
-    const localDishes = DISHES_DATA.filter(dish => dish.cityId === state.currentCityId);
-    
-    localDishes.forEach(dish => {
+    // 1. Matching Dishes - Search across ANY food in the entire culinary database
+    DISHES_DATA.forEach(dish => {
       // Respect active diet filter if applied (Veg / Non-Veg)
       if (state.selectedDiet && state.selectedDiet !== 'all') {
         if (!matchesFilter(dish, state.selectedDiet, 'all', '')) return;
@@ -700,30 +697,52 @@
       const matchTaste = dish.tasteProfile && dish.tasteProfile.some(t => t.toLowerCase().includes(q));
       const matchIngr = dish.ingredients && dish.ingredients.some(i => i.toLowerCase().includes(q));
       const matchCategory = dish.category && dish.category.toLowerCase().includes(q);
+      const matchFamous = dish.famousFor && dish.famousFor.toLowerCase().includes(q);
+      const matchCity = dish.cityName && dish.cityName.toLowerCase().includes(q);
 
-      if (matchName || matchNative || matchTaste || matchIngr || matchCategory) {
+      if (matchName || matchNative || matchTaste || matchIngr || matchCategory || matchFamous || matchCity) {
         const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
+        const isLocal = dish.cityId === state.currentCityId;
         suggestions.push({
           type: 'dish',
           title: dish.name,
-          sub: `📍 Near you in ${dish.cityName} • ${dish.category} • ₹${dish.price}`,
+          sub: `${isLocal ? '📍 In Your City • ' : ''}${dish.cityName}, ${dish.country} • ${dish.category} • ₹${dish.price}`,
           tag: isVeg ? '🟢 Pure Veg' : '🔴 Non-Veg',
           image: dish.image,
           icon: 'utensils',
           dishRef: dish,
+          isLocal: isLocal,
           targetQuery: dish.name
         });
       }
     });
 
-    // 2. Matching Cravings / Moods for current location
+    // Prioritize local dishes at the top if they match
+    suggestions.sort((a, b) => (b.isLocal ? 1 : 0) - (a.isLocal ? 1 : 0));
+
+    // 2. Matching Cities & Food Capitals
+    CITIES_DATA.forEach(city => {
+      if (city.name.toLowerCase().includes(q) || city.country.toLowerCase().includes(q)) {
+        suggestions.push({
+          type: 'city',
+          title: `Explore food capital: ${city.name}`,
+          sub: `${city.country} • ${city.tagline || 'Famous Regional Cuisine'}`,
+          tag: 'City Hub',
+          icon: 'map-pin',
+          cityRef: city,
+          targetQuery: city.name
+        });
+      }
+    });
+
+    // 3. Matching Cravings / Moods
     CRAVING_MOODS.forEach(mood => {
       if (mood.id !== 'all' && (mood.label.toLowerCase().includes(q) || mood.description.toLowerCase().includes(q))) {
         suggestions.push({
           type: 'mood',
           title: `${mood.label}`,
-          sub: `Craving in ${currentCity.name}: ${mood.description}`,
-          tag: 'Mood Filter',
+          sub: mood.description,
+          tag: 'Craving Filter',
           icon: 'flame',
           moodRef: mood,
           targetQuery: mood.label.replace(/^[^\w]+/, '')
@@ -731,7 +750,7 @@
       }
     });
 
-    return suggestions.slice(0, 7);
+    return suggestions.slice(0, 8);
   }
 
   function highlightMatch(text, query) {
@@ -744,11 +763,10 @@
     const list = elements.autocompleteList;
     list.innerHTML = '';
     state.autocompleteIndex = -1;
-    const currentCity = getCurrentCity();
 
     const headerTitle = elements.autocompleteBoard ? elements.autocompleteBoard.querySelector('.autocomplete-header span:first-child') : null;
     if (headerTitle) {
-      headerTitle.textContent = `📍 Dishes Near You in ${currentCity.name}`;
+      headerTitle.textContent = `🔍 Smart Flavor & Food Suggestions`;
     }
 
     if (!query || !query.trim()) {
@@ -764,16 +782,16 @@
     if (items.length === 0) {
       list.innerHTML = `
         <div style="padding:16px; text-align:center; color:var(--text-muted); font-size:0.85rem;">
-          No matching dishes found near <strong>${currentCity.name}</strong> for "<strong>${query}</strong>".
-          <div style="margin-top:6px; font-size:0.78rem; color:var(--emerald-dark);">💡 Tip: You can change your location from the top bar to explore other culinary hubs!</div>
+          No matching dishes found for "<strong>${query}</strong>".
+          <div style="margin-top:6px; font-size:0.78rem; color:var(--emerald-dark);">💡 Try searching for Biryani, Pizza, Ramen, Tacos, Dosa, Burger, or Pasta!</div>
         </div>
       `;
-      elements.autocompleteSummary.textContent = `No local dishes found near ${currentCity.name} for "${query}"`;
+      elements.autocompleteSummary.textContent = `No dishes found for "${query}"`;
       elements.autocompleteBoard.classList.add('active');
       return;
     }
 
-    elements.autocompleteSummary.textContent = `${items.length} recommendation${items.length > 1 ? 's' : ''} near you in ${currentCity.name}`;
+    elements.autocompleteSummary.textContent = `${items.length} delicacy match${items.length > 1 ? 'es' : ''} found for "${query}"`;
 
     items.forEach((item, index) => {
       const row = document.createElement('div');
@@ -946,7 +964,7 @@
       feedback += ` + ≤ ${state.maxCalories} kcal`;
     }
     if (state.searchQuery) {
-      feedback += ` near ${getCurrentCity().name} matching "${state.searchQuery}"`;
+      feedback += ` matching "${state.searchQuery}"`;
     }
     elements.activeFilterFeedback.textContent = feedback;
   }
@@ -990,23 +1008,21 @@
       }
     }
 
-    // Search query - strictly restricted to items near user's location
+    // Search query - matches ANY food across full library
     if (query && query.trim()) {
-      if (dish.cityId !== state.currentCityId) {
-        return false;
-      }
-
       const q = query.toLowerCase().trim();
       const matchName = dish.name.toLowerCase().includes(q);
       const matchNative = dish.nativeName && dish.nativeName.toLowerCase().includes(q);
-      const matchCity = dish.cityName.toLowerCase().includes(q);
-      const matchCountry = dish.country.toLowerCase().includes(q);
-      const matchDesc = dish.description.toLowerCase().includes(q);
+      const matchCity = dish.cityName && dish.cityName.toLowerCase().includes(q);
+      const matchCountry = dish.country && dish.country.toLowerCase().includes(q);
+      const matchDesc = dish.description && dish.description.toLowerCase().includes(q);
+      const matchFamous = dish.famousFor && dish.famousFor.toLowerCase().includes(q);
       const matchTaste = dish.tasteProfile && dish.tasteProfile.some(t => t.toLowerCase().includes(q));
       const matchIngr = dish.ingredients && dish.ingredients.some(i => i.toLowerCase().includes(q));
       const matchCategory = dish.category && dish.category.toLowerCase().includes(q);
+      const matchMood = dish.moodTags && dish.moodTags.some(m => m.toLowerCase().includes(q));
 
-      if (!matchName && !matchNative && !matchCity && !matchCountry && !matchDesc && !matchTaste && !matchIngr && !matchCategory) {
+      if (!matchName && !matchNative && !matchCity && !matchCountry && !matchDesc && !matchFamous && !matchTaste && !matchIngr && !matchCategory && !matchMood) {
         return false;
       }
     }
