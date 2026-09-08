@@ -217,7 +217,7 @@ const DISHES_DATA = [
   {
     id: "hyd_biryani",
     name: "Hyderabadi Dum Biryani",
-    nativeName: "Ø­ÛŒØ¯Ø±Ø¢Ø¨Ø§Ø¯ÛŒ Ø¨Ø±ÛŒØ§Ù†ÛŒ / à°¹à±ˆà°¦à°°à°¾à°¬à°¾à°¦à±€ à°¬à°¿à°°à±à°¯à°¾à°¨à±€",
+    nativeName: "హైదరాబాదీ దమ్ బిర్యానీ (Hyderabadi Dum Biryani)",
     cityId: "hyderabad",
     cityName: "Hyderabad",
     country: "India",
@@ -246,7 +246,7 @@ const DISHES_DATA = [
   {
     id: "hyd_haleem",
     name: "Hyderabadi Haleem",
-    nativeName: "Ø­Ù„ÛŒÙ…",
+    nativeName: "హైదరాబాదీ హలీమ్ (Hyderabadi Shahi Haleem)",
     cityId: "hyderabad",
     cityName: "Hyderabad",
     country: "India",
@@ -275,7 +275,7 @@ const DISHES_DATA = [
   {
     id: "hyd_irani_chai",
     name: "Irani Chai with Osmania Biscuits",
-    nativeName: "Ø§ÛŒØ±Ø§Ù†ÛŒ Ú†Ø§Ø¦Û’ Ø§ÙˆØ± Ø¹Ø«Ù…Ø§Ù†ÛŒÛ Ø¨Ø³Ú©Ù¹",
+    nativeName: "ఇరానీ ఛాయ్ & ఉస్మానియా బిస్కెట్ (Irani Chai & Osmania Biscuit)",
     cityId: "hyderabad",
     cityName: "Hyderabad",
     country: "India",
@@ -304,7 +304,7 @@ const DISHES_DATA = [
   {
     id: "hyd_double_ka_meetha",
     name: "Double Ka Meetha (Shahi Tukda)",
-    nativeName: "ÚˆØ¨Ù„ Ú©Ø§ Ù…ÛŒÙ¹Ú¾Ø§",
+    nativeName: "డబల్ కా మీఠా (Double Ka Meetha)",
     cityId: "hyderabad",
     cityName: "Hyderabad",
     country: "India",
@@ -333,7 +333,7 @@ const DISHES_DATA = [
   {
     id: "hyd_mirchi_salan",
     name: "Hyderabadi Mirchi Ka Salan",
-    nativeName: "Ù…Ø±Ú†ÛŒ Ú©Ø§ Ø³Ø§Ù„Ù† / à°®à°¿à°°à±à°šà°¿ à°•à°¾ à°¸à°¾à°²à°¨à±",
+    nativeName: "మిర్చి కా సాలన్ (Mirchi Ka Salan)",
     cityId: "hyderabad",
     cityName: "Hyderabad",
     country: "India",
@@ -366,7 +366,7 @@ const DISHES_DATA = [
   {
     id: "mum_vada_pav",
     name: "Mumbai Vada Pav",
-    nativeName: "à¤®à¥à¤‚à¤¬à¤ˆ à¤µà¤¡à¤¾ à¤ªà¤¾à¤µ",
+    nativeName: "मुंबई वड़ा पाव (Mumbai Vada Pav)",
     cityId: "mumbai",
     cityName: "Mumbai",
     country: "India",
@@ -395,7 +395,7 @@ const DISHES_DATA = [
   {
     id: "mum_pav_bhaji",
     name: "Butter Pav Bhaji",
-    nativeName: "à¤¬à¤Ÿà¤° à¤ªà¤¾à¤µ à¤­à¤¾à¤œà¥€",
+    nativeName: "मक्खन पाव भाजी (Amul Butter Pav Bhaji)",
     cityId: "mumbai",
     cityName: "Mumbai",
     country: "India",
@@ -424,7 +424,7 @@ const DISHES_DATA = [
   {
     id: "mum_bhel_puri",
     name: "Mumbai Bhelpuri & Sev Puri",
-    nativeName: "à¤®à¥à¤‚à¤¬à¤ˆ à¤­à¥‡à¤²à¤ªà¥‚à¤°à¥€ à¤†à¤£à¤¿ à¤¶à¥‡à¤µà¤ªà¥‚à¤°à¥€",
+    nativeName: "मुंबई भेलपूरी आणि शेवपूरी (Bhel Puri & Sev Puri)",
     cityId: "mumbai",
     cityName: "Mumbai",
     country: "India",
@@ -453,7 +453,7 @@ const DISHES_DATA = [
   {
     id: "mum_bombil_fry",
     name: "Crispy Bombay Duck Fry (Bombil)",
-    nativeName: "à¤¬à¥‰à¤®à¥à¤¬à¤¿à¤² à¤«à¥à¤°à¤¾à¤¯",
+    nativeName: "बॉम्बिल फ्राई (Crispy Bombay Duck Fry)",
     cityId: "mumbai",
     cityName: "Mumbai",
     country: "India",
@@ -486,7 +486,7 @@ const DISHES_DATA = [
   {
     id: "del_butter_chicken",
     name: "Classic Butter Chicken (Murgh Makhani)",
-    nativeName: "à¤¬à¤Ÿà¤° à¤šà¤¿à¤•à¤¨ / Ù…Ú©Ú¾Ù†ÛŒ Ú†Ú©Ù†",
+    nativeName: "बटर चिकन (Murg Makhani Butter Chicken)",
     cityId: "delhi",
     cityName: "Delhi",
     country: "India",
@@ -515,7 +515,7 @@ const DISHES_DATA = [
   {
     id: "del_chole_bhature",
     name: "Delhi Chole Bhature",
-    nativeName: "à¤¦à¤¿à¤²à¥à¤²à¥€ à¤•à¥‡ à¤›à¥‹à¤²à¥‡ à¤­à¤Ÿà¥‚à¤°à¥‡",
+    nativeName: "दिल्ली के छोले भटूरे (Amritsari Chole Bhature)",
     cityId: "delhi",
     cityName: "Delhi",
     country: "India",
@@ -544,7 +544,7 @@ const DISHES_DATA = [
   {
     id: "del_tandoori_tikka",
     name: "Smoky Tandoori Chicken Tikka",
-    nativeName: "à¤¤à¤‚à¤¦à¥‚à¤°à¥€ à¤šà¤¿à¤•à¤¨ à¤Ÿà¤¿à¤•à¥à¤•à¤¾",
+    nativeName: "तंदूरी चिकन टिक्का (Tandoori Chicken Tikka)",
     cityId: "delhi",
     cityName: "Delhi",
     country: "India",
@@ -577,7 +577,7 @@ const DISHES_DATA = [
   {
     id: "blr_masala_dosa",
     name: "Bengaluru Butter Masala Dosa",
-    nativeName: "à²¬à³†à²£à³à²£à³† à²®à²¸à²¾à²²à³† à²¦à³‹à²¸à³†",
+    nativeName: "ಬೆಣ್ಣೆ ಮಸಾಲೆ ದೋಸೆ (Benne Masala Dosa)",
     cityId: "bangalore",
     cityName: "Bengaluru (Bangalore)",
     country: "India",
@@ -606,7 +606,7 @@ const DISHES_DATA = [
   {
     id: "blr_filter_coffee",
     name: "South Indian Filter Coffee & Medu Vada",
-    nativeName: "à²«à²¿à²²à³à²Ÿà²°à³ à²•à²¾à²«à²¿ & à²µà²¡à³†",
+    nativeName: "ಫಿಲ್ಟರ್ ಕಾಫಿ & ವಡೆ (Filter Coffee & Medu Vada)",
     cityId: "bangalore",
     cityName: "Bengaluru (Bangalore)",
     country: "India",
@@ -639,7 +639,7 @@ const DISHES_DATA = [
   {
     id: "ccu_biryani",
     name: "Kolkata Dum Biryani (with Aloo & Egg)",
-    nativeName: "à¦•à¦²à¦•à¦¾à¦¤à¦¾ à¦¬à¦¿à¦°à¦¿à¦¯à¦¼à¦¾à¦¨à¦¿",
+    nativeName: "কলকাতা বিরিয়ানি (Kolkata Dum Biryani)",
     cityId: "kolkata",
     cityName: "Kolkata",
     country: "India",
@@ -668,7 +668,7 @@ const DISHES_DATA = [
   {
     id: "ccu_kathi_roll",
     name: "Kolkata Nizam Kathi Roll",
-    nativeName: "à¦•à¦¾à¦ à¦¿ à¦°à§‹à¦²",
+    nativeName: "কলকাতা কাঠি রোল (Kolkata Kathi Roll)",
     cityId: "kolkata",
     cityName: "Kolkata",
     country: "India",
@@ -697,7 +697,7 @@ const DISHES_DATA = [
   {
     id: "ccu_rasgulla",
     name: "Spongy Bengali Rasgulla & Sandesh",
-    nativeName: "à¦°à¦¸à¦—à§‹à¦²à§à¦²à¦¾ à¦“ à¦¸à¦¨à§à¦¦à§‡à¦¶",
+    nativeName: "রসগোল্লা ও সন্দেশ (Rosogolla and Sandesh)",
     cityId: "kolkata",
     cityName: "Kolkata",
     country: "India",
@@ -763,7 +763,7 @@ const DISHES_DATA = [
   {
     id: "lko_galouti_kebab",
     name: "Lucknow Galouti Kebab with Ulte Tawe Ka Paratha",
-    nativeName: "Ú¯Ù„Ø§ÙˆÙ¹ÛŒ Ú©Ø¨Ø§Ø¨ / à¤—à¤²à¥Œà¤Ÿà¥€ à¤•à¤¬à¤¾à¤¬",
+    nativeName: "गलौटी कबाब (Lucknowi Galouti Kebab)",
     cityId: "lucknow",
     cityName: "Lucknow",
     country: "India",
@@ -829,7 +829,7 @@ const DISHES_DATA = [
   {
     id: "tokyo_ramen",
     name: "Tokyo Tonkotsu & Shoyu Ramen",
-    nativeName: "æ±äº¬ãƒ©ãƒ¼ãƒ¡ãƒ³ / è±šéª¨ãƒ©ãƒ¼ãƒ¡ãƒ³",
+    nativeName: "東京ラーメン (Tokyo Tonkotsu & Shoyu Ramen)",
     cityId: "tokyo",
     cityName: "Tokyo",
     country: "Japan",
@@ -858,7 +858,7 @@ const DISHES_DATA = [
   {
     id: "tokyo_sushi",
     name: "Edomae Nigiri Sushi",
-    nativeName: "æ±Ÿæˆ¸å‰å¯¿å¸",
+    nativeName: "江戸前寿司 (Edomae Nigiri Sushi)",
     cityId: "tokyo",
     cityName: "Tokyo",
     country: "Japan",
@@ -887,7 +887,7 @@ const DISHES_DATA = [
   {
     id: "tokyo_katsu_curry",
     name: "Crispy Chicken Katsu Curry",
-    nativeName: "ãƒã‚­ãƒ³ã‚«ãƒ„ã‚«ãƒ¬ãƒ¼",
+    nativeName: "チキンカツカレー (Tokyo Katsu Curry)",
     cityId: "tokyo",
     cityName: "Tokyo",
     country: "Japan",
@@ -916,7 +916,7 @@ const DISHES_DATA = [
   {
     id: "tokyo_souffle_pancake",
     name: "Fluffy Japanese Soufflé Pancakes",
-    nativeName: "ã‚¹ãƒ•ãƒ¬ãƒ‘ãƒ³ã‚±ãƒ¼ã‚­",
+    nativeName: "スフレパンケーキ (Fluffy Soufflé Pancakes)",
     cityId: "tokyo",
     cityName: "Tokyo",
     country: "Japan",
@@ -949,7 +949,7 @@ const DISHES_DATA = [
   {
     id: "osaka_takoyaki",
     name: "Crispy Osaka Takoyaki (Octopus Balls)",
-    nativeName: "ãŸã“ç„¼ã",
+    nativeName: "たこ焼き (Osaka Takoyaki Octopus Balls)",
     cityId: "osaka",
     cityName: "Osaka",
     country: "Japan",
@@ -1011,7 +1011,7 @@ const DISHES_DATA = [
   {
     id: "seoul_bibimbap",
     name: "Dolsot Bibimbap (Sizzling Stone Bowl Rice)",
-    nativeName: "ëŒì†¥ ë¹„ë¹”ë°¥",
+    nativeName: "돌솥 비빔밥 (Dolsot Bibimbap)",
     cityId: "seoul",
     cityName: "Seoul",
     country: "South Korea",
@@ -1044,7 +1044,7 @@ const DISHES_DATA = [
   {
     id: "bkk_pad_thai",
     name: "Bangkok Street Pad Thai Kung",
-    nativeName: "à¸œà¸±à¸”à¹„à¸—à¸¢à¸à¸¸à¹‰à¸‡à¸ªà¸”",
+    nativeName: "ผัดไทยกุ้งสด (Pad Thai Goong)",
     cityId: "bangkok",
     cityName: "Bangkok",
     country: "Thailand",
@@ -1073,7 +1073,7 @@ const DISHES_DATA = [
   {
     id: "bkk_mango_sticky_rice",
     name: "Mango Sticky Rice (Khao Niew Mamuang)",
-    nativeName: "à¸‚à¹‰à¸²à¸§à¹€à¸«à¸™à¸µà¸¢à¸§à¸¡à¸°à¸¡à¹ˆà¸§à¸‡",
+    nativeName: "ข้าวเหนียวมะม่วง (Mango Sticky Rice)",
     cityId: "bangkok",
     cityName: "Bangkok",
     country: "Thailand",
@@ -1102,7 +1102,7 @@ const DISHES_DATA = [
   {
     id: "bkk_tom_yum",
     name: "Spicy Tom Yum Goong (Prawn Soup)",
-    nativeName: "à¸•à¹‰à¸¡à¸¢à¸³à¸à¸¸à¹‰à¸‡",
+    nativeName: "ต้มยำกุ้ง (Tom Yum Goong)",
     cityId: "bangkok",
     cityName: "Bangkok",
     country: "Thailand",
@@ -1751,7 +1751,7 @@ const DISHES_DATA = [
   {
     id: "sgp_chicken_rice",
     name: "Hainanese Chicken Rice",
-    nativeName: "海南鸡饭 (Hàinán JÄ«fàn)",
+    nativeName: "海南鸡饭 (Hàinán Jīfàn)",
     cityId: "singapore",
     cityName: "Singapore",
     country: "Singapore",
