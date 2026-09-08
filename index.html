@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CravePulse | Discover Famous Dishes & What to Eat Near You</title>
+  <meta name="description" content="Find the most famous local delicacies in your city and worldwide, get personalized food suggestions, spin the flavor wheel, and discover legendary places to eat.">
+  <meta name="theme-color" content="#10b981">
+
+  <!-- Google Fonts: Outfit, Plus Jakarta Sans & Syne -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Ambient Dynamic Glowing Background Mesh Elements (White + Green + Red) -->
+  <div class="ambient-glow-wrapper" aria-hidden="true">
+    <div class="ambient-orb ambient-orb-emerald"></div>
+    <div class="ambient-orb ambient-orb-ruby"></div>
+    <div class="ambient-orb ambient-orb-sage"></div>
+    <div class="ambient-mesh-grid"></div>
+  </div>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar" id="mainNavbar">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-logo" id="brandHomeBtn">
+        <div class="brand-icon">
+          <i data-lucide="utensils-crossed"></i>
+        </div>
+        <div class="brand-text">Crave<span class="brand-accent">Pulse</span></div>
+      </a>
+
+      <!-- Location Selector Widget -->
+      <div class="location-selector" id="locationDropdownToggle" title="Click to change your location">
+        <div class="location-icon-wrapper">
+          <i data-lucide="map-pin" class="location-icon"></i>
+        </div>
+        <div class="location-info">
+          <span class="location-label">Exploring Food In</span>
+          <span class="location-current" id="currentLocationText">Hyderabad, India <i data-lucide="chevron-down" style="width:14px;height:14px;"></i></span>
+        </div>
+
+        <!-- Location Dropdown Menu -->
+        <div class="location-dropdown" id="locationDropdown">
+          <div class="dropdown-header">
+            <span>Select Food Capital</span>
+          </div>
+          <input type="text" id="citySearchInput" class="location-search-input" placeholder="Search city or cuisine (e.g., Tokyo, Rome)...">
+          <div class="location-list" id="cityListContainer">
+            <!-- Cities rendered dynamically -->
+          </div>
+          <button class="btn btn-secondary btn-full" id="autoDetectGpsBtn">
+            <i data-lucide="crosshair" style="width:14px;height:14px;"></i> Detect My Location
+          </button>
+        </div>
+      </div>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Web Audio FX Synthesizer Toggle -->
+        <button class="btn btn-secondary btn-icon" id="audioToggleBtn" title="Toggle Sound FX (Web Audio API)">
+          <i data-lucide="volume-2" id="audioToggleIcon" style="color:var(--emerald);"></i>
+        </button>
+
+        <!-- Daily Meal Planner Trigger -->
+        <button class="btn btn-secondary nav-action-btn" id="openPlannerNavBtn" title="Daily Crave Meal Planner & Nutrition Hub">
+          <i data-lucide="utensils" style="color:var(--primary); width:16px;height:16px;"></i>
+          <span>Meal Plan</span>
+          <span id="plannerCountBadge" class="nav-badge nav-badge-primary">0</span>
+        </button>
+
+        <!-- Taste Matcher Quiz Trigger -->
+        <button class="btn btn-secondary nav-action-btn" id="openQuizBtn" title="Take AI Taste Matcher Quiz">
+          <i data-lucide="sparkles" style="color:var(--emerald); width:16px;height:16px;"></i>
+          <span>Taste Quiz</span>
+        </button>
+
+        <!-- Food Trails Trigger -->
+        <button class="btn btn-secondary nav-action-btn" id="openTrailsNavBtn" title="Explore Curated Gastronomy Trails">
+          <i data-lucide="map" style="color:var(--emerald-dark); width:16px;height:16px;"></i>
+          <span>Food Trails</span>
+        </button>
+
+        <!-- Battle Arena Trigger -->
+        <button class="btn btn-secondary nav-action-btn" id="openBattleNavBtn" title="Dish vs Dish Comparison Arena">
+          <i data-lucide="swords" style="color:var(--ruby); width:16px;height:16px;"></i>
+          <span>Battle Arena</span>
+        </button>
+
+        <!-- Foodie Gastronomy Passport -->
+        <button class="btn btn-secondary nav-action-btn" id="openPassportBtn" title="Your Gastronomy Passport & Tasting Badges">
+          <i data-lucide="award" style="color:var(--amber); width:16px;height:16px;"></i>
+          <span>Passport</span>
+          <span id="passportCountBadge" class="nav-badge nav-badge-amber">0</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Toggle Theme (White Fresh / Emerald Dark)">
+          <i data-lucide="moon" id="themeIcon"></i>
+        </button>
+
+        <!-- Bookmarks/Favorites Drawer Button -->
+        <button class="btn btn-secondary" id="openFavoritesBtn" title="View Saved Dishes">
+          <i data-lucide="heart" style="color:var(--ruby); fill:var(--ruby); width:18px;height:18px;"></i>
+          <span>Saved</span>
+          <span id="favCountBadge" class="nav-badge nav-badge-ruby">0</span>
+        </button>
+
+        <!-- Surprise Wheel Trigger -->
+        <button class="btn btn-primary" id="headerSpinBtn">
+          <i data-lucide="dices" style="width:18px;height:18px;"></i>
+          <span>Spin Wheel</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-container">
+        <!-- Left Hero Column -->
+        <div class="hero-left">
+          <!-- Dynamic Time-Adaptive Greeting Badge -->
+          <div class="hero-greeting-badge" id="timeGreetingBadge">
+            <span class="badge-pulse-dot"></span>
+            <i data-lucide="sun-medium" style="width:16px;height:16px;"></i>
+            <span id="timeGreetingText">Good Afternoon • Chef's Lunch Selection</span>
+          </div>
+
+          <h1 class="hero-title">
+            Craving Something <span class="gradient-text">Legendary?</span>
+          </h1>
+          
+          <p class="hero-subtitle">
+            Discover iconic culinary masterpieces in <strong id="heroCityName">Hyderabad</strong> and across global food capitals. Handpicked flavor journeys matched to your cravings, mood, and appetite.
+          </p>
+
+          <!-- Stats Metric Showcase Ribbon -->
+          <div class="hero-stats-ribbon">
+            <div class="stat-pill"><i data-lucide="sparkles"></i> <span><strong>70+</strong> Masterpieces</span></div>
+            <div class="stat-pill"><i data-lucide="globe"></i> <span><strong>21+</strong> Food Capitals</span></div>
+            <div class="stat-pill"><i data-lucide="compass"></i> <span><strong>4</strong> Epic Trails</span></div>
+            <div class="stat-pill"><i data-lucide="award"></i> <span><strong>100%</strong> Authentic</span></div>
+          </div>
+
+          <!-- Live Search Bar with Autocomplete Board -->
+          <div class="hero-search-wrapper">
+            <div class="search-box-container">
+              <div class="search-box">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="globalSearchInput" class="search-input" placeholder="Search dish, cuisine, city or ingredient (e.g., Biryani, Ramen, Tacos)..." autocomplete="off">
+                <span class="search-kbd-hint" title="Press Ctrl + K to search anywhere">Ctrl + K</span>
+                <button class="search-clear-btn" id="searchClearBtn" title="Clear Search">
+                  <i data-lucide="x" style="width:16px;height:16px;"></i>
+                </button>
+                <button class="btn btn-primary" id="searchSubmitBtn">
+                  <span>Explore</span>
+                </button>
+              </div>
+
+              <!-- Instant Autocomplete Dropdown Board -->
+              <div class="autocomplete-board" id="autocompleteBoard">
+                <div class="autocomplete-header">
+                  <span>Smart Flavor Suggestions</span>
+                  <span style="font-weight:normal; font-size:0.75rem;">Use ↑ ↓ to navigate, Enter to select</span>
+                </div>
+                <div class="autocomplete-list" id="autocompleteList">
+                  <!-- Populated dynamically as user types -->
+                </div>
+                <div class="autocomplete-footer">
+                  <span id="autocompleteSummary">Start typing to see matching dishes & categories</span>
+                  <span class="autocomplete-link" id="autocompleteSeeAllBtn">View all results →</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trending Quick Search Tags -->
+            <div class="trending-searches">
+              <span class="trending-label">🔥 Trending:</span>
+              <button class="trending-pill" data-query="Biryani">Biryani</button>
+              <button class="trending-pill" data-query="Dosa">Crispy Dosa</button>
+              <button class="trending-pill" data-query="Ramen">Tonkotsu Ramen</button>
+              <button class="trending-pill" data-query="Vada Pav">Vada Pav</button>
+              <button class="trending-pill" data-query="Pizza">Neapolitan Pizza</button>
+              <button class="trending-pill" data-query="Tacos">Birria Tacos</button>
+              <button class="trending-pill" data-query="Butter Chicken">Butter Chicken</button>
+              <button class="trending-pill" data-query="Kebab">Galouti Kebab</button>
+              <button class="trending-pill" data-query="Fried Chicken">Korean Fried Chicken</button>
+              <button class="trending-pill" data-query="Pho">Vietnamese Pho</button>
+              <button class="trending-pill" data-query="Dessert">Artisanal Desserts</button>
+            </div>
+            
+            <!-- Hero CTAs -->
+            <div class="hero-cta-group">
+              <button class="btn spin-wheel-btn" id="heroSpinWheelBtn">
+                <i data-lucide="dices" style="width:18px;height:18px;"></i>
+                <span>Spin Flavor Wheel</span>
+              </button>
+              <button class="btn btn-quiz" id="heroQuizBtn">
+                <i data-lucide="sparkles" style="width:18px;height:18px;"></i>
+                <span>Taste Matcher Quiz</span>
+              </button>
+              <button class="btn btn-secondary hero-mystery-btn" id="heroBlindBoxBtn">
+                <i data-lucide="gift" style="width:18px;height:18px;color:var(--amber);"></i>
+                <span>Mystery Blind Box 🎁</span>
+              </button>
+              <button class="btn btn-secondary" id="heroMealPlannerBtn">
+                <i data-lucide="utensils" style="width:18px;height:18px;color:var(--emerald);"></i>
+                <span>Daily Meal Plan</span>
+              </button>
+              <button class="btn btn-secondary" id="heroBattleBtn">
+                <i data-lucide="swords" style="width:18px;height:18px;color:var(--ruby);"></i>
+                <span>Battle Arena</span>
+              </button>
+              <button class="btn btn-secondary" id="heroSurpriseMeBtn">
+                <i data-lucide="wand-2" style="width:18px;height:18px;"></i>
+                <span>Surprise Pick</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Column: Interactive 3D Showcase Card -->
+        <div class="hero-right">
+          <div class="hero-showcase-card" id="heroFeaturedCard">
+            <div class="showcase-badge-top">
+              <span class="showcase-live-tag"><span class="badge-pulse-dot"></span> CHEF'S TOP RECOMMENDATION</span>
+              <span class="showcase-rating"><i data-lucide="star" style="width:14px;height:14px;fill:var(--amber);color:var(--amber);"></i> 4.95</span>
+            </div>
+            
+            <div class="showcase-media">
+              <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&q=80" alt="Hyderabadi Dum Biryani" class="showcase-img" id="heroShowcaseImg">
+              <div class="showcase-steam" aria-hidden="true">
+                <div class="steam-particle s1"></div>
+                <div class="steam-particle s2"></div>
+                <div class="steam-particle s3"></div>
+              </div>
+              <div class="showcase-gradient-overlay"></div>
+            </div>
+
+            <div class="showcase-info">
+              <div class="showcase-meta-row">
+                <span class="badge badge-emerald">Hyderabad Heritage</span>
+                <span class="badge badge-ruby">Fiery Aromatics</span>
+                <span class="showcase-cals">680 kcal</span>
+              </div>
+              <h3 class="showcase-name" id="heroShowcaseTitle">Hyderabadi Dum Biryani</h3>
+              <p class="showcase-desc" id="heroShowcaseDesc">Fragrant aged basmati layered with tender spiced meat, saffron & caramelized onions sealed with dough.</p>
+              
+              <div class="showcase-bottom-row">
+                <div class="showcase-price-tag">₹280 <small>avg plate</small></div>
+                <button class="btn btn-primary btn-sm showcase-action-btn" id="heroShowcaseQuickViewBtn">
+                  <i data-lucide="eye" style="width:14px;height:14px;"></i> View Story
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mood & Craving Filter Slider -->
+      <div class="container craving-bar-section">
+        <div class="section-header-compact">
+          <span class="section-tag"><i data-lucide="flame" style="width:14px;height:14px;display:inline;"></i> What are you in the mood for?</span>
+          <span id="activeFilterFeedback" style="font-size:0.85rem; color:var(--text-muted);">Showing: All Cravings</span>
+        </div>
+        
+        <div class="craving-scroll" id="cravingMoodsList">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Dietary Filter Tabs -->
+        <div class="filter-tabs-wrapper" id="dietaryFiltersList">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ADVANCED FILTER & SORT TOOLBAR -->
+    <section class="toolbar-section">
+      <div class="container">
+        <div class="advanced-toolbar" id="advancedToolbar">
+          <div class="toolbar-group">
+            <label class="toolbar-label" for="sortSelect">
+              <i data-lucide="arrow-up-down" style="width:14px;height:14px;color:var(--emerald);"></i> Sort By:
+            </label>
+            <select id="sortSelect" class="toolbar-select">
+              <option value="trending">🔥 Trending Hotness</option>
+              <option value="rating">★ Highest Rating</option>
+              <option value="price_asc">₹ Price: Low to High</option>
+              <option value="price_desc">₹ Price: High to Low</option>
+              <option value="calories_asc">🥗 Lowest Calories</option>
+              <option value="prep_asc">⚡ Quickest Prep Time</option>
+            </select>
+          </div>
+
+          <div class="toolbar-group calorie-filter-group">
+            <label class="toolbar-label" for="calorieRangeInput">
+              <i data-lucide="flame" style="width:14px;height:14px;color:var(--ruby);"></i> Max Calories: <span id="calorieValueDisplay" class="filter-val-badge">1200 kcal</span>
+            </label>
+            <input type="range" id="calorieRangeInput" min="200" max="1200" step="50" value="1200" class="toolbar-range">
+          </div>
+
+          <div class="toolbar-group">
+            <span class="toolbar-label"><i data-lucide="sparkles" style="width:14px;height:14px;color:var(--amber);"></i> Spice:</span>
+            <div class="spice-filter-pills" id="spiceFilterGroup">
+              <button class="spice-pill active" data-spice="all">All</button>
+              <button class="spice-pill" data-spice="0">Zero 🟢</button>
+              <button class="spice-pill" data-spice="1">Mild 🔥</button>
+              <button class="spice-pill" data-spice="2">Medium 🔥🔥</button>
+              <button class="spice-pill" data-spice="3">Hot 🔥🔥🔥</button>
+              <button class="spice-pill" data-spice="4">Fiery 🔥🔥🔥🔥</button>
+            </div>
+          </div>
+
+          <div class="toolbar-actions">
+            <span class="matched-dishes-badge" id="matchedDishesCountBadge">Showing All Delicacies</span>
+            <button class="btn btn-secondary btn-sm" id="resetFiltersBtn">
+              <i data-lucide="rotate-ccw" style="width:13px;height:13px;"></i> Reset Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: Famous In Current Location -->
+    <section class="section" id="localSection">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head-left">
+            <h2>
+              <span class="section-icon-badge emerald"><i data-lucide="map-pin"></i></span>
+              <span>Famous in <span id="sectionCityName">Hyderabad</span></span>
+            </h2>
+            <p id="sectionCityTagline">Must-try heritage delicacies and legendary street foods loved by locals.</p>
+          </div>
+          <div class="section-head-right">
+            <button class="btn btn-secondary" id="switchCityQuickBtn">
+              <i data-lucide="globe" style="width:16px;height:16px;color:var(--emerald);"></i> Change City
+            </button>
+          </div>
+        </div>
+
+        <!-- Local Dishes Grid -->
+        <div class="dish-grid" id="localDishesGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Smart Suggestions Based On Mood & Time -->
+    <section class="section section-highlight" id="smartSuggestionsSection">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head-left">
+            <h2>
+              <span class="section-icon-badge ruby"><i data-lucide="sparkles"></i></span>
+              <span id="smartSuggestionsTitle">Curated Suggestions For You</span>
+            </h2>
+            <p id="smartSuggestionsSubtitle">Personalized based on your active craving filters and current time of day.</p>
+          </div>
+        </div>
+
+        <!-- Recommendations Grid -->
+        <div class="dish-grid" id="smartSuggestionsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Curated Gastronomy Food Trails -->
+    <section class="section" id="foodTrailsSection">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head-left">
+            <h2>
+              <span class="section-icon-badge emerald"><i data-lucide="map"></i></span>
+              <span>Curated Culinary Food Trails</span>
+            </h2>
+            <p>Epicurean day crawls crafted with iconic stops, secret spots, and authentic food culture.</p>
+          </div>
+          <div class="section-head-right">
+            <div class="trail-city-tabs" id="trailCityTabs">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Trail Showcase Card -->
+        <div class="trail-showcase-container" id="trailShowcaseContainer">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Global Hall of Fame -->
+    <section class="section" id="globalSection">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-head-left">
+            <h2>
+              <span class="section-icon-badge ruby"><i data-lucide="award"></i></span>
+              <span>World Famous Culinary Icons</span>
+            </h2>
+            <p>Masterpieces from legendary gastronomic capitals around the globe.</p>
+          </div>
+        </div>
+
+        <!-- Global Dishes Grid -->
+        <div class="dish-grid" id="globalDishesGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Interactive Dish Detail Modal -->
+  <div class="modal-backdrop" id="dishDetailModal">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="closeDetailModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-hero-wrapper">
+        <img src="" alt="" class="modal-hero-img" id="modalDishImg">
+        <button class="modal-audio-btn" id="modalAudioNarrateBtn" title="Listen to dish story & pronunciation">
+          <i data-lucide="volume-2" id="modalAudioIcon"></i>
+          <span id="modalAudioLabel">Listen Story</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="modal-header-row">
+          <div>
+            <div id="modalDishBadges" class="modal-badges-row"></div>
+            <h2 id="modalDishName" class="modal-dish-title">Dish Name</h2>
+            <div id="modalDishNative" class="modal-dish-native">Native Name</div>
+          </div>
+          <div class="modal-header-actions">
+            <button class="btn btn-secondary btn-sm" id="modalMarkTastedBtn" title="Check off in your Gastronomy Passport">
+              <i data-lucide="check-circle" style="width:16px;height:16px;color:var(--emerald);"></i>
+              <span id="modalTastedLabel">I've Tasted This</span>
+            </button>
+            <div id="modalDishRating" class="dish-rating">
+              <i data-lucide="star" style="width:16px;height:16px;fill:var(--amber);color:var(--amber);"></i> 4.9 (24k)
+            </div>
+          </div>
+        </div>
+
+        <!-- Meta Grid -->
+        <div class="modal-meta-grid">
+          <div class="meta-box">
+            <span class="meta-box-label">Origin City</span>
+            <span class="meta-box-val" id="modalDishOrigin">Hyderabad, India</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-box-label">Category / Time</span>
+            <span class="meta-box-val" id="modalDishCategory">Lunch</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-box-label">Approx. Price</span>
+            <span class="meta-box-val" id="modalDishPrice" style="color:var(--emerald-dark);">₹280</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-box-label">Spice Level</span>
+            <span class="meta-box-val" id="modalDishSpice">Medium 🔥🔥</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-box-label">Est. Calories</span>
+            <span class="meta-box-val" id="modalDishCalories">650 kcal</span>
+          </div>
+          <div class="meta-box">
+            <span class="meta-box-label">Macro Balance</span>
+            <span class="meta-box-val" id="modalDishMacros" style="font-size:0.75rem; color:var(--emerald-dark);">P: 30g • C: 65g • F: 22g</span>
+          </div>
+        </div>
+
+        <!-- Secret Foodie Hack Banner -->
+        <div class="foodie-hack-banner" id="modalDishHackContainer">
+          <div class="hack-icon"><i data-lucide="lightbulb"></i></div>
+          <div>
+            <h5>Secret Foodie Insider Hack</h5>
+            <p id="modalDishHack"></p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="modal-section-block">
+          <h4>
+            <i data-lucide="book-open" style="width:16px;height:16px;color:var(--emerald);"></i> The Story & Heritage
+          </h4>
+          <p id="modalDishDescription" class="modal-text"></p>
+        </div>
+
+        <!-- Key Ingredients -->
+        <div class="modal-section-block">
+          <div class="flex-between" style="margin-bottom:8px;">
+            <h4>Core Ingredients</h4>
+            <div style="display:flex; gap:8px;">
+              <button class="btn btn-secondary btn-sm" id="modalCookAlongBtn" style="border-color:var(--emerald); color:var(--emerald-dark);">
+                <i data-lucide="chef-hat" style="width:14px;height:14px;"></i> Chef Cook-Along
+              </button>
+              <button class="btn btn-secondary btn-sm" id="modalGroceryBtn">
+                <i data-lucide="shopping-cart" style="width:14px;height:14px;color:var(--emerald);"></i> Grocery List
+              </button>
+            </div>
+          </div>
+          <div class="ingredients-list" id="modalDishIngredients"></div>
+        </div>
+
+        <!-- Iconic Places to Eat It & Radar -->
+        <div class="modal-section-block" id="modalRadarSection">
+          <div class="flex-between" style="margin-bottom:8px;">
+            <h4>
+              <i data-lucide="radar" style="width:16px;height:16px;color:var(--ruby);"></i> Live Eatery Radar
+            </h4>
+            <span class="live-scan-badge">● Live Scan</span>
+          </div>
+          <div class="radar-places-grid" id="modalRadarList">
+            <!-- Populated dynamically with distance, open status, maps query -->
+          </div>
+        </div>
+
+        <!-- Recipe / Preparation summary -->
+        <div class="recipe-prep-box">
+          <div class="flex-between" style="margin-bottom:6px;">
+            <h4>
+              <i data-lucide="chef-hat" style="width:18px;height:18px;color:var(--emerald);"></i> How It's Crafted
+            </h4>
+            <button class="btn btn-primary btn-sm" id="modalCookAlongBtn2">
+              <i data-lucide="play" style="width:12px;height:12px;"></i> Start Cooking Mode
+            </button>
+          </div>
+          <p id="modalDishRecipe" style="font-size:0.88rem; color:var(--text-secondary);"></p>
+        </div>
+
+        <!-- Community Reviews & User Notes -->
+        <div class="reviews-section">
+          <div class="flex-between" style="margin-bottom:14px;">
+            <h4>
+              <i data-lucide="message-square" style="width:16px;height:16px;color:var(--ruby);"></i> Foodie Tasting Notes & Reviews
+            </h4>
+            <button class="btn btn-secondary btn-sm" id="toggleAddReviewBtn">
+              <i data-lucide="plus" style="width:14px;height:14px;color:var(--emerald);"></i> Add Tasting Note
+            </button>
+          </div>
+
+          <!-- Add Review Form (Hidden by default) -->
+          <div class="add-review-card" id="addReviewCard" style="display:none;">
+            <div class="review-form-row">
+              <input type="text" id="reviewAuthorInput" class="form-input" placeholder="Your name (e.g., Gourmet Explorer)">
+              <div class="star-rating-select" id="starRatingSelect">
+                <span class="star-btn active" data-stars="5">★★★★★</span>
+              </div>
+            </div>
+            <textarea id="reviewCommentInput" class="form-input" rows="2" placeholder="Write your tasting notes, flavor impressions, or restaurant tips..."></textarea>
+            <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:8px;">
+              <button class="btn btn-secondary btn-sm" id="cancelReviewBtn">Cancel</button>
+              <button class="btn btn-primary btn-sm" id="submitReviewBtn">Post Note</button>
+            </div>
+          </div>
+
+          <!-- Reviews List Container -->
+          <div class="reviews-list" id="modalReviewsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="modal-actions">
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="modalFindNearMeBtn" style="flex:1; min-width:180px;">
+            <i data-lucide="map-pin" style="width:18px;height:18px;"></i>
+            <span>Google Maps</span>
+          </a>
+          <button class="btn btn-secondary" id="modalAddToPlannerBtn" title="Add to Daily Meal Plan">
+            <i data-lucide="calendar-plus" style="width:18px;height:18px;color:var(--emerald);"></i>
+            <span>Add to Plan</span>
+          </button>
+          <button class="btn btn-secondary" id="modalStoryPosterBtn" title="Generate Instagram Story Card">
+            <i data-lucide="share-2" style="width:18px;height:18px;color:var(--amber);"></i>
+            <span>Story Card</span>
+          </button>
+          <button class="btn btn-secondary" id="modalCompareBtn" title="Compare this dish with another">
+            <i data-lucide="swords" style="width:18px;height:18px;color:var(--ruby);"></i>
+            <span>Compare</span>
+          </button>
+          <button class="btn btn-secondary" id="modalSaveFavBtn">
+            <i data-lucide="heart" style="width:18px;height:18px;color:var(--ruby);"></i>
+            <span>Save</span>
+          </button>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="modalWatchRecipeBtn">
+            <i data-lucide="youtube" style="width:18px;height:18px;color:#ff0000;"></i>
+            <span>Watch</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE TASTE MATCHER QUIZ MODAL -->
+  <div class="modal-backdrop" id="tasteQuizModal">
+    <div class="modal-container quiz-modal-container">
+      <button class="modal-close-btn" id="closeQuizModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="quiz-container" id="quizContainer">
+        <div class="quiz-header">
+          <div class="flex-center" style="gap:8px;">
+            <div class="quiz-icon-badge"><i data-lucide="sparkles"></i></div>
+            <h2>AI Taste Matcher Quiz</h2>
+          </div>
+          <p class="quiz-subtitle">Answer 4 quick flavor questions to uncover your tailored culinary soulmate!</p>
+          
+          <!-- Step Progress -->
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quizProgressFill" style="width:25%;"></div>
+          </div>
+          <div class="quiz-step-indicator" id="quizStepIndicator">Step 1 of 4: Flavor Atmosphere</div>
+        </div>
+
+        <!-- Step Question Body -->
+        <div class="quiz-body" id="quizQuestionBody">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+        <!-- Quiz Results View -->
+        <div class="quiz-results" id="quizResultsView" style="display:none;">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISH VS DISH BATTLE COMPARISON MODAL -->
+  <div class="modal-backdrop" id="battleArenaModal">
+    <div class="modal-container arena-modal-container">
+      <button class="modal-close-btn" id="closeBattleArenaBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-inner-padded">
+        <div class="arena-header">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="arena-icon-badge"><i data-lucide="swords"></i></div>
+            <div>
+              <h2>Dish vs Dish Battle Arena</h2>
+              <p style="color:var(--text-secondary); font-size:0.88rem;">Head-to-head nutritional, taste, spice & culinary duel with community voting!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curated Showdowns Quick Pills -->
+        <div class="showdown-pills-bar">
+          <span style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Quick Showdowns:</span>
+          <div class="showdown-pills-list" id="showdownPillsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Select Dish Dropdowns -->
+        <div class="arena-selectors-grid">
+          <div class="arena-selector-box">
+            <label class="toolbar-label" for="dishSelectA">Contender 1:</label>
+            <select id="dishSelectA" class="toolbar-select">
+              <!-- Rendered by JS -->
+            </select>
+          </div>
+          <div class="arena-vs-badge">VS</div>
+          <div class="arena-selector-box">
+            <label class="toolbar-label" for="dishSelectB">Contender 2:</label>
+            <select id="dishSelectB" class="toolbar-select">
+              <!-- Rendered by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Battle Comparison Matrix Card -->
+        <div class="arena-comparison-board" id="arenaComparisonBoard">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GASTRONOMY PASSPORT & TASTED DISHES MODAL -->
+  <div class="modal-backdrop" id="passportModal">
+    <div class="modal-container passport-modal-container">
+      <button class="modal-close-btn" id="closePassportModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="passport-content">
+        <!-- Passport Header Cover Style -->
+        <div class="passport-header-banner">
+          <div class="passport-emblem"><i data-lucide="award"></i></div>
+          <div class="passport-title-group">
+            <h2>Gastronomy Passport</h2>
+            <p>Official Culinary Connoisseur Log & Milestone Badges</p>
+          </div>
+          <div class="passport-level-badge" id="passportLevelBadge">
+            <span class="level-title">Foodie Explorer</span>
+            <span class="level-stars">★★★</span>
+          </div>
+        </div>
+
+        <!-- Passport Stats Bar -->
+        <div class="passport-stats-grid">
+          <div class="pstat-card">
+            <span class="pstat-val" id="pstatTastedCount">0</span>
+            <span class="pstat-label">Dishes Tasted</span>
+          </div>
+          <div class="pstat-card">
+            <span class="pstat-val" id="pstatCitiesCount">0</span>
+            <span class="pstat-label">Cities Unlocked</span>
+          </div>
+          <div class="pstat-card">
+            <span class="pstat-val" id="pstatBadgesCount">0 / 6</span>
+            <span class="pstat-label">Badges Earned</span>
+          </div>
+        </div>
+
+        <!-- Section 1: Unlocked City Stamps -->
+        <div style="margin:24px 0 20px 0;">
+          <h4 class="passport-section-title">
+            <i data-lucide="stamp" style="width:16px;height:16px;color:var(--emerald);"></i> City Visas & Culinary Stamps
+          </h4>
+          <div class="passport-stamps-grid" id="passportStampsGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Section 2: Achievement Badges -->
+        <div style="margin-bottom:20px;">
+          <h4 class="passport-section-title">
+            <i data-lucide="shield-check" style="width:16px;height:16px;color:var(--emerald);"></i> Culinary Milestones
+          </h4>
+          <div class="passport-badges-grid" id="passportBadgesGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Section 3: List of Tasted Dishes -->
+        <div>
+          <h4 class="passport-section-title">
+            <i data-lucide="check" style="width:16px;height:16px;color:var(--ruby);"></i> Tasted Delicacy Log
+          </h4>
+          <div class="tasted-log-list" id="passportTastedLogList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SMART GROCERY SHOPPING LIST MODAL -->
+  <div class="modal-backdrop" id="groceryModal">
+    <div class="modal-container grocery-modal-container">
+      <button class="modal-close-btn" id="closeGroceryModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-inner-padded">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <div class="grocery-icon-badge"><i data-lucide="shopping-bag"></i></div>
+          <div>
+            <h2 id="groceryModalTitle" style="font-size:1.5rem;">Smart Grocery Checklist</h2>
+            <p id="groceryModalSubtitle" style="font-size:0.85rem; color:var(--text-secondary);">Organized ingredient checklist for preparing this delicacy at home.</p>
+          </div>
+        </div>
+
+        <!-- Grocery Checklist Items -->
+        <div class="grocery-list-wrapper" id="groceryListItemsContainer">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Grocery Actions -->
+        <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="copyGroceryListBtn" style="flex:1;">
+            <i data-lucide="copy" style="width:16px;height:16px;"></i>
+            <span>Copy Shopping List</span>
+          </button>
+          <button class="btn btn-secondary" id="printGroceryListBtn">
+            <i data-lucide="printer" style="width:16px;height:16px;color:var(--emerald);"></i>
+            <span>Print List</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Spin The Wheel Modal -->
+  <div class="modal-backdrop" id="wheelModal">
+    <div class="modal-container wheel-modal-container">
+      <button class="modal-close-btn" id="closeWheelModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="wheel-container">
+        <h2 style="font-size:1.8rem; margin-bottom:6px;">Flavor Roulette</h2>
+        <p style="color:var(--text-secondary); font-size:0.9rem;">Can't decide what to eat? Spin the wheel for a delicious destiny!</p>
+
+        <div class="wheel-graphic-wrapper">
+          <div class="wheel-pointer"></div>
+          <canvas id="wheelCanvas" class="wheel-canvas" width="320" height="320"></canvas>
+          <div class="wheel-center-hub">🍽️</div>
+        </div>
+
+        <button class="btn btn-primary btn-spin-action" id="executeSpinBtn">
+          <i data-lucide="rotate-cw" style="width:20px;height:20px;"></i>
+          <span id="spinButtonLabel">SPIN THE WHEEL</span>
+        </button>
+
+        <!-- Result container -->
+        <div class="wheel-result-card" id="wheelResultContainer">
+          <!-- Populated after spin -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY CRAVE MEAL PLANNER & MACRO NUTRITION MODAL -->
+  <div class="modal-backdrop" id="mealPlannerModal">
+    <div class="modal-container planner-modal-container">
+      <button class="modal-close-btn" id="closeMealPlannerBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-inner-padded">
+        <div class="flex-between" style="flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="planner-icon-badge">
+              <i data-lucide="utensils"></i>
+            </div>
+            <div>
+              <h2 style="font-size:1.5rem; margin-bottom:2px;">Daily Crave Meal Planner</h2>
+              <p style="font-size:0.85rem; color:var(--text-secondary);">Craft your personalized full-day culinary itinerary with real-time calorie & macro tracking.</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-secondary btn-sm" id="plannerClearBtn">
+              <i data-lucide="trash-2" style="width:14px;height:14px;color:var(--ruby);"></i> Clear Day
+            </button>
+            <button class="btn btn-primary btn-sm" id="plannerExportGroceryBtn">
+              <i data-lucide="shopping-cart" style="width:14px;height:14px;"></i> Export Day Grocery
+            </button>
+          </div>
+        </div>
+
+        <!-- Real-Time Macro & Nutrition Ribbon -->
+        <div class="planner-nutrition-ribbon">
+          <div class="pnut-card">
+            <span class="pnut-label">Total Calories</span>
+            <span class="pnut-val" id="plannerTotalCals">0 <small>kcal</small></span>
+            <div class="pnut-bar"><div class="pnut-fill" id="plannerCalFill" style="width:0%;"></div></div>
+            <span class="pnut-sub" id="plannerCalSub">Target: 2,000 kcal</span>
+          </div>
+          <div class="pnut-card">
+            <span class="pnut-label">Protein</span>
+            <span class="pnut-val" id="plannerProtein" style="color:var(--emerald-dark);">0g</span>
+            <span class="pnut-sub">Muscle Building</span>
+          </div>
+          <div class="pnut-card">
+            <span class="pnut-label">Carbohydrates</span>
+            <span class="pnut-val" id="plannerCarbs" style="color:var(--amber);">0g</span>
+            <span class="pnut-sub">Daily Energy</span>
+          </div>
+          <div class="pnut-card">
+            <span class="pnut-label">Healthy Fats</span>
+            <span class="pnut-val" id="plannerFat" style="color:var(--ruby);">0g</span>
+            <span class="pnut-sub">Flavor & Lipids</span>
+          </div>
+          <div class="pnut-card">
+            <span class="pnut-label">Estimated Budget</span>
+            <span class="pnut-val" id="plannerBudget" style="color:var(--emerald-dark);">₹0</span>
+            <span class="pnut-sub">Day Total</span>
+          </div>
+        </div>
+
+        <!-- 4 Meal Slots Grid -->
+        <div class="planner-slots-grid">
+          <!-- Breakfast Slot -->
+          <div class="planner-slot-card" data-slot="breakfast">
+            <div class="slot-header">
+              <span class="slot-title"><i data-lucide="sun-medium" style="color:var(--amber); width:16px;height:16px;"></i> 1. Breakfast</span>
+              <span class="slot-time">07:00 – 10:30 AM</span>
+            </div>
+            <div class="slot-content" id="slotBreakfastContent">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Lunch Slot -->
+          <div class="planner-slot-card" data-slot="lunch">
+            <div class="slot-header">
+              <span class="slot-title"><i data-lucide="sun" style="color:var(--emerald); width:16px;height:16px;"></i> 2. Lunch</span>
+              <span class="slot-time">12:30 – 03:30 PM</span>
+            </div>
+            <div class="slot-content" id="slotLunchContent">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Dinner Slot -->
+          <div class="planner-slot-card" data-slot="dinner">
+            <div class="slot-header">
+              <span class="slot-title"><i data-lucide="moon" style="color:var(--ruby); width:16px;height:16px;"></i> 3. Dinner</span>
+              <span class="slot-time">07:30 – 10:30 PM</span>
+            </div>
+            <div class="slot-content" id="slotDinnerContent">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Snacks / Dessert Slot -->
+          <div class="planner-slot-card" data-slot="snack">
+            <div class="slot-header">
+              <span class="slot-title"><i data-lucide="coffee" style="color:var(--amber); width:16px;height:16px;"></i> 4. Tea Time & Sweet Treat</span>
+              <span class="slot-time">Anytime Cravings</span>
+            </div>
+            <div class="slot-content" id="slotSnackContent">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MYSTERY MEAL BLIND BOX MODAL -->
+  <div class="modal-backdrop" id="blindBoxModal">
+    <div class="modal-container blindbox-modal-container">
+      <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+      <button class="modal-close-btn" id="closeBlindBoxBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="blindbox-content-wrap">
+        <div class="blindbox-header">
+          <div class="blindbox-badge"><i data-lucide="gift"></i> Gourmet Blind Box</div>
+          <h2 style="font-size:1.6rem; margin-top:6px;">Mystery Delicacy Unboxing</h2>
+          <p style="font-size:0.88rem; color:var(--text-secondary); max-width:400px; margin:4px auto 20px auto;">
+            Feeling adventurous? Tap the mystery cube to reveal a surprise handpicked master plate tailored to your palate!
+          </p>
+        </div>
+
+        <!-- 3D Gift Box Stage -->
+        <div class="blindbox-stage" id="blindBoxStage">
+          <div class="blindbox-cube" id="blindBoxCube">
+            <div class="box-lid" id="boxLid">
+              <div class="box-ribbon-bow">🎀</div>
+            </div>
+            <div class="box-body">
+              <div class="box-face box-front">🎁</div>
+              <div class="box-glow"></div>
+            </div>
+          </div>
+          <button class="btn btn-primary unbox-btn" id="unboxTriggerBtn">
+            <i data-lucide="sparkles" style="width:18px;height:18px;"></i>
+            <span>TAP TO UNBOX DELICACY</span>
+          </button>
+        </div>
+
+        <!-- Revealed Dish Result View -->
+        <div class="blindbox-result" id="blindBoxResultView" style="display:none;">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHEF COOK-ALONG INTERACTIVE MODAL -->
+  <div class="modal-backdrop" id="cookAlongModal">
+    <div class="modal-container cook-modal-container">
+      <button class="modal-close-btn" id="closeCookAlongBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-inner-padded">
+        <!-- Cook Along Header -->
+        <div class="cook-header">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="cook-icon-badge"><i data-lucide="chef-hat"></i></div>
+            <div>
+              <span class="cook-tag">Guided Culinary Session</span>
+              <h2 id="cookDishTitle" style="font-size:1.45rem;">Hyderabadi Dum Biryani</h2>
+            </div>
+          </div>
+          
+          <!-- Serving Scaler -->
+          <div class="cook-scale-group">
+            <span style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">SERVINGS:</span>
+            <button class="btn-scale active" data-scale="1" id="cookScale1x">1x</button>
+            <button class="btn-scale" data-scale="2" id="cookScale2x">2x</button>
+            <button class="btn-scale" data-scale="4" id="cookScale4x">4x</button>
+          </div>
+        </div>
+
+        <!-- Interactive Visual Timer & Step Showcase -->
+        <div class="cook-showcase-card">
+          <!-- Circular Countdown Timer -->
+          <div class="cook-timer-wrapper">
+            <svg class="timer-svg" viewBox="0 0 120 120">
+              <circle class="timer-circle-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="timer-circle-progress" id="cookTimerProgressCircle" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="timer-inner-content">
+              <span class="timer-time" id="cookTimerDisplay">15:00</span>
+              <span class="timer-label" id="cookTimerStatus">Ready</span>
+            </div>
+          </div>
+
+          <!-- Step Instruction Details -->
+          <div class="cook-step-details">
+            <div class="flex-between" style="margin-bottom:6px;">
+              <span class="step-badge" id="cookStepBadge">STEP 1 OF 4</span>
+              <button class="btn btn-secondary btn-icon" id="cookVoiceSpeakBtn" title="Read Step Aloud (Speech Synth)" style="width:32px; height:32px;">
+                <i data-lucide="volume-2" style="width:15px;height:15px;color:var(--emerald);"></i>
+              </button>
+            </div>
+            <h3 class="step-name" id="cookStepName">Mise en Place & Aromatic Prep</h3>
+            <p class="step-desc" id="cookStepDesc">Gather all whole spices, slice onions thinly, and soak aged basmati rice for 30 minutes in water.</p>
+            
+            <!-- Timer Buttons -->
+            <div class="cook-timer-controls">
+              <button class="btn btn-primary btn-sm" id="cookTimerPlayBtn">
+                <i data-lucide="play" style="width:14px;height:14px;"></i> <span id="cookPlayLabel">Start Step Timer</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="cookTimerResetBtn">
+                <i data-lucide="rotate-ccw" style="width:14px;height:14px;"></i> Reset
+              </button>
+              <button class="btn btn-secondary btn-sm" id="cookStepNextBtn" style="border-color:var(--emerald); color:var(--emerald-dark);">
+                Next Step <i data-lucide="chevron-right" style="width:14px;height:14px;"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step Navigation Progress Bar -->
+        <div class="cook-step-timeline" id="cookStepTimeline">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Scaled Ingredients Checklist -->
+        <div style="margin-top:20px;">
+          <h4 class="passport-section-title">
+            <i data-lucide="check-square" style="width:16px;height:16px;color:var(--emerald);"></i> Scaled Ingredients Checklist
+          </h4>
+          <div class="cook-ingredients-grid" id="cookIngredientsGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOCIAL STORY FOODIE CARD CANVAS POSTER MODAL -->
+  <div class="modal-backdrop" id="posterModal">
+    <div class="modal-container poster-modal-container">
+      <button class="modal-close-btn" id="closePosterModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-inner-padded" style="text-align:center;">
+        <div class="flex-center" style="gap:8px; margin-bottom:4px;">
+          <div class="poster-icon-badge">
+            <i data-lucide="share-2"></i>
+          </div>
+          <h2 style="font-size:1.5rem;">Foodie Story Card Generator</h2>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
+          Generate high-resolution, branded 9:16 Instagram Story posters with 1-click download!
+        </p>
+
+        <!-- Canvas Story Card Container -->
+        <div class="story-canvas-container">
+          <canvas id="storyCanvas" width="540" height="960" class="story-preview-canvas"></canvas>
+        </div>
+
+        <!-- Poster Controls -->
+        <div class="story-controls-grid">
+          <div>
+            <label class="toolbar-label" for="storyThemeSelect">Card Theme:</label>
+            <select id="storyThemeSelect" class="toolbar-select" style="width:100%;">
+              <option value="obsidian">🔥 Radiant Obsidian (Dark)</option>
+              <option value="sunset">🌿 Emerald & White Luxe</option>
+              <option value="emerald">🍓 Ruby Berry Crimson</option>
+              <option value="royal">👑 Royal Saffron Gold</option>
+            </select>
+          </div>
+          <div>
+            <label class="toolbar-label" for="storyCaptionInput">Custom Foodie Quote:</label>
+            <input type="text" id="storyCaptionInput" class="form-input" value="Pure culinary heaven! 10/10 must try." placeholder="Write a short quote...">
+          </div>
+        </div>
+
+        <!-- Poster Actions -->
+        <div style="display:flex; gap:10px; margin-top:16px; justify-content:center;">
+          <button class="btn btn-primary" id="downloadStoryBtn" style="flex:1;">
+            <i data-lucide="download" style="width:18px;height:18px;"></i>
+            <span>Download 9:16 PNG Image</span>
+          </button>
+          <button class="btn btn-secondary" id="copyStoryImageBtn" title="Copy to Clipboard">
+            <i data-lucide="copy" style="width:18px;height:18px;color:var(--emerald);"></i>
+            <span>Copy Image</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- City Location Management Modal -->
+  <div class="modal-backdrop" id="cityModal">
+    <div class="modal-container city-modal-container">
+      <button class="modal-close-btn" id="closeCityModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-inner-padded">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+          <div class="city-icon-badge">
+            <i data-lucide="map-pin"></i>
+          </div>
+          <div>
+            <h2 style="font-size:1.5rem;">Select Your Food Capital</h2>
+            <p style="font-size:0.85rem; color:var(--text-secondary);">Choose your city to discover authentic regional specialties and street favorites.</p>
+          </div>
+        </div>
+
+        <div style="margin:20px 0; display:flex; gap:10px;">
+          <div style="flex:1; position:relative;">
+            <input type="text" id="modalCitySearchInput" class="location-search-input" style="padding:12px 14px 12px 38px; font-size:0.95rem;" placeholder="Search any city or country (e.g., Hyderabad, Tokyo, Rome)...">
+            <i data-lucide="search" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--text-muted);"></i>
+          </div>
+          <button class="btn btn-primary" id="modalGpsBtn" style="padding:8px 18px; font-size:0.9rem;">
+            <i data-lucide="crosshair" style="width:16px;height:16px;"></i>
+            <span>Use GPS</span>
+          </button>
+        </div>
+
+        <div class="flex-between" style="margin-bottom:12px;">
+          <span style="font-size:0.8rem; font-weight:700; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.5px;">Global Culinary Hubs</span>
+          <span style="font-size:0.8rem; color:var(--emerald-dark); font-weight:600;" id="activeCityIndicator">Currently: Hyderabad, India</span>
+        </div>
+
+        <!-- City Cards Grid -->
+        <div class="city-grid-cards" id="modalCityGrid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Favorites Drawer -->
+  <div class="drawer-backdrop" id="favoritesDrawerBackdrop">
+    <div class="drawer">
+      <div class="drawer-header">
+        <h3 style="display:flex; align-items:center; gap:8px;">
+          <i data-lucide="heart" style="color:var(--ruby); fill:var(--ruby); width:20px;height:20px;"></i>
+          Your Saved Dishes
+        </h3>
+        <button class="btn btn-secondary btn-icon" id="closeFavoritesBtn">
+          <i data-lucide="x" style="width:18px;height:18px;"></i>
+        </button>
+      </div>
+
+      <div class="drawer-subhead">
+        <span style="font-size:0.82rem; color:var(--text-muted);" id="drawerItemsSummary">0 items saved</span>
+        <button class="btn btn-secondary btn-sm" id="drawerAllGroceryBtn">
+          <i data-lucide="shopping-cart" style="width:13px;height:13px;color:var(--emerald);"></i> Combined Grocery List
+        </button>
+      </div>
+      
+      <div class="drawer-body" id="favoritesListContainer">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom:12px;">
+            <div class="brand-icon"><i data-lucide="utensils-crossed"></i></div>
+            <div class="brand-text">Crave<span class="brand-accent">Pulse</span></div>
+          </div>
+          <p>
+            Your ultimate culinary companion. Uncovering the world's most mouth-watering dishes, iconic street foods, and regional treasures wherever your tastebuds take you.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Food Hubs</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="city-quick-link" data-city="hyderabad">Hyderabad (Biryani & Chai)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="mumbai">Mumbai (Vada Pav & Pav Bhaji)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="delhi">Delhi (Butter Chicken & Chaat)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="bangalore">Bengaluru (Crispy Dosa & Filter Coffee)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="kolkata">Kolkata (Kathi Rolls & Sweets)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="singapore">Singapore (Chicken Rice & Chili Crab)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="tokyo">Tokyo (Ramen & Sushi)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="rome">Rome (Carbonara & Gelato)</a></li>
+            <li><a href="#" class="city-quick-link" data-city="barcelona">Barcelona (Paella & Tapas)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Cravings & Categories</h4>
+          <ul class="footer-links">
+            <li><a href="#" class="mood-quick-link" data-mood="comfort">Soul Comfort Foods</a></li>
+            <li><a href="#" class="mood-quick-link" data-mood="spicy">Fiery & Spicy Bites</a></li>
+            <li><a href="#" class="mood-quick-link" data-mood="street-food">Legendary Street Food</a></li>
+            <li><a href="#" class="mood-quick-link" data-mood="sweet">Artisanal Desserts</a></li>
+            <li><a href="#" class="mood-quick-link" data-mood="date-night">Date Night Plates</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CravePulse. Crafted with ❤️ for food lovers worldwide.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Quick-Action Menu (FAB) -->
+  <div class="fab-container" id="fabContainer">
+    <button class="fab-btn fab-main" id="fabMainBtn" title="Quick Foodie Magic">
+      <i data-lucide="sparkles"></i>
+    </button>
+    <div class="fab-menu" id="fabMenu">
+      <button class="fab-item" id="fabBlindBoxBtn" title="Mystery Blind Box">
+        <i data-lucide="gift" style="color:var(--amber);"></i>
+        <span class="fab-tooltip">Mystery Box</span>
+      </button>
+      <button class="fab-item" id="fabPlannerBtn" title="Daily Meal Planner">
+        <i data-lucide="utensils" style="color:var(--emerald);"></i>
+        <span class="fab-tooltip">Meal Plan</span>
+      </button>
+      <button class="fab-item" id="fabSpinBtn" title="Spin Flavor Wheel">
+        <i data-lucide="dices" style="color:var(--ruby);"></i>
+        <span class="fab-tooltip">Spin Wheel</span>
+      </button>
+      <button class="fab-item" id="fabQuizBtn" title="AI Taste Quiz">
+        <i data-lucide="sparkles" style="color:var(--emerald);"></i>
+        <span class="fab-tooltip">Taste Quiz</span>
+      </button>
+      <button class="fab-item" id="fabBattleBtn" title="Battle Arena">
+        <i data-lucide="swords" style="color:var(--ruby);"></i>
+        <span class="fab-tooltip">Battle Arena</span>
+      </button>
+      <button class="fab-item" id="fabTrailsBtn" title="Food Trails">
+        <i data-lucide="map" style="color:var(--emerald-dark);"></i>
+        <span class="fab-tooltip">Food Trails</span>
+      </button>
+      <button class="fab-item" id="fabPassportBtn" title="Gastronomy Passport">
+        <i data-lucide="award" style="color:var(--amber);"></i>
+        <span class="fab-tooltip">Passport</span>
+      </button>
+      <button class="fab-item" id="fabTopBtn" title="Back to Top">
+        <i data-lucide="arrow-up"></i>
+        <span class="fab-tooltip">Scroll Top</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
