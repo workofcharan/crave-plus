@@ -702,11 +702,12 @@
       const matchCategory = dish.category && dish.category.toLowerCase().includes(q);
 
       if (matchName || matchNative || matchTaste || matchIngr || matchCategory) {
+        const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
         suggestions.push({
           type: 'dish',
           title: dish.name,
           sub: `📍 Near you in ${dish.cityName} • ${dish.category} • ₹${dish.price}`,
-          tag: 'Near You 📍',
+          tag: isVeg ? '🟢 Pure Veg' : '🔴 Non-Veg',
           image: dish.image,
           icon: 'utensils',
           dishRef: dish,
@@ -1072,8 +1073,13 @@
       badgeHtml += `<span class="badge" style="background:var(--emerald); color:white;"><i data-lucide="check" style="width:12px;height:12px;"></i> ${t('tasted_badge')}</span>`;
     }
 
+    // Diet tag (Veg / Non-Veg)
+    const dietTagHtml = isVeg
+      ? `<span class="taste-tag tag-diet-veg"><span class="fssai-symbol veg"><span class="fssai-dot"></span></span> ${t('veg')} 🟢</span>`
+      : `<span class="taste-tag tag-diet-nonveg"><span class="fssai-symbol non-veg"><span class="fssai-dot"></span></span> ${t('non_veg')} 🔴</span>`;
+
     // Taste tags
-    const tasteTagsHtml = dish.tasteProfile
+    const tasteTagsHtml = dietTagHtml + dish.tasteProfile
       .slice(0, 3)
       .map(t => `<span class="taste-tag">${t}</span>`)
       .join('');
@@ -1332,6 +1338,18 @@
     elements.modalDishName.textContent = dish.name;
     elements.modalDishNative.textContent = dish.nativeName || '';
     elements.modalDishRating.innerHTML = `<i data-lucide="star" style="width:16px;height:16px;fill:#f59e0b;"></i> ${dish.rating} (${(dish.reviewsCount || 1000).toLocaleString()})`;
+
+    const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
+    if (elements.modalDishBadges) {
+      elements.modalDishBadges.innerHTML = `
+        <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}" style="font-size:0.8rem; padding:4px 10px;">
+          <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}"><span class="fssai-dot"></span></span>
+          ${isVeg ? `${t('veg')} 🟢` : `${t('non_veg')} 🔴`}
+        </span>
+        <span class="badge badge-location" style="font-size:0.8rem; padding:4px 10px;"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${dish.cityName} Special</span>
+        ${dish.isGlobalIcon ? `<span class="badge badge-global" style="font-size:0.8rem; padding:4px 10px;"><i data-lucide="award" style="width:12px;height:12px;"></i> Global Icon</span>` : ''}
+      `;
+    }
 
     elements.modalDishOrigin.textContent = `${dish.cityName}, ${dish.country}`;
     elements.modalDishCategory.textContent = `${dish.category} (${dish.mealTimes ? dish.mealTimes.join(', ') : ''})`;

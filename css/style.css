@@ -1773,6 +1773,26 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-secondary);
 }
 
+.taste-tag.tag-diet-veg {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #047857;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.taste-tag.tag-diet-nonveg {
+  background: rgba(225, 29, 72, 0.14);
+  border-color: rgba(225, 29, 72, 0.4);
+  color: #be123c;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .dish-footer {
   display: flex;
   align-items: center;
