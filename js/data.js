@@ -357,7 +357,7 @@ const DISHES_DATA = [
     ingredients: ["Long Mild Green Chillies (Bhavnagri)", "Roasted Peanuts", "White Sesame Seeds (Til)", "Desiccated Coconut", "Tamarind Extract", "Curry Leaves & Mustard Seeds", "Cumin & Coriander Spices"],
     iconicSpots: ["Bawarchi (RTC X Roads)", "Hotel Shadab (Charminar)", "Cafe Bahar", "Shah Ghouse"],
     image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Roast peanuts, sesame seeds, and coconut; blend into smooth paste. SautÃ© spices and fried chillies in oil, add gravy paste, simmer with tamarind water until aromatic oil floats to surface."
+    recipeOverview: "Roast peanuts, sesame seeds, and coconut; blend into smooth paste. Sauté spices and fried chillies in oil, add gravy paste, simmer with tamarind water until aromatic oil floats to surface."
   },
 
   // ==========================================
@@ -419,7 +419,7 @@ const DISHES_DATA = [
     ingredients: ["Potatoes, Tomatoes, Green Peas, Cauliflower", "Pav Bhaji Masala Spices", "Amul Butter (Generous)", "Soft Pav Buns", "Fresh Coriander, Diced Onions & Lemon Wedge"],
     iconicSpots: ["Sardar Pav Bhaji (Tardeo)", "Cannon Pav Bhaji (CST)", "Amar Juice Centre (Juhu)", "Achija (Ghatkopar)"],
     image: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Boil and mash vegetables. SautÃ© onions, garlic paste, capsicum, and tomatoes on a large pan. Add special spices and mashed veggies, smash continuously while adding hot butter and water."
+    recipeOverview: "Boil and mash vegetables. Sauté onions, garlic paste, capsicum, and tomatoes on a large pan. Add special spices and mashed veggies, smash continuously while adding hot butter and water."
   },
   {
     id: "mum_bhel_puri",
@@ -510,7 +510,7 @@ const DISHES_DATA = [
     ingredients: ["Tandoori Grilled Chicken", "Ripe Vine Tomatoes", "Amul Butter & Fresh Cream", "Cashew Nut Paste", "Kasuri Methi (Dried Fenugreek)", "Degi Mirch & Garam Masala"],
     iconicSpots: ["Moti Mahal (Daryaganj)", "Gulati (Pandara Road)", "Havemore (Pandara Market)", "Daryaganj Restaurant", "Karim's (Jama Masjid)"],
     image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Roast marinated chicken in tandoor or hot oven. Simmer purÃ©ed tomatoes with spices, blend cashew paste, stir in butter and cream, add chicken, and finish with crushed kasuri methi."
+    recipeOverview: "Roast marinated chicken in tandoor or hot oven. Simmer puréed tomatoes with spices, blend cashew paste, stir in butter and cream, add chicken, and finish with crushed kasuri methi."
   },
   {
     id: "del_chole_bhature",
@@ -539,7 +539,7 @@ const DISHES_DATA = [
     ingredients: ["Kabuli Chana (Chickpeas)", "Maida & Semolina (for Bhatura)", "Anardana (Pomegranate Seeds)", "Amla / Tea Infusion for dark color", "Ginger Juliennes & Green Chillies", "Achaar (Pickled Veggies)"],
     iconicSpots: ["Sita Ram Diwan Chand (Paharganj)", "Chache Di Hatti (Kamla Nagar)", "Nand Di Hatti (Sadar Bazaar)", "Nagpal's (Lajpat Nagar)"],
     image: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Boil chickpeas with black tea bag for deep color. SautÃ© with onions, tomatoes, and anardana spice blend. Knead fermented dough, roll out oval, and deep fry until puffed like a balloon."
+    recipeOverview: "Boil chickpeas with black tea bag for deep color. Sauté with onions, tomatoes, and anardana spice blend. Knead fermented dough, roll out oval, and deep fry until puffed like a balloon."
   },
   {
     id: "del_tandoori_tikka",
@@ -754,7 +754,7 @@ const DISHES_DATA = [
     ingredients: ["Tender Country Chicken", "Tellicherry Black Peppercorns", "Kalpasi (Stone Flower) & Star Anise", "Fresh Curry Leaves", "Small Sambar Onions (Shallots)", "Fresh Grated Coconut"],
     iconicSpots: ["Anjappar Chettinad Restaurant", "Ponnusamy Hotel", "Junior Kuppanna (T. Nagar)", "Velu Military Hotel"],
     image: "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Dry roast whole spices, fennel seeds, and black pepper; grind into paste. SautÃ© shallots and curry leaves, add chicken and ground masala, cook until gravy coats chicken thickly."
+    recipeOverview: "Dry roast whole spices, fennel seeds, and black pepper; grind into paste. Sauté shallots and curry leaves, add chicken and ground masala, cook until gravy coats chicken thickly."
   },
 
   // ==========================================
@@ -911,11 +911,11 @@ const DISHES_DATA = [
     ingredients: ["Tender Chicken Fillet", "Japanese Panko Breadcrumbs", "Japanese Curry Roux (with Apple & Honey)", "Steamed Short Grain Rice", "Fukujinzuke (Red Pickled Radish)"],
     iconicSpots: ["Go! Go! Curry (Akihabara)", "CoCo Ichibanya (Tokyo)", "Tonkatsu Maisen (Aoyama)"],
     image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Dredge seasoned chicken in flour, egg wash, and panko. Deep fry at 180Â°C until golden brown and crisp. Serve sliced over hot rice and ladle rich warm curry sauce on the side."
+    recipeOverview: "Dredge seasoned chicken in flour, egg wash, and panko. Deep fry at 180°C until golden brown and crisp. Serve sliced over hot rice and ladle rich warm curry sauce on the side."
   },
   {
     id: "tokyo_souffle_pancake",
-    name: "Fluffy Japanese SoufflÃ© Pancakes",
+    name: "Fluffy Japanese Soufflé Pancakes",
     nativeName: "ã‚¹ãƒ•ãƒ¬ãƒ‘ãƒ³ã‚±ãƒ¼ã‚­",
     cityId: "tokyo",
     cityName: "Tokyo",
@@ -1006,7 +1006,7 @@ const DISHES_DATA = [
     ingredients: ["Fresh Bone-in / Boneless Chicken", "Potato Starch Batter", "Gochujang (Korean Chili Paste)", "Honey & Brown Sugar", "Minced Garlic & Ginger", "Toasted White Sesame Seeds", "Pickled Daikon Radish (Mu)"],
     iconicSpots: ["Kyochon Chicken (Dongdaemun)", "BHC Chicken (Myeongdong)", "Hanchu (Garosugil, Gangnam)"],
     image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Season chicken with ginger and rice wine. Coat in light potato starch slurry. Fry at 160Â°C, rest for 5 minutes, fry second time at 190Â°C for shattering crispiness. Toss immediately in warm sticky chili glaze."
+    recipeOverview: "Season chicken with ginger and rice wine. Coat in light potato starch slurry. Fry at 160°C, rest for 5 minutes, fry second time at 190°C for shattering crispiness. Toss immediately in warm sticky chili glaze."
   },
   {
     id: "seoul_bibimbap",
@@ -1031,7 +1031,7 @@ const DISHES_DATA = [
     calories: 520,
     prepTime: "15 mins",
     famousFor: "Steaming rice in piping hot granite bowl with a rainbow of seasoned vegetables, beef, fried egg, and gochujang.",
-    description: "A harmonious Korean masterpiece served in sizzling hot stone pots. The bottom layer of rice crisps into irresistible golden crust (nurungji) while topped with sautÃ©ed namul vegetables, marinated bulgogi beef, sunny egg, and sesame oil.",
+    description: "A harmonious Korean masterpiece served in sizzling hot stone pots. The bottom layer of rice crisps into irresistible golden crust (nurungji) while topped with sautéed namul vegetables, marinated bulgogi beef, sunny egg, and sesame oil.",
     ingredients: ["Short Grain Rice", "Seasoned Namul (Spinach, Bean Sprouts, Shiitake, Carrots, Zucchini)", "Marinated Bulgogi Beef", "Sunny-Side Up Egg", "Gochujang Chili Sauce", "Toasted Sesame Oil"],
     iconicSpots: ["Gogung (Myeongdong)", "Jeonju Jungang Hoekwan (Seoul)", "Mokmyeoksanbang (Namsan)"],
     image: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=900&auto=format&fit=crop&q=80",
@@ -1135,7 +1135,7 @@ const DISHES_DATA = [
   {
     id: "han_pho_bo",
     name: "Traditional Vietnamese Pho Bo (Beef Noodle Soup)",
-    nativeName: "Phá»Ÿ BÃ² HÃ  Ná»™i",
+    nativeName: "Phá»Ÿ BÃ² Hà Ná»™i",
     cityId: "hanoi",
     cityName: "Hanoi & Saigon",
     country: "Vietnam",
@@ -1156,15 +1156,15 @@ const DISHES_DATA = [
     prepTime: "12 hours simmered broth",
     famousFor: "Crystal-clear beef bone broth infused with charred star anise, cinnamon, tender flat rice noodles, and rare beef slices.",
     description: "Vietnam's national treasure. Beef marrow bones simmered gently for 12 hours with charred ginger, onions, and warming whole spices, ladled over silky banh pho rice noodles, thinly sliced tender beef, fresh cilantro, thai basil, and lime.",
-    ingredients: ["Slow-Simmered Beef Marrow Bone Broth", "Flat Rice Noodles (BÃ¡nh Phá»Ÿ)", "Thin Sliced Tender Beef Flank & Rare Eye Round", "Charred Ginger, Shallots & Star Anise", "Cinnamon & Cardamom", "Thai Basil, Sawtooth Herb, Lime & Bean Sprouts"],
-    iconicSpots: ["Phá»Ÿ Gia Truyá»n BÃ¡t ÄÃ n (Old Quarter, Hanoi)", "Phá»Ÿ ThÃ¬n (LÃ² ÄÃºc, Hanoi)", "Phá»Ÿ HÃ²a Pasteur (Saigon)"],
+    ingredients: ["Slow-Simmered Beef Marrow Bone Broth", "Flat Rice Noodles (Bánh Phá»Ÿ)", "Thin Sliced Tender Beef Flank & Rare Eye Round", "Charred Ginger, Shallots & Star Anise", "Cinnamon & Cardamom", "Thai Basil, Sawtooth Herb, Lime & Bean Sprouts"],
+    iconicSpots: ["Phá»Ÿ Gia Truyá»n Bát Äàn (Old Quarter, Hanoi)", "Phá»Ÿ ThÃ¬n (LÃ² Äúc, Hanoi)", "Phá»Ÿ HÃ²a Pasteur (Saigon)"],
     image: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Parboil and rinse beef bones, then slow simmer with charred aromatics and spices for 12 hours. Place fresh rice noodles and raw beef in bowl, pour boiling broth over top to flash-cook the beef."
   },
   {
     id: "han_banh_mi",
     name: "Crispy Vietnamese Banh Mi",
-    nativeName: "BÃ¡nh MÃ¬ Káº¹p Thá»‹t",
+    nativeName: "Bánh MÃ¬ Káº¹p Thá»‹t",
     cityId: "hanoi",
     cityName: "Hanoi & Saigon",
     country: "Vietnam",
@@ -1183,12 +1183,12 @@ const DISHES_DATA = [
     reviewsCount: 48000,
     calories: 460,
     prepTime: "5 mins",
-    famousFor: "Airy crusty French-Vietnamese baguette stuffed with savory roasted meats, rich liver pÃ¢tÃ©, pickled daikon-carrot, and fresh cilantro.",
-    description: "The ultimate East-meets-West street bite. A shatteringly crisp, featherweight baguette smeared with creamy French liver pÃ¢tÃ© and mayonnaise, layered with savory grilled pork, cucumber ribbons, crunchy pickled daikon and carrots, jalapeÃ±os, and fresh cilantro.",
-    ingredients: ["Airy Crusty Vietnamese Baguette", "Savory Roast Pork / Pork Cháº£ Lá»¥a", "Rich Liver PÃ¢tÃ© & Egg Mayo", "Pickled Daikon & Carrot (Äá»“ Chua)", "Cucumber Spears, Cilantro & Fresh Chilies", "Seasoning Maggi Liquid Aminos"],
-    iconicSpots: ["BÃ¡nh MÃ¬ 25 (Hanoi Old Quarter)", "BÃ¡nh MÃ¬ Huá»³nh Hoa (Saigon)", "BÃ¡nh MÃ¬ PhÆ°á»£ng (Há»™i An)"],
+    famousFor: "Airy crusty French-Vietnamese baguette stuffed with savory roasted meats, rich liver pÃ¢té, pickled daikon-carrot, and fresh cilantro.",
+    description: "The ultimate East-meets-West street bite. A shatteringly crisp, featherweight baguette smeared with creamy French liver pÃ¢té and mayonnaise, layered with savory grilled pork, cucumber ribbons, crunchy pickled daikon and carrots, jalapeños, and fresh cilantro.",
+    ingredients: ["Airy Crusty Vietnamese Baguette", "Savory Roast Pork / Pork Cháº£ Lá»¥a", "Rich Liver PÃ¢té & Egg Mayo", "Pickled Daikon & Carrot (Äá»“ Chua)", "Cucumber Spears, Cilantro & Fresh Chilies", "Seasoning Maggi Liquid Aminos"],
+    iconicSpots: ["Bánh MÃ¬ 25 (Hanoi Old Quarter)", "Bánh MÃ¬ Huá»³nh Hoa (Saigon)", "Bánh MÃ¬ PhÆ°á»£ng (Há»™i An)"],
     image: "https://images.unsplash.com/photo-1509722747041-616f39b57569?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Toast baguette until crust is brittle. Slit open, spread pÃ¢tÃ© and mayo, layer pork cold cuts, add pickled radish and carrots, fresh cucumber, chili slices, and sprigs of cilantro."
+    recipeOverview: "Toast baguette until crust is brittle. Slit open, spread pÃ¢té and mayo, layer pork cold cuts, add pickled radish and carrots, fresh cucumber, chili slices, and sprigs of cilantro."
   },
 
   // ==========================================
@@ -1277,13 +1277,13 @@ const DISHES_DATA = [
     rating: 5.0,
     reviewsCount: 62000,
     calories: 580,
-    prepTime: "90 seconds in 900Â°F oven",
+    prepTime: "90 seconds in 900°F oven",
     famousFor: "UNESCO-recognized soft, pillowy leopard-spotted crust topped with sweet San Marzano tomatoes, fresh buffalo mozzarella, and fragrant basil.",
-    description: "The birthplace of authentic pizza. Fermented dough stretched by hand without rolling pins, topped with crushed volcanic San Marzano tomatoes, creamy Mozzarella di Bufala Campana, extra virgin olive oil, and fresh basil, blasted for 90 seconds in 485Â°C wood-fired ovens.",
+    description: "The birthplace of authentic pizza. Fermented dough stretched by hand without rolling pins, topped with crushed volcanic San Marzano tomatoes, creamy Mozzarella di Bufala Campana, extra virgin olive oil, and fresh basil, blasted for 90 seconds in 485°C wood-fired ovens.",
     ingredients: ["Caputo Tipo 00 Flour (Long Fermentation)", "San Marzano DOP Volcanic Tomatoes", "Mozzarella di Bufala Campana DOP", "Fresh Sweet Basil Leaves", "Cold-Pressed Extra Virgin Olive Oil"],
     iconicSpots: ["L'Antica Pizzeria da Michele (Napoli)", "Gino e Toto Sorbillo (Via dei Tribunali)", "Pizzeria Di Matteo", "50 KalÃ²"],
     image: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Hand-stretch fermented dough disc creating a raised rim (cornicione). Spread crushed tomatoes, tear fresh buffalo mozzarella, scatter basil leaves, drizzle olive oil, and bake 90 seconds at 485Â°C on stone floor."
+    recipeOverview: "Hand-stretch fermented dough disc creating a raised rim (cornicione). Spread crushed tomatoes, tear fresh buffalo mozzarella, scatter basil leaves, drizzle olive oil, and bake 90 seconds at 485°C on stone floor."
   },
 
   // ==========================================
@@ -1314,14 +1314,14 @@ const DISHES_DATA = [
     famousFor: "Dozens of paper-thin caramelized golden layers made with Normandy cultured butter that shatter with every bite.",
     description: "The gold standard of French viennoiserie. Laminated dough folded painstakingly with high-fat Normandy butter, baked to a honeycomb interior and a golden, featherlight flaky shell.",
     ingredients: ["French T55 Flour", "Normandy AOP High-Fat Butter", "Active Yeast", "Milk, Sugar & Sea Salt"],
-    iconicSpots: ["Du Pain et des IdÃ©es (10th Arr.)", "CÃ©dric Grolet OpÃ©ra", "Stohrer (Rue Montorgueil)", "Mamiche"],
+    iconicSpots: ["Du Pain et des Idées (10th Arr.)", "Cédric Grolet Opéra", "Stohrer (Rue Montorgueil)", "Mamiche"],
     image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Laminate yeasted dough with butter block through 3 consecutive folds. Proof croissants at controlled temperature for 2 hours, bake at 200Â°C until mahogany and puffed."
+    recipeOverview: "Laminate yeasted dough with butter block through 3 consecutive folds. Proof croissants at controlled temperature for 2 hours, bake at 200°C until mahogany and puffed."
   },
   {
     id: "paris_onion_soup",
-    name: "Classic French Onion Soup (Soupe Ã  l'oignon)",
-    nativeName: "Soupe Ã  l'oignon GratinÃ©e",
+    name: "Classic French Onion Soup (Soupe à l'oignon)",
+    nativeName: "Soupe à l'oignon Gratinée",
     cityId: "paris",
     cityName: "Paris",
     country: "France",
@@ -1340,12 +1340,12 @@ const DISHES_DATA = [
     reviewsCount: 31000,
     calories: 450,
     prepTime: "40 mins",
-    famousFor: "Deeply caramelized sweet onions in rich beef broth topped with crusty baguette and a bubbling lid of melted GruyÃ¨re cheese.",
-    description: "Parisian bistros' most comforting classic. Yellow onions slow-cooked for hours until rich mahogany and naturally sweet, deglazed with dry white wine and beef consommÃ©, served in crock pots blanketed with toasted sourdough and bubbling broiled GruyÃ¨re cheese.",
-    ingredients: ["Caramelized Yellow Onions", "Rich Beef Stock / ConsommÃ©", "Dry White Wine & Thyme", "French Sourdough Baguette Slices", "Aged GruyÃ¨re & ComtÃ© Cheese"],
+    famousFor: "Deeply caramelized sweet onions in rich beef broth topped with crusty baguette and a bubbling lid of melted Gruyère cheese.",
+    description: "Parisian bistros' most comforting classic. Yellow onions slow-cooked for hours until rich mahogany and naturally sweet, deglazed with dry white wine and beef consommé, served in crock pots blanketed with toasted sourdough and bubbling broiled Gruyère cheese.",
+    ingredients: ["Caramelized Yellow Onions", "Rich Beef Stock / Consommé", "Dry White Wine & Thyme", "French Sourdough Baguette Slices", "Aged Gruyère & Comté Cheese"],
     iconicSpots: ["Au Pied de Cochon (Les Halles)", "Bouillon Chartier (Grands Boulevards)", "Le Comptoir du Relais (Saint-Germain)"],
     image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Slowly caramelize sliced onions in butter for 45 mins. Deglaze with white wine, add beef stock and thyme, simmer for 20 mins. Ladle into bowls, top with toasted baguette slices, pile shredded GruyÃ¨re, broil until golden bubbling."
+    recipeOverview: "Slowly caramelize sliced onions in butter for 45 mins. Deglaze with white wine, add beef stock and thyme, simmer for 20 mins. Ladle into bowls, top with toasted baguette slices, pile shredded Gruyère, broil until golden bubbling."
   },
 
   // ==========================================
@@ -1378,7 +1378,7 @@ const DISHES_DATA = [
     ingredients: ["Fresh Atlantic Cod / Haddock", "Crisp Ale Beer Batter", "Maris Piper Thick-Cut Potatoes", "Marrowfat Mushy Peas", "Homemade Tartare Sauce & Malt Vinegar"],
     iconicSpots: ["Poppie's Fish & Chips (Spitalfields)", "The Golden Hind (Marylebone)", "Toff's of Muswell Hill", "Kerbisher & Malt"],
     image: "https://images.unsplash.com/photo-1579208575657-c595a05383b7?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Coat seasoned fresh fish in flour, dip in ice-cold beer batter. Fry at 190Â°C until golden amber. Double fry chunky chips for maximum crispness."
+    recipeOverview: "Coat seasoned fresh fish in flour, dip in ice-cold beer batter. Fry at 190°C until golden amber. Double fry chunky chips for maximum crispness."
   },
   {
     id: "ldn_full_english",
@@ -1402,12 +1402,12 @@ const DISHES_DATA = [
     reviewsCount: 42000,
     calories: 850,
     prepTime: "15 mins",
-    famousFor: "Epic platter of sunny eggs, Cumberland sausages, crispy back bacon, baked beans, sautÃ©ed mushrooms, grilled tomatoes, and buttered toast.",
+    famousFor: "Epic platter of sunny eggs, Cumberland sausages, crispy back bacon, baked beans, sautéed mushrooms, grilled tomatoes, and buttered toast.",
     description: "The ultimate hearty British morning feast. A loaded plate featuring sizzling Cumberland pork sausages, thick rashers of British back bacon, fried eggs with runny yolks, slow-simmered Heinz baked beans, buttered button mushrooms, blistered grilled tomatoes, and golden fried bread.",
     ingredients: ["Cumberland Pork Sausages", "British Back Bacon", "Farm Fresh Eggs", "Slow Simmered Baked Beans", "Button Mushrooms & Vine Tomatoes", "Buttered Sourdough Toast / Fried Bread"],
     iconicSpots: ["The Regency Cafe (Westminster)", "E Pellicci (Bethnal Green)", "Terry's Cafe (Borough)", "The Wolseley (Mayfair)"],
     image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Fry sausages and bacon on cast-iron skillet. SautÃ© mushrooms and blister tomatoes. Fry eggs sunny side up. Warm beans, toast bread, and assemble everything on a hot platter."
+    recipeOverview: "Fry sausages and bacon on cast-iron skillet. Sauté mushrooms and blister tomatoes. Fry eggs sunny side up. Warm beans, toast bread, and assemble everything on a hot platter."
   },
 
   // ==========================================
@@ -1416,7 +1416,7 @@ const DISHES_DATA = [
   {
     id: "ist_doner_kebab",
     name: "Authentic Turkish Döner Kebab",
-    nativeName: "Ä°stanbul Yaprak Döner",
+    nativeName: "İstanbul Yaprak Döner",
     cityId: "istanbul",
     cityName: "Istanbul",
     country: "Turkey",
@@ -1438,14 +1438,14 @@ const DISHES_DATA = [
     famousFor: "Vertical charcoal-roasted layered lamb & beef shaved paper-thin into warm lavash bread with sumac onions.",
     description: "Istanbul's legendary charcoal-roasted meat masterwork. Marinated sheets of lamb and veal layered with tail fat, roasted horizontally or vertically over glowing oak embers, shaved into thin ribbons and served with charred peppers, sumac onions, and yogurt.",
     ingredients: ["Layered Marinated Lamb & Beef", "Turkish Lavash Flatbread", "Sumac Spiced Red Onions", "Charred Sivri Green Peppers", "Garlic Strained Yogurt"],
-    iconicSpots: ["Dönerci Åžahin Usta (Grand Bazaar)", "BayramoÄŸlu Döner (KavacÄ±k)", "ZÃ¼mrÃ¼t BÃ¼fe (EminÃ¶nÃ¼)", "Karadeniz Döner AsÄ±m Usta (BeÅŸiktaÅŸ)"],
+    iconicSpots: ["Dönerci Şahin Usta (Grand Bazaar)", "Bayramoğlu Döner (Kavacık)", "Zümrüt Büfe (Eminönü)", "Karadeniz Döner Asım Usta (Beşiktaş)"],
     image: "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Marinate sliced meat with onion juice, yogurt, and Anatolian spices for 24 hours. Stack on rotisserie spit, roast slowly, shave paper-thin slices onto hot pide or lavash."
   },
   {
     id: "ist_baklava",
     name: "Gaziantep Pistachio Baklava",
-    nativeName: "Antep FÄ±stÄ±klÄ± Baklava",
+    nativeName: "Antep Fıstıklı Baklava",
     cityId: "istanbul",
     cityName: "Istanbul",
     country: "Turkey",
@@ -1467,7 +1467,7 @@ const DISHES_DATA = [
     famousFor: "40 whisper-thin layers of hand-rolled phyllo pastry filled with vibrant emerald Gaziantep pistachios and warm syrup.",
     description: "The crown dessert of the Ottoman Empire. Impossibly translucent sheets of pastry brushed with clarified butter, packed with fragrant green Antep pistachios, baked until glowing golden, and bathed in hot sugar syrup.",
     ingredients: ["Paper-thin Phyllo Sheets (40 layers)", "Emerald Antep Pistachios", "Clarified Sheep's Milk Butter", "Pure Sugar Syrup & Lemon Juice", "Kaymak (Turkish Clotted Cream)"],
-    iconicSpots: ["KarakÃ¶y GÃ¼llÃ¼oÄŸlu (KarakÃ¶y)", "Hafiz Mustafa 1864 (Sirkeci)", "KÃ¶ÅŸkeroÄŸlu (KarakÃ¶y)", "Develi Baklava"],
+    iconicSpots: ["Karaköy Güllüoğlu (Karaköy)", "Hafiz Mustafa 1864 (Sirkeci)", "Köşkeroğlu (Karaköy)", "Develi Baklava"],
     image: "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Roll phyllo until transparent. Layer with clarified butter, spread generous crushed pistachios in middle, bake until crisp, pour hot syrup over hot pastry immediately."
   },
@@ -1531,7 +1531,7 @@ const DISHES_DATA = [
     ingredients: ["High-Gluten Fermented Dough", "Crushed San Marzano Tomatoes", "Low-Moisture Whole Milk Mozzarella", "Fresh Basil & Dried Oregano", "Pecorino Romano & Garlic Oil"],
     iconicSpots: ["Joe's Pizza (Greenwich Village)", "Scarr's Pizza (Lower East Side)", "Lucali (Brooklyn)", "L'Industrie Pizzeria (Williamsburg)"],
     image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Stretch cold-fermented dough thin by hand. Spoon uncooked seasoned tomato sauce, scatter whole-milk mozzarella, bake on 550Â°F pizza stones until charred and bubbly."
+    recipeOverview: "Stretch cold-fermented dough thin by hand. Spoon uncooked seasoned tomato sauce, scatter whole-milk mozzarella, bake on 550°F pizza stones until charred and bubbly."
   },
   {
     id: "nyc_cheesecake",
@@ -1560,7 +1560,7 @@ const DISHES_DATA = [
     ingredients: ["Philadelphia Cream Cheese", "Graham Cracker Crust", "Sour Cream & Heavy Cream", "Vanilla Extract & Lemon Zest", "Fresh Strawberry Compote"],
     iconicSpots: ["Junior's Cheesecake (Brooklyn)", "Eileen's Special Cheesecake (SoHo)", "Veniero's Pasticceria (East Village)"],
     image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Press crushed graham crackers into springform pan. Beat cream cheese, sugar, eggs, and sour cream until velvety. Bake in water bath at 160Â°C, cool slowly for zero cracks."
+    recipeOverview: "Press crushed graham crackers into springform pan. Beat cream cheese, sugar, eggs, and sour cream until velvety. Bake in water bath at 160°C, cool slowly for zero cracks."
   },
   {
     id: "nyc_smash_burger",
@@ -1598,7 +1598,7 @@ const DISHES_DATA = [
   {
     id: "cdmx_tacos_pastor",
     name: "Tacos al Pastor",
-    nativeName: "Tacos al Pastor con PiÃ±a",
+    nativeName: "Tacos al Pastor con Piña",
     cityId: "mexico_city",
     cityName: "Mexico City",
     country: "Mexico",
@@ -1620,7 +1620,7 @@ const DISHES_DATA = [
     famousFor: "Spiced pork shaved from a vertical rotating trompo straight onto warm corn tortillas with a flying slice of roasted pineapple.",
     description: "Mexico City's crowning street food glory. Thinly sliced pork marinated in achiote paste, guajillo chillies, and citrus, roasted on a vertical spit topped with pineapple, and served with salsa verde, diced white onion, and cilantro.",
     ingredients: ["Thin Sliced Pork Shoulder", "Achiote Paste & Guajillo Chillies", "Fresh Roasted Pineapple", "Warm Soft Corn Tortillas", "Cilantro, White Onion & Lime", "Salsa Verde Cruda"],
-    iconicSpots: ["El Tizoncito (Condesa)", "El Vilsito (Narvarte)", "TaquerÃ­a Orinoco (Roma Norte)", "Los Cocuyos (Centro HistÃ³rico)"],
+    iconicSpots: ["El Tizoncito (Condesa)", "El Vilsito (Narvarte)", "Taquería Orinoco (Roma Norte)", "Los Cocuyos (Centro Histórico)"],
     image: "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Marinate pork in achiote and guajillo sauce. Stack on vertical skewer with pineapple on top. Shave crisp outer meat directly into doubled corn tortillas, flick roasted pineapple, and top with salsa."
   },
@@ -1646,10 +1646,10 @@ const DISHES_DATA = [
     reviewsCount: 36000,
     calories: 280,
     prepTime: "5 mins",
-    famousFor: "Mashed ripe Hass avocados crushed in volcanic stone molcajete with lime, jalapeÃ±o, and crispy golden tortilla chips.",
-    description: "The ancient Aztec culinary gem. Perfectly ripe Hass avocados crushed coarsely with lime juice, minced jalapeÃ±o chilies, diced red onion, ripe tomatoes, fresh cilantro, and sea salt, served with warm, freshly fried corn tortilla chips.",
-    ingredients: ["Ripe Hass Avocados", "Fresh Lime Juice", "JalapeÃ±o / Serrano Chilies", "Red Onion & Ripe Tomato", "Fresh Cilantro & Sea Salt", "Crispy Corn Totopos (Chips)"],
-    iconicSpots: ["Contramar (Roma Norte)", "Azul HistÃ³rico (Centro)", "El Cardenal (Palma)"],
+    famousFor: "Mashed ripe Hass avocados crushed in volcanic stone molcajete with lime, jalapeño, and crispy golden tortilla chips.",
+    description: "The ancient Aztec culinary gem. Perfectly ripe Hass avocados crushed coarsely with lime juice, minced jalapeño chilies, diced red onion, ripe tomatoes, fresh cilantro, and sea salt, served with warm, freshly fried corn tortilla chips.",
+    ingredients: ["Ripe Hass Avocados", "Fresh Lime Juice", "Jalapeño / Serrano Chilies", "Red Onion & Ripe Tomato", "Fresh Cilantro & Sea Salt", "Crispy Corn Totopos (Chips)"],
+    iconicSpots: ["Contramar (Roma Norte)", "Azul Histórico (Centro)", "El Cardenal (Palma)"],
     image: "https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Grind onion, chili, cilantro, and sea salt in volcanic stone molcajete. Add avocado flesh, mash coarsely with fork leaving chunks, fold in tomatoes and lime juice."
   },
@@ -1678,9 +1678,9 @@ const DISHES_DATA = [
     famousFor: "Ridged golden fried dough sticks tossed in fragrant cinnamon-sugar and dipped into thick, dark Mexican spiced chocolate.",
     description: "Mexico City's beloved night-time tradition. Choux dough piped through star nozzles directly into bubbling oil, fried until shatteringly crisp, rolled in cinnamon sugar, and served alongside thick, velvety spiced hot chocolate or dulce de leche.",
     ingredients: ["Flour, Butter & Water Choux Dough", "Cinnamon & White Cane Sugar", "Mexican Spiced Dark Chocolate", "Dulce de Leche / Cajeta"],
-    iconicSpots: ["ChurrerÃ­a El Moro (Centro HistÃ³rico & Roma)", "El Convento (CoyoacÃ¡n)", "ChurrerÃ­a General de la RepÃºblica"],
+    iconicSpots: ["Churrería El Moro (Centro Histórico & Roma)", "El Convento (Coyoacán)", "Churrería General de la República"],
     image: "https://images.unsplash.com/photo-1624371414361-e670edf4898d?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Boil water, butter, and flour into choux paste. Pipe into 190Â°C hot oil using fluted star nozzle. Fry until golden brown, drain briefly, roll in cinnamon-sugar, and serve with hot chocolate."
+    recipeOverview: "Boil water, butter, and flour into choux paste. Pipe into 190°C hot oil using fluted star nozzle. Fry until golden brown, drain briefly, roll in cinnamon-sugar, and serve with hot chocolate."
   },
 
   // ==========================================
@@ -1711,9 +1711,9 @@ const DISHES_DATA = [
     famousFor: "Saffron-infused Bomba rice cooked over wide pans with jumbo prawns, mussels, squid, and crispy caramelized 'socarrat' bottom.",
     description: "Spain's world-renowned culinary masterpiece. Short-grain Bomba rice simmered in rich seafood stock infused with threads of pure saffron, paprika, garlic, calamari, jumbo shrimp, and Mediterranean mussels, creating the prized crunchy caramelized bottom crust known as socarrat.",
     ingredients: ["Spanish Bomba Rice", "Pure Saffron Threads & Smoked Paprika", "Fresh Mediterranean Jumbo Prawns", "Blue Mussels & Calamari Rings", "Rich Homemade Fish Stock (Fumet)", "Sweet Bell Peppers & Peas"],
-    iconicSpots: ["7 Portes (Barceloneta)", "Can SolÃ© (Barceloneta)", "Xiringuito EscribÃ  (Poblenou)", "Barraca (Barceloneta)"],
+    iconicSpots: ["7 Portes (Barceloneta)", "Can Solé (Barceloneta)", "Xiringuito Escribà (Poblenou)", "Barraca (Barceloneta)"],
     image: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "SautÃ© sofrito and seafood in wide paella pan. Add Bomba rice and saffron fish stock. Cook without stirring to allow the bottom rice to caramelize into a crispy socarrat crust."
+    recipeOverview: "Sauté sofrito and seafood in wide paella pan. Add Bomba rice and saffron fish stock. Cook without stirring to allow the bottom rice to caramelize into a crispy socarrat crust."
   },
   {
     id: "bcn_patatas_bravas",
@@ -1739,8 +1739,8 @@ const DISHES_DATA = [
     prepTime: "12 mins",
     famousFor: "Golden crisp potato chunks drenched in spicy smoked paprika brava sauce and rich garlic aioli.",
     description: "The indisputable king of Spanish tapas. Chunky cubes of potato parboiled and double-fried to golden, crisp perfection with a fluffy potato center, drizzled with fiery smoked paprika brava sauce and rich garlic aioli.",
-    ingredients: ["Agria Potatoes (Cubed)", "Spicy PimentÃ³n de la Vera (Smoked Paprika)", "Olive Oil & Tomato Brava Sauce", "Creamy Garlic Aioli", "Sea Salt Flakes"],
-    iconicSpots: ["Bar TomÃ¡s (SarriÃ )", "El Vaso de Oro (Barceloneta)", "CervecerÃ­a Catalana (Eixample)"],
+    ingredients: ["Agria Potatoes (Cubed)", "Spicy Pimentón de la Vera (Smoked Paprika)", "Olive Oil & Tomato Brava Sauce", "Creamy Garlic Aioli", "Sea Salt Flakes"],
+    iconicSpots: ["Bar Tomás (Sarrià)", "El Vaso de Oro (Barceloneta)", "Cervecería Catalana (Eixample)"],
     image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Cut potatoes into irregular cubes. Poach in medium oil, drain, then flash fry in hot oil until deeply crisp. Plate immediately, spoon hot spicy brava sauce and garlic aioli."
   },
@@ -1751,7 +1751,7 @@ const DISHES_DATA = [
   {
     id: "sgp_chicken_rice",
     name: "Hainanese Chicken Rice",
-    nativeName: "æµ·å—é¸¡é¥­ (HÃ inÃ¡n JÄ«fÃ n)",
+    nativeName: "海南鸡饭 (Hàinán JÄ«fàn)",
     cityId: "singapore",
     cityName: "Singapore",
     country: "Singapore",
@@ -1777,18 +1777,18 @@ const DISHES_DATA = [
     ingredients: ["Free-Range Whole Chicken", "Pandan Leaves & Bruised Lemongrass", "Old Ginger & Garlic Cloves", "Aged Jasmine Rice & Chicken Fat", "Fiery Red Chili & Calamansi Dip", "Aged Dark Caramel Soy"],
     iconicSpots: ["Tian Tian Hainanese Chicken Rice (Maxwell)", "Boon Tong Kee (Balestier)", "Wee Nam Kee", "Liao Fan Hawker Chan"],
     image: "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Gently poach whole chicken with ginger and scallions at 85Â°C for 45 mins. Plunge into ice bath. SautÃ© raw jasmine rice in chicken fat and aromatics, cook in poaching broth. Serve with chili garlic dip.",
+    recipeOverview: "Gently poach whole chicken with ginger and scallions at 85°C for 45 mins. Plunge into ice bath. Sauté raw jasmine rice in chicken fat and aromatics, cook in poaching broth. Serve with chili garlic dip.",
     cookingSteps: [
-      { step: 1, name: "Aromatic Chicken Poach", duration: 35, desc: "Submerge whole chicken with bruised ginger, garlic, and pandan in boiling water. Reduce to gentle simmer and cook until internal temp hits 74Â°C." },
+      { step: 1, name: "Aromatic Chicken Poach", duration: 35, desc: "Submerge whole chicken with bruised ginger, garlic, and pandan in boiling water. Reduce to gentle simmer and cook until internal temp hits 74°C." },
       { step: 2, name: "Ice Bath Shock", duration: 10, desc: "Plunge chicken immediately into an ice bath for 10 minutes to create a gelatinous, silky skin." },
-      { step: 3, name: "Fragrant Jasmine Rice Cook", duration: 20, desc: "SautÃ© minced garlic, ginger, and shallots in rendered chicken fat. Add jasmine rice, fry for 2 mins, then steam in rich chicken poaching broth." },
+      { step: 3, name: "Fragrant Jasmine Rice Cook", duration: 20, desc: "Sauté minced garlic, ginger, and shallots in rendered chicken fat. Add jasmine rice, fry for 2 mins, then steam in rich chicken poaching broth." },
       { step: 4, name: "Chili Garlic Sauce & Plating", duration: 5, desc: "Pound fresh red bird's eye chilies, ginger, garlic, calamansi juice, and hot chicken broth into a vibrant dipping sauce. Carve chicken and serve over rice." }
     ]
   },
   {
     id: "sgp_chili_crab",
     name: "Singapore Chili Crab with Fried Mantou",
-    nativeName: "è¾£æ¤’èžƒèŸ¹",
+    nativeName: "辣椒螃蟹",
     cityId: "singapore",
     cityName: "Singapore",
     country: "Singapore",
@@ -1810,8 +1810,8 @@ const DISHES_DATA = [
     macros: { protein: 42, carbs: 48, fat: 24 },
     foodieHack: "Use the crispy golden fried mantou buns to mop up every drop of the sweet-spicy egg ribbon gravy.",
     famousFor: "Succulent mud crab wok-fried in a rich, sweet, tangy, and spicy tomato-chili sauce ribboned with whisked egg.",
-    description: "A monumental feast of luscious mud crab bathed in a thick, velvety gravy blending sambal chili, tomato purÃ©e, shallots, garlic, and ribbons of beaten egg, devoured with crispy deep-fried Chinese mantou buns.",
-    ingredients: ["Live Mud Crab (Cracked)", "Shallots, Garlic & Red Chili Paste", "Tomato PurÃ©e & Rice Vinegar", "Whisked Farm Egg Ribbons", "Deep Fried Golden Mantou Buns"],
+    description: "A monumental feast of luscious mud crab bathed in a thick, velvety gravy blending sambal chili, tomato purée, shallots, garlic, and ribbons of beaten egg, devoured with crispy deep-fried Chinese mantou buns.",
+    ingredients: ["Live Mud Crab (Cracked)", "Shallots, Garlic & Red Chili Paste", "Tomato Purée & Rice Vinegar", "Whisked Farm Egg Ribbons", "Deep Fried Golden Mantou Buns"],
     iconicSpots: ["Jumbo Seafood (East Coast / Riverside)", "Long Beach Seafood", "No Signboard Seafood (Geylang)", "Red House Seafood"],
     image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Wok-fry cracked mud crab until red. Stir-fry chili-shallot paste, add tomato stock, simmer crab, swirl in beaten egg to form velvety ribbons. Serve piping hot with fried mantou.",
@@ -1857,7 +1857,7 @@ const DISHES_DATA = [
     image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Render bacon, cook onions, celery, and potatoes in clam broth until soft. Whisk in heavy cream roux, fold tender clams, and ladle into a hollowed warm sourdough loaf.",
     cookingSteps: [
-      { step: 1, name: "Render Bacon & Aromatics", duration: 8, desc: "Crisp diced bacon in heavy pot. SautÃ© diced onions, celery, and garlic in the rendered bacon fat." },
+      { step: 1, name: "Render Bacon & Aromatics", duration: 8, desc: "Crisp diced bacon in heavy pot. Sauté diced onions, celery, and garlic in the rendered bacon fat." },
       { step: 2, name: "Simmer Potatoes in Clam Nectar", duration: 15, desc: "Add cubed Yukon gold potatoes and clam nectar. Simmer until potatoes are fork-tender." },
       { step: 3, name: "Roux & Heavy Cream Finish", duration: 10, desc: "Whisk in butter-flour roux and heavy cream until velvety and thick. Fold in tender chopped clams and fresh thyme." },
       { step: 4, name: "Sourdough Carve & Ladle", duration: 5, desc: "Hollow out a warm, crusty sourdough boule. Ladle thick hot chowder, top with fresh cracked black pepper and parsley." }
@@ -1894,9 +1894,9 @@ const DISHES_DATA = [
     famousFor: "Steamed then fried German bratwurst sausage sliced into bite-size coins, smothered in spiced curry-tomato sauce with crispy fries.",
     description: "The heartbeat of post-war Berlin street gastronomy invented in 1949 by Herta Heuwer. Golden pan-fried pork sausage bathed in a rich, spiced ketchup-curry sauce, generously dusted with Madras curry powder, and served alongside golden Belgian-style fries.",
     ingredients: ["German Pork Bratwurst Sausage", "Spiced Tomato Ketchup & Worcestershire", "Madras Curry Powder & Cayenne", "Double Fried Golden French Fries", "Creamy Mayonnaise"],
-    iconicSpots: ["Curry 36 (Mehringdamm, Kreuzberg)", "Konnopke's ImbiÃŸ (Prenzlauer Berg)", "Witty's (SchÃ¶neberg)", "Curry 61 (Mitte)"],
+    iconicSpots: ["Curry 36 (Mehringdamm, Kreuzberg)", "Konnopke's Imbiß (Prenzlauer Berg)", "Witty's (Schöneberg)", "Curry 61 (Mitte)"],
     image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Fry seasoned bratwurst until blistered and browned. Simmer tomato purÃ©e, apple cider vinegar, Worcestershire, and curry spices. Slice sausage, drench in warm sauce, sprinkle extra curry powder, serve with fries.",
+    recipeOverview: "Fry seasoned bratwurst until blistered and browned. Simmer tomato purée, apple cider vinegar, Worcestershire, and curry spices. Slice sausage, drench in warm sauce, sprinkle extra curry powder, serve with fries.",
     cookingSteps: [
       { step: 1, name: "Sear Bratwurst", duration: 8, desc: "Fry bratwurst sausages on a cast-iron skillet with butter until blistered, crisp, and golden brown on all sides." },
       { step: 2, name: "Spiced Curry Sauce Simmer", duration: 10, desc: "Simmer tomato sauce, onion paste, Worcestershire sauce, balsamic vinegar, brown sugar, paprika, and curry powder until thick." },
@@ -1911,7 +1911,7 @@ const DISHES_DATA = [
   {
     id: "oax_mole_negro",
     name: "Ancestral Oaxacan Mole Negro with Chicken",
-    nativeName: "Mole Negro OaxaqueÃ±o",
+    nativeName: "Mole Negro Oaxaqueño",
     cityId: "oaxaca",
     cityName: "Oaxaca",
     country: "Mexico",
@@ -1937,7 +1937,7 @@ const DISHES_DATA = [
     ingredients: ["Charred Chilhuacle & Mulato Chiles", "Artisanal Oaxacan Dark Chocolate", "Roasted Plantains, Raisins & Sesame Seeds", "Mexican Canela Cinnamon & Allspice", "Tender Braised Chicken Thighs", "Heirloom Corn Tortillas"],
     iconicSpots: ["Los Danzantes (Oaxaca Centro)", "Casa Oaxaca El Restaurante", "Alfonsina (San Juan Bautista)", "Mercado 20 de Noviembre"],
     image: "https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=900&auto=format&fit=crop&q=80",
-    recipeOverview: "Char chiles and seeds to ash-black. SautÃ© plantains, raisins, nuts, and spices. Stone-grind with Mexican chocolate and chicken stock into a velvety paste. Simmer low and slow, ladle over braised chicken.",
+    recipeOverview: "Char chiles and seeds to ash-black. Sauté plantains, raisins, nuts, and spices. Stone-grind with Mexican chocolate and chicken stock into a velvety paste. Simmer low and slow, ladle over braised chicken.",
     cookingSteps: [
       { step: 1, name: "Char Chiles to Ash", duration: 15, desc: "Char dried chilhuacle, mulato, and pasilla chiles in a dry comal until blackened. Soak in warm water." },
       { step: 2, name: "Roast Aromatics & Seeds", duration: 10, desc: "Toast sesame seeds, pumpkin seeds, almonds, cinnamon, cloves, charred plantain, and raisins until fragrant." },
@@ -1952,7 +1952,7 @@ const DISHES_DATA = [
   {
     id: "kyo_matcha_parfait",
     name: "Artisanal Uji Matcha Parfait",
-    nativeName: "å®‡æ²»æŠ¹èŒ¶ãƒ‘ãƒ•ã‚§ (Uji Matcha Pafe)",
+    nativeName: "宇治抹茶パフェ (Uji Matcha Pafe)",
     cityId: "kyoto",
     cityName: "Kyoto",
     country: "Japan",
@@ -1990,26 +1990,26 @@ const DISHES_DATA = [
 
 // Moods and Craving Filters metadata
 const CRAVING_MOODS = [
-  { id: "all", label: "âœ¨ All Cravings", icon: "sparkles", description: "Discover top dishes across all styles" },
-  { id: "comfort", label: "ðŸ² Comfort Food", icon: "heart", description: "Hearty, soul-warming delicacies" },
-  { id: "spicy", label: "ðŸ”¥ Spicy & Bold", icon: "flame", description: "Fiery spices and tingling chili heat" },
-  { id: "street-food", label: "ðŸŒ® Street Food", icon: "utensils", description: "Iconic, fast and flavorful street bites" },
-  { id: "sweet", label: "ðŸ° Sweet Tooth", icon: "cake", description: "Decadent desserts and sweet treats" },
-  { id: "cheesy", label: "ðŸ§€ Cheesy Delights", icon: "cheese", description: "Melted cheese goodness and richness" },
-  { id: "quick", label: "âš¡ Quick Bites", icon: "zap", description: "Fast, easy and instantly satisfying" },
-  { id: "healthy", label: "ðŸ¥— Light & Fresh", icon: "leaf", description: "Fresh ingredients, balanced and vibrant" },
-  { id: "date-night", label: "ðŸ· Date Night", icon: "wine", description: "Sophisticated and romantic master plates" }
+  { id: "all", label: "✨ All Cravings", icon: "sparkles", description: "Discover top dishes across all styles" },
+  { id: "comfort", label: "🍲 Comfort Food", icon: "heart", description: "Hearty, soul-warming delicacies" },
+  { id: "spicy", label: "🔥 Spicy & Bold", icon: "flame", description: "Fiery spices and tingling chili heat" },
+  { id: "street-food", label: "🌮 Street Food", icon: "utensils", description: "Iconic, fast and flavorful street bites" },
+  { id: "sweet", label: "🍰 Sweet Tooth", icon: "cake", description: "Decadent desserts and sweet treats" },
+  { id: "cheesy", label: "🧀 Cheesy Delights", icon: "cheese", description: "Melted cheese goodness and richness" },
+  { id: "quick", label: "⚡ Quick Bites", icon: "zap", description: "Fast, easy and instantly satisfying" },
+  { id: "healthy", label: "🥗 Light & Fresh", icon: "leaf", description: "Fresh ingredients, balanced and vibrant" },
+  { id: "date-night", label: "🍷 Date Night", icon: "wine", description: "Sophisticated and romantic master plates" }
 ];
 
 // Dietary filter presets
 const DIETARY_FILTERS = [
   { id: "all", label: "All Diets" },
-  { id: "veg", label: "ðŸ¥¬ Vegetarian" },
-  { id: "non-veg", label: "ðŸ— Non-Veg" },
-  { id: "vegan", label: "ðŸŒ± Vegan" },
-  { id: "halal", label: "ðŸŒ™ Halal" },
-  { id: "gluten-free", label: "ðŸŒ¾ Gluten-Free" },
-  { id: "high-protein", label: "ðŸ’ª High-Protein" }
+  { id: "veg", label: "🥬 Vegetarian" },
+  { id: "non-veg", label: "🍗 Non-Veg" },
+  { id: "vegan", label: "🌿 Vegan" },
+  { id: "halal", label: "🌙 Halal" },
+  { id: "gluten-free", label: "🌾 Gluten-Free" },
+  { id: "high-protein", label: "💪 High-Protein" }
 ];
 
 // Curated Gastronomy Food Trails across Culinary Capitals
@@ -2153,9 +2153,9 @@ const FOOD_TRAILS = [
       {
         time: "05:30 PM",
         dishId: "tokyo_souffle_pancake",
-        title: "Jiggly Fluffy SoufflÃ© Pancakes",
+        title: "Jiggly Fluffy Soufflé Pancakes",
         spot: "A Happy Pancake (Omotesando)",
-        notes: "Feather-light whipped egg white soufflÃ© pancakes served with whipped butter and maple syrup."
+        notes: "Feather-light whipped egg white soufflé pancakes served with whipped butter and maple syrup."
       },
       {
         time: "10:30 PM",
@@ -2204,35 +2204,35 @@ const SHOWDOWN_PAIRS = [
   {
     id: "biryani_clash",
     title: "The Great Biryani Clash: Hyderabad vs Kolkata",
-    badge: "ðŸ‘‘ Royal Showdown",
+    badge: "👑 Royal Showdown",
     dishAId: "hyd_biryani",
     dishBId: "ccu_biryani"
   },
   {
     id: "street_clash",
     title: "Street Food Supremacy: Mumbai vs Delhi",
-    badge: "ðŸ”¥ Street Legends",
+    badge: "🔥 Street Legends",
     dishAId: "mum_vada_pav",
     dishBId: "del_chole_bhature"
   },
   {
     id: "noodle_clash",
     title: "East Asian Broth Battle: Tokyo Ramen vs Hanoi Pho",
-    badge: "ðŸœ Broth Masters",
+    badge: "🍜 Broth Masters",
     dishAId: "tokyo_ramen",
     dishBId: "han_pho_bo"
   },
   {
     id: "sweet_clash",
     title: "European Dessert Duel: Roman Gelato vs Paris Croissant",
-    badge: "ðŸ° Dessert Duel",
+    badge: "🍰 Dessert Duel",
     dishAId: "rome_gelato",
     dishBId: "paris_croissant"
   },
   {
     id: "hawker_clash",
     title: "Global Street Icons: Singapore Chicken Rice vs NY Pastrami",
-    badge: "ðŸŒ Global Heavyweights",
+    badge: "🌐 Global Heavyweights",
     dishAId: "sgp_chicken_rice",
     dishBId: "nyc_pastrami"
   }
@@ -2295,7 +2295,7 @@ const ACHIEVEMENT_BADGES = [
   },
   {
     id: "spice_slayer",
-    title: "Chili Champion ðŸŒ¶ï¸",
+    title: "Chili Champion 🌶️",
     icon: "flame",
     description: "Tasted 3 fiery Level 3+ spice dishes",
     condition: (tasted, dishes) => {
@@ -2308,7 +2308,7 @@ const ACHIEVEMENT_BADGES = [
   },
   {
     id: "globe_trotter",
-    title: "Global Voyager ðŸŒ",
+    title: "Global Voyager 🌍",
     icon: "globe",
     description: "Tasted dishes from 4 or more different countries",
     condition: (tasted, dishes) => {
@@ -2322,7 +2322,7 @@ const ACHIEVEMENT_BADGES = [
   },
   {
     id: "street_king",
-    title: "Street Food King ðŸ‘‘",
+    title: "Street Food King 👑",
     icon: "zap",
     description: "Tasted at least 3 iconic street food delicacies",
     condition: (tasted, dishes) => {
@@ -2335,7 +2335,7 @@ const ACHIEVEMENT_BADGES = [
   },
   {
     id: "sugar_rush",
-    title: "Sweet Tooth Connoisseur ðŸ°",
+    title: "Sweet Tooth Connoisseur 🍰",
     icon: "cake",
     description: "Tasted 2 or more legendary artisanal desserts",
     condition: (tasted, dishes) => {
@@ -2348,14 +2348,14 @@ const ACHIEVEMENT_BADGES = [
   },
   {
     id: "chef_master",
-    title: "Master of Pots ðŸ‘¨â€ðŸ³",
+    title: "Master of Pots ‘¨â€³",
     icon: "chef-hat",
     description: "Launched the interactive Chef Cook-Along mode on any recipe",
     condition: (tasted, dishes, customState) => (customState && customState.cookedCount >= 1)
   },
   {
     id: "grand_epicurean",
-    title: "Grand Epicurean Master â­",
+    title: "Grand Epicurean Master ⭐",
     icon: "award",
     description: "Tasted 10 or more culinary masterpieces across the world",
     condition: (tasted) => tasted.length >= 10
@@ -2409,7 +2409,7 @@ DISHES_DATA.forEach(dish => {
         step: 2,
         name: "Aromatic Searing & Base Creation",
         duration: 15,
-        desc: `Heat pan or pot with traditional fat/oil. SautÃ© aromatics until deeply fragrant and oil separates. Combine primary spices evenly.`
+        desc: `Heat pan or pot with traditional fat/oil. Sauté aromatics until deeply fragrant and oil separates. Combine primary spices evenly.`
       },
       {
         step: 3,

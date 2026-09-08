@@ -297,6 +297,24 @@
 
       <!-- Mood & Craving Filter Slider -->
       <div class="container craving-bar-section">
+        <!-- Dedicated Quick Veg / Non-Veg Hub -->
+        <div class="veg-nonveg-hub-row">
+          <div class="veg-nonveg-switch-container" id="vegNonVegSwitchGroup">
+            <button class="veg-toggle-btn btn-veg-all active" data-diet="all" title="Show all delicious dishes">
+              <i data-lucide="layers" style="width:16px;height:16px;"></i>
+              <span data-i18n="all_foods">All Dishes</span>
+            </button>
+            <button class="veg-toggle-btn btn-veg-only" data-diet="veg" title="Show 100% Vegetarian Dishes Only">
+              <span class="fssai-symbol veg"><span class="fssai-dot"></span></span>
+              <span data-i18n="pure_veg">Pure Veg 🟢</span>
+            </button>
+            <button class="veg-toggle-btn btn-nonveg-only" data-diet="non-veg" title="Show Non-Vegetarian Delicacies Only">
+              <span class="fssai-symbol non-veg"><span class="fssai-dot"></span></span>
+              <span data-i18n="non_veg">Non-Veg 🔴</span>
+            </button>
+          </div>
+        </div>
+
         <div class="section-header-compact">
           <span class="section-tag"><i data-lucide="flame" style="width:14px;height:14px;display:inline;"></i> <span data-i18n="mood_heading">What are you in the mood for?</span></span>
           <span id="activeFilterFeedback" style="font-size:0.85rem; color:var(--text-muted);">Showing: All Cravings</span>
@@ -317,6 +335,18 @@
     <section class="toolbar-section">
       <div class="container">
         <div class="advanced-toolbar" id="advancedToolbar">
+          <!-- Quick Toolbar Diet Toggles -->
+          <div class="toolbar-diet-group">
+            <button class="toolbar-diet-btn veg-pill-btn" data-diet="veg" title="Filter Pure Vegetarian Dishes">
+              <span class="fssai-symbol veg"><span class="fssai-dot"></span></span>
+              <span data-i18n="veg">Veg 🟢</span>
+            </button>
+            <button class="toolbar-diet-btn nonveg-pill-btn" data-diet="non-veg" title="Filter Non-Vegetarian Dishes">
+              <span class="fssai-symbol non-veg"><span class="fssai-dot"></span></span>
+              <span data-i18n="non_veg">Non-Veg 🔴</span>
+            </button>
+          </div>
+
           <div class="toolbar-group">
             <label class="toolbar-label" for="sortSelect">
               <i data-lucide="arrow-up-down" style="width:14px;height:14px;color:var(--emerald);"></i> <span data-i18n="sort_by">Sort By:</span>

@@ -1155,6 +1155,197 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.3rem;
 }
 
+/* Dedicated Veg & Non-Veg Hub */
+.veg-nonveg-hub-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.veg-nonveg-switch-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  padding: 6px 8px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(16px);
+}
+
+.veg-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.veg-toggle-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* All Toggle */
+.veg-toggle-btn.btn-veg-all {
+  border-color: var(--border-subtle);
+}
+.veg-toggle-btn.btn-veg-all.active {
+  background: var(--bg-surface);
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Pure Veg Button - Vibrant Emerald Green */
+.veg-toggle-btn.btn-veg-only {
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #047857;
+  background: rgba(16, 185, 129, 0.08);
+}
+.veg-toggle-btn.btn-veg-only:hover {
+  background: rgba(16, 185, 129, 0.16);
+  border-color: #10b981;
+}
+.veg-toggle-btn.btn-veg-only.active {
+  background: linear-gradient(135deg, #047857 0%, #10b981 100%);
+  color: #ffffff;
+  border-color: #047857;
+  box-shadow: 0 6px 22px rgba(16, 185, 129, 0.45);
+}
+
+/* Non-Veg Button - Appetizing Ruby Red */
+.veg-toggle-btn.btn-nonveg-only {
+  border-color: rgba(225, 29, 72, 0.45);
+  color: #be123c;
+  background: rgba(225, 29, 72, 0.08);
+}
+.veg-toggle-btn.btn-nonveg-only:hover {
+  background: rgba(225, 29, 72, 0.16);
+  border-color: #e11d48;
+}
+.veg-toggle-btn.btn-nonveg-only.active {
+  background: linear-gradient(135deg, #be123c 0%, #e11d48 100%);
+  color: #ffffff;
+  border-color: #be123c;
+  box-shadow: 0 6px 22px rgba(225, 29, 72, 0.45);
+}
+
+/* Toolbar Quick Diet Group */
+.toolbar-diet-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolbar-diet-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.toolbar-diet-btn:hover {
+  transform: translateY(-1px);
+}
+
+.toolbar-diet-btn.veg-pill-btn {
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #047857;
+}
+.toolbar-diet-btn.veg-pill-btn.active {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #047857;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+}
+
+.toolbar-diet-btn.nonveg-pill-btn {
+  border-color: rgba(225, 29, 72, 0.35);
+  color: #be123c;
+}
+.toolbar-diet-btn.nonveg-pill-btn.active {
+  background: #e11d48;
+  color: #ffffff;
+  border-color: #be123c;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35);
+}
+
+/* FSSAI Standard Food Indicator Marks */
+.fssai-symbol {
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.fssai-symbol.veg {
+  border: 1.8px solid #059669;
+}
+
+.fssai-symbol.veg .fssai-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #059669;
+}
+
+.fssai-symbol.non-veg {
+  border: 1.8px solid #e11d48;
+}
+
+.fssai-symbol.non-veg .fssai-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e11d48;
+}
+
+/* Veg / Non-Veg Badges */
+.badge-diet-veg {
+  background: rgba(16, 185, 129, 0.14) !important;
+  color: #047857 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-diet-nonveg {
+  background: rgba(225, 29, 72, 0.14) !important;
+  color: #be123c !important;
+  border: 1px solid rgba(225, 29, 72, 0.4) !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .filter-tabs-wrapper {
   display: flex;
   gap: 8px;

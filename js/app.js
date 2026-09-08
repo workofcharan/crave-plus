@@ -666,7 +666,7 @@
         setCity(closestCity.id);
         elements.locationDropdown.classList.remove('active');
         if (elements.cityModal) elements.cityModal.classList.remove('active');
-        showToast(`ðŸ“ Set to closest food hub: ${closestCity.name}!`);
+        showToast(`📍 Set to closest food hub: ${closestCity.name}!`);
       },
       (err) => {
         console.warn('Geolocation error:', err);
@@ -910,7 +910,7 @@
       feedback += ` + Spice: Level ${state.selectedSpice}`;
     }
     if (state.maxCalories < 1200) {
-      feedback += ` + â‰¤ ${state.maxCalories} kcal`;
+      feedback += ` + ≤ ${state.maxCalories} kcal`;
     }
     if (state.searchQuery) {
       feedback += ` matching "${state.searchQuery}"`;
@@ -920,10 +920,18 @@
 
   // --- DISH FILTERING & SORTING ENGINE ---
   function matchesFilter(dish, filterDiet = state.selectedDiet, filterMood = state.selectedMood, query = state.searchQuery) {
-    // Diet filter
-    if (filterDiet !== 'all') {
-      if (!dish.diet || !dish.diet.includes(filterDiet)) {
-        return false;
+    // Diet filter (Veg / Non-Veg / Special diets)
+    if (filterDiet && filterDiet !== 'all') {
+      if (filterDiet === 'veg') {
+        const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
+        if (!isVeg) return false;
+      } else if (filterDiet === 'non-veg') {
+        const isNonVeg = dish.diet && (dish.diet.includes('non-veg') || dish.diet.includes('meat') || dish.diet.includes('chicken') || dish.diet.includes('seafood'));
+        if (!isNonVeg) return false;
+      } else {
+        if (!dish.diet || !dish.diet.includes(filterDiet)) {
+          return false;
+        }
       }
     }
 
@@ -999,15 +1007,22 @@
 
     const isFav = state.favorites.includes(dish.id);
     const isTasted = state.tastedDishes.includes(dish.id);
+    const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
 
     // Spice flames
     let spiceHtml = '';
     for (let i = 1; i <= 4; i++) {
-      spiceHtml += `<span class="spice-flame ${i <= dish.spiceLevel ? 'active' : ''}">ðŸ”¥</span>`;
+      spiceHtml += `<span class="spice-flame ${i <= dish.spiceLevel ? 'active' : ''}">🔥</span>`;
     }
 
-    // Badges
+    // Badges & FSSAI Diet Indicators
     let badgeHtml = '';
+    if (isVeg) {
+      badgeHtml += `<span class="badge badge-diet-veg"><span class="fssai-symbol veg"><span class="fssai-dot"></span></span> ${t('veg')}</span>`;
+    } else {
+      badgeHtml += `<span class="badge badge-diet-nonveg"><span class="fssai-symbol non-veg"><span class="fssai-dot"></span></span> ${t('non_veg')}</span>`;
+    }
+
     if (dish.cityId === state.currentCityId) {
       badgeHtml += `<span class="badge badge-location"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${dish.cityName} Special</span>`;
     } else if (dish.isGlobalIcon) {
@@ -1040,7 +1055,10 @@
       <div class="dish-body">
         <div class="dish-header">
           <div>
-            <h3 class="dish-title">${dish.name}</h3>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}" title="${isVeg ? 'Vegetarian' : 'Non-Vegetarian'}"><span class="fssai-dot"></span></span>
+              <h3 class="dish-title">${dish.name}</h3>
+            </div>
             ${dish.nativeName ? `<div class="dish-native">${dish.nativeName}</div>` : ''}
           </div>
           <div class="dish-rating">
@@ -1118,9 +1136,9 @@
     if (localDishes.length === 0) {
       grid.innerHTML = `
         <div class="empty-state">
-          <div class="empty-icon">ðŸ²</div>
+          <div class="empty-icon">🍲</div>
           <h3>No matching dishes found in ${getCurrentCity().name}</h3>
-          <p style="color:var(--text-secondary); margin-top:6px;">Try adjusting your calorie or spice filters in the toolbar above.</p>
+          <p style="color:var(--text-secondary); margin-top:6px;">Try adjusting your calorie, spice, or veg/non-veg filters.</p>
         </div>
       `;
       return;
@@ -1161,7 +1179,7 @@
     if (topPicks.length === 0) {
       grid.innerHTML = `
         <div class="empty-state">
-          <div class="empty-icon">âœ¨</div>
+          <div class="empty-icon">✨</div>
           <h3>No tailored suggestions match the current criteria</h3>
           <p style="color:var(--text-secondary); margin-top:6px;">Try broadening your filter selections.</p>
         </div>
@@ -1184,7 +1202,7 @@
     if (globalDishes.length === 0) {
       grid.innerHTML = `
         <div class="empty-state">
-          <div class="empty-icon">ðŸŒ</div>
+          <div class="empty-icon">🌍</div>
           <h3>No global icons match your filters</h3>
           <p style="color:var(--text-secondary); margin-top:6px;">Reset filters to explore worldwide culinary legends.</p>
         </div>
@@ -1285,9 +1303,9 @@
     }
     
     let spiceText = 'Mild';
-    if (dish.spiceLevel === 2) spiceText = 'Medium ðŸ”¥';
-    if (dish.spiceLevel === 3) spiceText = 'Hot ðŸ”¥ðŸ”¥';
-    if (dish.spiceLevel >= 4) spiceText = 'Fiery ðŸ”¥ðŸ”¥ðŸ”¥';
+    if (dish.spiceLevel === 2) spiceText = 'Medium 🔥';
+    if (dish.spiceLevel === 3) spiceText = 'Hot 🔥🔥';
+    if (dish.spiceLevel >= 4) spiceText = 'Fiery 🔥🔥🔥';
     if (dish.spiceLevel === 0) spiceText = 'Zero Spice';
     elements.modalDishSpice.textContent = spiceText;
     elements.modalDishCalories.textContent = `${dish.calories} kcal`;
@@ -1340,11 +1358,11 @@
             <span class="badge" style="font-size:0.65rem; padding:2px 6px; background:rgba(242,92,5,0.15); color:var(--primary);">${rp.badge}</span>
           </div>
           <div class="radar-place-meta">
-            <span>ðŸ“ ${rp.distanceKm} km away • â­ ${rp.rating}</span>
+            <span>📍 ${rp.distanceKm} km away • ⭐ ${rp.rating}</span>
             <span class="radar-status-tag">${rp.status}</span>
           </div>
           <a href="https://www.google.com/maps/search/?api=1&query=${rp.mapsQuery}" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--primary); font-weight:600; text-decoration:none; margin-top:4px;">
-            Navigate on Maps â†’
+            Navigate on Maps →
           </a>
         `;
         elements.modalRadarList.appendChild(spotCard);
@@ -1444,7 +1462,7 @@
       elements.modalMarkTastedBtn.style.background = 'var(--emerald)';
       elements.modalMarkTastedBtn.style.color = 'white';
       elements.modalMarkTastedBtn.style.borderColor = 'var(--emerald)';
-      elements.modalTastedLabel.textContent = "Tasted & Passport Logged âœ”ï¸";
+      elements.modalTastedLabel.textContent = "Tasted & Passport Logged ✔️";
     } else {
       elements.modalMarkTastedBtn.style.background = '';
       elements.modalMarkTastedBtn.style.color = '';
@@ -1580,7 +1598,7 @@
       showToast(`Removed "${dishName}" from Saved`);
     } else {
       state.favorites.push(dishId);
-      showToast(`Saved "${dishName}" to your Favorites â¤ï¸`);
+      showToast(`Saved "${dishName}" to your Favorites â¤`);
     }
 
     localStorage.setItem('cravepulse_favorites', JSON.stringify(state.favorites));
@@ -1604,7 +1622,7 @@
     if (state.favorites.length === 0) {
       container.innerHTML = `
         <div class="empty-state" style="padding:40px 10px;">
-          <div class="empty-icon">â¤ï¸</div>
+          <div class="empty-icon">â¤</div>
           <h4>No saved dishes yet</h4>
           <p style="color:var(--text-muted); font-size:0.85rem; margin-top:6px;">Tap the heart icon on any dish card to bookmark your favorites here.</p>
         </div>
@@ -1655,7 +1673,7 @@
       showToast(`Removed "${name}" from Tasted log.`);
     } else {
       state.tastedDishes.push(dishId);
-      showToast(`ðŸ† "${name}" marked as Tasted! Passport updated.`);
+      showToast(`† "${name}" marked as Tasted! Passport updated.`);
     }
 
     localStorage.setItem('cravepulse_tasted', JSON.stringify(state.tastedDishes));
@@ -1683,10 +1701,10 @@
     }
 
     let levelTitle = 'Novice Eater';
-    let stars = '★â˜†â˜†';
+    let stars = '★☆†☆†';
     if (tasted.length >= 3) {
       levelTitle = 'Street Foodie';
-      stars = '★★â˜†';
+      stars = '★★☆†';
     }
     if (tasted.length >= 7) {
       levelTitle = 'Foodie Explorer';
@@ -1716,7 +1734,7 @@
         bCard.innerHTML = `
           <div class="badge-item-icon"><i data-lucide="${badge.icon}"></i></div>
           <div>
-            <div class="badge-item-title">${badge.title} ${isUnlocked ? 'âœ”' : 'ðŸ”’'}</div>
+            <div class="badge-item-title">${badge.title} ${isUnlocked ? '✔️' : '🔒'}</div>
             <div class="badge-item-desc">${badge.description}</div>
           </div>
         `;
@@ -1735,7 +1753,7 @@
         const stamp = document.createElement('div');
         stamp.className = `passport-stamp-item ${unlocked ? 'unlocked' : ''}`;
         stamp.innerHTML = `
-          <div class="passport-stamp-icon">${unlocked ? 'ðŸ›ï¸' : 'ðŸ“'}</div>
+          <div class="passport-stamp-icon">${unlocked ? '›' : '📍'}</div>
           <div class="passport-stamp-city">${city.name}</div>
           <div style="font-size:0.7rem; color:var(--text-muted);">${unlocked ? 'Visa Verified' : 'Locked'}</div>
         `;
@@ -1826,7 +1844,7 @@
 
     const listText = Array.from(items).map(s => `• ${s.textContent}`).join('\n');
     navigator.clipboard.writeText(`CRAVEPULSE SHOPPING LIST:\n\n${listText}`).then(() => {
-      showToast('ðŸ“‹ Shopping list copied to clipboard!');
+      showToast('📍‹ Shopping list copied to clipboard!');
     }).catch(() => {
       showToast('Shopping list ready to write down!');
     });
@@ -1906,7 +1924,7 @@
           
           <div class="arena-metric-row">
             <span class="arena-metric-label">Spice Meter</span>
-            <span class="arena-metric-val">${'ðŸ”¥'.repeat(dishA.spiceLevel || 1)} (Level ${dishA.spiceLevel})</span>
+            <span class="arena-metric-val">${'🔥'.repeat(dishA.spiceLevel || 1)} (Level ${dishA.spiceLevel})</span>
           </div>
           <div class="arena-metric-row">
             <span class="arena-metric-label">Caloric Energy</span>
@@ -1943,7 +1961,7 @@
 
           <div class="arena-metric-row">
             <span class="arena-metric-label">Spice Meter</span>
-            <span class="arena-metric-val">${'ðŸ”¥'.repeat(dishB.spiceLevel || 1)} (Level ${dishB.spiceLevel})</span>
+            <span class="arena-metric-val">${'🔥'.repeat(dishB.spiceLevel || 1)} (Level ${dishB.spiceLevel})</span>
           </div>
           <div class="arena-metric-row">
             <span class="arena-metric-label">Caloric Energy</span>
@@ -1988,7 +2006,7 @@
       state.arenaVotes[battleKey] = votes;
       localStorage.setItem('cravepulse_arena_votes', JSON.stringify(state.arenaVotes));
       document.getElementById('voteCountA').textContent = votes.a;
-      showToast(`ðŸ—³ï¸ Voted for ${dishA.name}!`);
+      showToast(`🗳️ Voted for ${dishA.name}!`);
     });
 
     document.getElementById('voteBtnB').addEventListener('click', () => {
@@ -1996,7 +2014,7 @@
       state.arenaVotes[battleKey] = votes;
       localStorage.setItem('cravepulse_arena_votes', JSON.stringify(state.arenaVotes));
       document.getElementById('voteCountB').textContent = votes.b;
-      showToast(`ðŸ—³ï¸ Voted for ${dishB.name}!`);
+      showToast(`🗳️ Voted for ${dishB.name}!`);
     });
 
     refreshLucideIcons();
@@ -2009,10 +2027,10 @@
       title: "Step 1: What flavor atmosphere are you craving?",
       key: "flavor",
       options: [
-        { label: "Savory, Rich & Aromatic", icon: "ðŸ²", sub: "Deep spices, slow-cooked layers & comfort", val: "savory" },
-        { label: "Fiery, Tangy & Bold", icon: "ðŸ”¥", sub: "Explosive chilies, street chaats & zing", val: "spicy" },
-        { label: "Artisanal & Sweet Decadence", icon: "ðŸ°", sub: "Silky creams, caramels & pastries", val: "sweet" },
-        { label: "Light, Crisp & Umami", icon: "ðŸ¥—", sub: "Fresh noodles, fresh broths & herbs", val: "light" }
+        { label: "Savory, Rich & Aromatic", icon: "🍲", sub: "Deep spices, slow-cooked layers & comfort", val: "savory" },
+        { label: "Fiery, Tangy & Bold", icon: "🔥", sub: "Explosive chilies, street chaats & zing", val: "spicy" },
+        { label: "Artisanal & Sweet Decadence", icon: "🍰", sub: "Silky creams, caramels & pastries", val: "sweet" },
+        { label: "Light, Crisp & Umami", icon: "🥗", sub: "Fresh noodles, fresh broths & herbs", val: "light" }
       ]
     },
     {
@@ -2020,10 +2038,10 @@
       title: "Step 2: What is your spice tolerance today?",
       key: "spice",
       options: [
-        { label: "Zero Spice (Zero Flames)", icon: "ðŸŸ¢", sub: "Smooth, mild, sweet or purely herbal", val: 0 },
-        { label: "Mild & Gentle Heat", icon: "ðŸ”¥", sub: "Delicate warmth without burning", val: 1 },
-        { label: "Medium & Zesty Fire", icon: "ðŸ”¥ðŸ”¥", sub: "Comfortable tingling chili heat", val: 2 },
-        { label: "Volcano Slayer (Level 3-4)", icon: "ðŸ”¥ðŸ”¥ðŸ”¥", sub: "Bring on the fiery adrenaline rush!", val: 4 }
+        { label: "Zero Spice (Zero Flames)", icon: "🟢", sub: "Smooth, mild, sweet or purely herbal", val: 0 },
+        { label: "Mild & Gentle Heat", icon: "🔥", sub: "Delicate warmth without burning", val: 1 },
+        { label: "Medium & Zesty Fire", icon: "🔥🔥", sub: "Comfortable tingling chili heat", val: 2 },
+        { label: "Volcano Slayer (Level 3-4)", icon: "🔥🔥🔥", sub: "Bring on the fiery adrenaline rush!", val: 4 }
       ]
     },
     {
@@ -2031,10 +2049,10 @@
       title: "Step 3: What calorie & energy target fits your day?",
       key: "calories",
       options: [
-        { label: "Light & Guilt-Free (< 400 kcal)", icon: "ðŸŒ±", sub: "Vibrant, clean & energizing", val: 400 },
-        { label: "Balanced Plate (400 - 650 kcal)", icon: "âš–ï¸", sub: "Satisfying full meal balance", val: 650 },
-        { label: "Grand Gourmet Feast (650+ kcal)", icon: "ðŸ‘‘", sub: "Pure indulgence with butter & gravies", val: 9999 },
-        { label: "No Calorie Restrictions!", icon: "ðŸŽ‰", sub: "Whatever tastes legendary", val: 99999 }
+        { label: "Light & Guilt-Free (< 400 kcal)", icon: "🌿", sub: "Vibrant, clean & energizing", val: 400 },
+        { label: "Balanced Plate (400 - 650 kcal)", icon: "⚖️", sub: "Satisfying full meal balance", val: 650 },
+        { label: "Grand Gourmet Feast (650+ kcal)", icon: "👑", sub: "Pure indulgence with butter & gravies", val: 9999 },
+        { label: "No Calorie Restrictions!", icon: "🎉", sub: "Whatever tastes legendary", val: 99999 }
       ]
     },
     {
@@ -2042,10 +2060,10 @@
       title: "Step 4: What is the dining occasion?",
       key: "occasion",
       options: [
-        { label: "Fast & Fun Street Food Walk", icon: "ðŸŒ®", sub: "Quick bites, crunchy & handheld", val: "street" },
-        { label: "Warm Comfort Food Snuggle", icon: "ðŸ²", sub: "Soul-soothing steaming bowl or biryani", val: "comfort" },
-        { label: "Sophisticated Date Night Plate", icon: "ðŸ·", sub: "Fine dining masterpieces & aromas", val: "date-night" },
-        { label: "Late-Night Midnight Fuel", icon: "ðŸŒ™", sub: "Night market noodles & snacks", val: "late-night" }
+        { label: "Fast & Fun Street Food Walk", icon: "🌮", sub: "Quick bites, crunchy & handheld", val: "street" },
+        { label: "Warm Comfort Food Snuggle", icon: "🍲", sub: "Soul-soothing steaming bowl or biryani", val: "comfort" },
+        { label: "Sophisticated Date Night Plate", icon: "🍷", sub: "Fine dining masterpieces & aromas", val: "date-night" },
+        { label: "Late-Night Midnight Fuel", icon: "🌙", sub: "Night market noodles & snacks", val: "late-night" }
       ]
     }
   ];
@@ -2103,7 +2121,7 @@
 
     resultsView.innerHTML = `
       <div style="text-align:center; padding:40px 20px;">
-        <div class="quiz-icon-badge" style="margin:0 auto 16px auto; width:50px; height:50px; font-size:1.5rem;">âœ¨</div>
+        <div class="quiz-icon-badge" style="margin:0 auto 16px auto; width:50px; height:50px; font-size:1.5rem;">✨</div>
         <h3 style="font-size:1.4rem;">Analyzing Your Flavor DNA...</h3>
         <p style="color:var(--text-secondary); margin-top:8px;">Matching your palate against 70+ culinary treasures worldwide.</p>
       </div>
@@ -2148,7 +2166,7 @@
 
       resultsView.innerHTML = `
         <div style="text-align:center; margin-bottom:20px;">
-          <span class="badge badge-trending">ðŸŽ‰ Match Found!</span>
+          <span class="badge badge-trending">🎉 Match Found!</span>
           <h3 style="font-size:1.6rem; margin-top:6px;">Your Top 3 Culinary Soulmates</h3>
           <p style="color:var(--text-secondary); font-size:0.85rem;">Calculated exclusively for your flavor, spice and mood preference.</p>
         </div>
@@ -2163,7 +2181,7 @@
               <img src="${item.dish.image}" alt="${item.dish.name}" style="width:70px; height:70px; border-radius:var(--radius-md); object-fit:cover;">
               <div style="flex:1;">
                 <h4 style="font-size:1.05rem; margin-bottom:2px;">${item.dish.name}</h4>
-                <div style="font-size:0.8rem; color:var(--text-muted);">${item.dish.cityName}, ${item.dish.country} • ₹${item.dish.price} • ${'ðŸ”¥'.repeat(item.dish.spiceLevel || 1)}</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">${item.dish.cityName}, ${item.dish.country} • ₹${item.dish.price} • ${'🔥'.repeat(item.dish.spiceLevel || 1)}</div>
                 <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">${item.dish.famousFor.substring(0, 80)}...</p>
               </div>
               <button class="btn btn-primary btn-sm" data-quiz-view="${item.dish.id}">View</button>
@@ -2292,7 +2310,7 @@
     const container = elements.wheelResultContainer;
     container.innerHTML = `
       <div style="background:var(--bg-card); padding:20px; border-radius:var(--radius-lg); border:2px solid var(--primary); text-align:center; box-shadow:var(--shadow-lg);">
-        <span class="badge badge-trending" style="margin-bottom:8px;">ðŸŽ‰ Your Destiny Pick</span>
+        <span class="badge badge-trending" style="margin-bottom:8px;">🎉 Your Destiny Pick</span>
         <h3 style="font-size:1.4rem; margin:6px 0;">${dish.name}</h3>
         <div style="font-weight:700; color:var(--emerald); margin-bottom:8px; font-size:0.95rem;">₹${dish.price} (${dish.priceTier}) • ~${dish.calories} kcal</div>
         <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">${dish.famousFor}</p>
@@ -2320,7 +2338,7 @@
   function triggerInstantSurprise() {
     const pool = DISHES_DATA.filter(d => matchesFilter(d));
     const randomDish = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : DISHES_DATA[0];
-    showToast(`âœ¨ Surprise Pick: ${randomDish.name}!`);
+    showToast(`✨ Surprise Pick: ${randomDish.name}!`);
     openDishDetailModal(randomDish);
   }
 
