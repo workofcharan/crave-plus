@@ -548,6 +548,9 @@
     if (elements.activeCityIndicator) {
       elements.activeCityIndicator.textContent = `Currently: ${city.name}, ${city.country}`;
     }
+    if (elements.globalSearchInput) {
+      elements.globalSearchInput.placeholder = `Search dishes near ${city.name} (e.g., Biryani, Dosa, Kebabs)...`;
+    }
     renderCitySelectorList();
     renderCityModalGrid();
     refreshLucideIcons();
@@ -681,20 +684,29 @@
     if (!query || !query.trim()) return [];
     const q = query.toLowerCase().trim();
     const suggestions = [];
+    const currentCity = getCurrentCity();
 
-    // 1. Matching Dishes
-    DISHES_DATA.forEach(dish => {
+    // 1. Matching Dishes - ONLY items NEAR user's selected location / city
+    const localDishes = DISHES_DATA.filter(dish => dish.cityId === state.currentCityId);
+    
+    localDishes.forEach(dish => {
+      // Respect active diet filter if applied (Veg / Non-Veg)
+      if (state.selectedDiet && state.selectedDiet !== 'all') {
+        if (!matchesFilter(dish, state.selectedDiet, 'all', '')) return;
+      }
+
       const matchName = dish.name.toLowerCase().includes(q);
       const matchNative = dish.nativeName && dish.nativeName.toLowerCase().includes(q);
-      const matchTaste = dish.tasteProfile.some(t => t.toLowerCase().includes(q));
-      const matchIngr = dish.ingredients.some(i => i.toLowerCase().includes(q));
+      const matchTaste = dish.tasteProfile && dish.tasteProfile.some(t => t.toLowerCase().includes(q));
+      const matchIngr = dish.ingredients && dish.ingredients.some(i => i.toLowerCase().includes(q));
+      const matchCategory = dish.category && dish.category.toLowerCase().includes(q);
 
-      if (matchName || matchNative || matchTaste || matchIngr) {
+      if (matchName || matchNative || matchTaste || matchIngr || matchCategory) {
         suggestions.push({
           type: 'dish',
           title: dish.name,
-          sub: `${dish.cityName}, ${dish.country} • ${dish.category} • ₹${dish.price} (${dish.priceTier})`,
-          tag: matchTaste ? 'Taste Match' : (matchIngr ? 'Ingredient' : 'Dish'),
+          sub: `📍 Near you in ${dish.cityName} • ${dish.category} • ₹${dish.price}`,
+          tag: 'Near You 📍',
           image: dish.image,
           icon: 'utensils',
           dishRef: dish,
@@ -703,29 +715,14 @@
       }
     });
 
-    // 2. Matching Cities
-    CITIES_DATA.forEach(city => {
-      if (city.name.toLowerCase().includes(q) || city.country.toLowerCase().includes(q)) {
-        suggestions.push({
-          type: 'city',
-          title: `Explore foods in ${city.name}`,
-          sub: `${city.country} • ${city.tagline || 'Famous Regional Cuisine'}`,
-          tag: 'City Hub',
-          icon: 'map-pin',
-          cityRef: city,
-          targetQuery: city.name
-        });
-      }
-    });
-
-    // 3. Matching Cravings / Moods
+    // 2. Matching Cravings / Moods for current location
     CRAVING_MOODS.forEach(mood => {
       if (mood.id !== 'all' && (mood.label.toLowerCase().includes(q) || mood.description.toLowerCase().includes(q))) {
         suggestions.push({
           type: 'mood',
-          title: mood.label,
-          sub: mood.description,
-          tag: 'Craving Filter',
+          title: `${mood.label}`,
+          sub: `Craving in ${currentCity.name}: ${mood.description}`,
+          tag: 'Mood Filter',
           icon: 'flame',
           moodRef: mood,
           targetQuery: mood.label.replace(/^[^\w]+/, '')
@@ -746,6 +743,12 @@
     const list = elements.autocompleteList;
     list.innerHTML = '';
     state.autocompleteIndex = -1;
+    const currentCity = getCurrentCity();
+
+    const headerTitle = elements.autocompleteBoard ? elements.autocompleteBoard.querySelector('.autocomplete-header span:first-child') : null;
+    if (headerTitle) {
+      headerTitle.textContent = `📍 Dishes Near You in ${currentCity.name}`;
+    }
 
     if (!query || !query.trim()) {
       elements.autocompleteBoard.classList.remove('active');
@@ -760,15 +763,16 @@
     if (items.length === 0) {
       list.innerHTML = `
         <div style="padding:16px; text-align:center; color:var(--text-muted); font-size:0.85rem;">
-          No direct matches found. Press Enter to search everywhere for "<strong>${query}</strong>"
+          No matching dishes found near <strong>${currentCity.name}</strong> for "<strong>${query}</strong>".
+          <div style="margin-top:6px; font-size:0.78rem; color:var(--emerald-dark);">💡 Tip: You can change your location from the top bar to explore other culinary hubs!</div>
         </div>
       `;
-      elements.autocompleteSummary.textContent = `No instant suggestion for "${query}"`;
+      elements.autocompleteSummary.textContent = `No local dishes found near ${currentCity.name} for "${query}"`;
       elements.autocompleteBoard.classList.add('active');
       return;
     }
 
-    elements.autocompleteSummary.textContent = `${items.length} top suggestion${items.length > 1 ? 's' : ''} found`;
+    elements.autocompleteSummary.textContent = `${items.length} recommendation${items.length > 1 ? 's' : ''} near you in ${currentCity.name}`;
 
     items.forEach((item, index) => {
       const row = document.createElement('div');
@@ -881,8 +885,38 @@
     });
   }
 
+  function setDietFilter(dietId) {
+    state.selectedDiet = dietId;
+    updateDietToggleUI();
+    renderDietFilterPills();
+    updateActiveFilterFeedback();
+    renderAllGrids();
+    playSound('click');
+  }
+
+  function updateDietToggleUI() {
+    document.querySelectorAll('.veg-toggle-btn').forEach(btn => {
+      const diet = btn.getAttribute('data-diet');
+      if (diet === state.selectedDiet) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    document.querySelectorAll('.toolbar-diet-btn').forEach(btn => {
+      const diet = btn.getAttribute('data-diet');
+      if (diet === state.selectedDiet) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
   function renderDietFilterPills() {
     const container = elements.dietaryFiltersList;
+    if (!container) return;
     container.innerHTML = '';
     DIETARY_FILTERS.forEach(diet => {
       const pill = document.createElement('button');
@@ -890,13 +924,11 @@
       const translationKey = diet.id === 'all' ? 'all_diets' : diet.id.replace('-', '_');
       pill.textContent = t(translationKey) || diet.label;
       pill.addEventListener('click', () => {
-        state.selectedDiet = diet.id;
-        renderDietFilterPills();
-        updateActiveFilterFeedback();
-        renderAllGrids();
+        setDietFilter(diet.id);
       });
       container.appendChild(pill);
     });
+    updateDietToggleUI();
   }
 
   function updateActiveFilterFeedback() {
@@ -913,7 +945,7 @@
       feedback += ` + ≤ ${state.maxCalories} kcal`;
     }
     if (state.searchQuery) {
-      feedback += ` matching "${state.searchQuery}"`;
+      feedback += ` near ${getCurrentCity().name} matching "${state.searchQuery}"`;
     }
     elements.activeFilterFeedback.textContent = feedback;
   }
@@ -957,18 +989,23 @@
       }
     }
 
-    // Search query
+    // Search query - strictly restricted to items near user's location
     if (query && query.trim()) {
+      if (dish.cityId !== state.currentCityId) {
+        return false;
+      }
+
       const q = query.toLowerCase().trim();
       const matchName = dish.name.toLowerCase().includes(q);
       const matchNative = dish.nativeName && dish.nativeName.toLowerCase().includes(q);
       const matchCity = dish.cityName.toLowerCase().includes(q);
       const matchCountry = dish.country.toLowerCase().includes(q);
       const matchDesc = dish.description.toLowerCase().includes(q);
-      const matchTaste = dish.tasteProfile.some(t => t.toLowerCase().includes(q));
-      const matchIngr = dish.ingredients.some(i => i.toLowerCase().includes(q));
+      const matchTaste = dish.tasteProfile && dish.tasteProfile.some(t => t.toLowerCase().includes(q));
+      const matchIngr = dish.ingredients && dish.ingredients.some(i => i.toLowerCase().includes(q));
+      const matchCategory = dish.category && dish.category.toLowerCase().includes(q);
 
-      if (!matchName && !matchNative && !matchCity && !matchCountry && !matchDesc && !matchTaste && !matchIngr) {
+      if (!matchName && !matchNative && !matchCity && !matchCountry && !matchDesc && !matchTaste && !matchIngr && !matchCategory) {
         return false;
       }
     }
@@ -1598,7 +1635,7 @@
       showToast(`Removed "${dishName}" from Saved`);
     } else {
       state.favorites.push(dishId);
-      showToast(`Saved "${dishName}" to your Favorites â¤`);
+      showToast(`Saved "${dishName}" to your Favorites ❤️`);
     }
 
     localStorage.setItem('cravepulse_favorites', JSON.stringify(state.favorites));
@@ -1622,7 +1659,7 @@
     if (state.favorites.length === 0) {
       container.innerHTML = `
         <div class="empty-state" style="padding:40px 10px;">
-          <div class="empty-icon">â¤</div>
+          <div class="empty-icon">❤️</div>
           <h4>No saved dishes yet</h4>
           <p style="color:var(--text-muted); font-size:0.85rem; margin-top:6px;">Tap the heart icon on any dish card to bookmark your favorites here.</p>
         </div>
@@ -2706,6 +2743,26 @@
         if (e.target === elements.cityModal) elements.cityModal.classList.remove('active');
       });
     }
+
+    // Veg / Non-Veg Quick Toggle Buttons (Hero & Toolbar)
+    document.querySelectorAll('.veg-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const diet = btn.getAttribute('data-diet') || 'all';
+        setDietFilter(diet);
+      });
+    });
+
+    document.querySelectorAll('.toolbar-diet-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const diet = btn.getAttribute('data-diet') || 'all';
+        // Toggle on/off if clicked again
+        if (state.selectedDiet === diet) {
+          setDietFilter('all');
+        } else {
+          setDietFilter(diet);
+        }
+      });
+    });
 
     // Advanced Toolbar Events
     if (elements.sortSelect) {
