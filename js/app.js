@@ -539,6 +539,99 @@
     }
   }
 
+  function getFamousDishAtCity(cityId = state.currentCityId) {
+    let cityDishes = DISHES_DATA.filter(d => d.cityId === cityId);
+    
+    // If diet filter is active, respect it if dishes match
+    if (state.selectedDiet && state.selectedDiet !== 'all') {
+      const dietFiltered = cityDishes.filter(d => matchesFilter(d, state.selectedDiet, 'all', ''));
+      if (dietFiltered.length > 0) {
+        cityDishes = dietFiltered;
+      }
+    }
+
+    if (cityDishes.length === 0) {
+      cityDishes = DISHES_DATA.filter(d => d.cityId === cityId);
+    }
+
+    if (cityDishes.length === 0) {
+      return DISHES_DATA[0];
+    }
+
+    // Sort by popularity, rating, and legend status
+    cityDishes.sort((a, b) => {
+      const scoreA = (a.trendingScore || 80) + (a.isGlobalIcon ? 20 : 0) + (a.isLocalLegend ? 15 : 0) + (a.rating * 10);
+      const scoreB = (b.trendingScore || 80) + (b.isGlobalIcon ? 20 : 0) + (b.isLocalLegend ? 15 : 0) + (b.rating * 10);
+      return scoreB - scoreA;
+    });
+
+    return cityDishes[0];
+  }
+
+  function updateHeroShowcaseCard() {
+    const city = getCurrentCity();
+    const famousDish = getFamousDishAtCity(city.id);
+    if (!famousDish) return;
+
+    const showcaseImg = document.getElementById('heroShowcaseImg');
+    const showcaseTitle = document.getElementById('heroShowcaseTitle');
+    const showcaseDesc = document.getElementById('heroShowcaseDesc');
+    const showcasePrice = document.querySelector('.showcase-price-tag');
+    const showcaseRating = document.querySelector('.showcase-rating');
+    const showcaseMetaRow = document.querySelector('.showcase-meta-row');
+    const liveTag = document.querySelector('.showcase-live-tag');
+
+    if (showcaseImg) {
+      showcaseImg.src = famousDish.image;
+      showcaseImg.alt = famousDish.name;
+    }
+    if (showcaseTitle) {
+      showcaseTitle.textContent = famousDish.name;
+    }
+    if (showcaseDesc) {
+      showcaseDesc.textContent = famousDish.famousFor || famousDish.description;
+    }
+    if (showcasePrice) {
+      showcasePrice.innerHTML = `₹${famousDish.price} <small>avg plate</small>`;
+    }
+    if (showcaseRating) {
+      showcaseRating.innerHTML = `<i data-lucide="star" style="width:14px;height:14px;fill:var(--amber);color:var(--amber);"></i> ${famousDish.rating}`;
+    }
+    if (liveTag) {
+      liveTag.innerHTML = `<span class="badge-pulse-dot"></span> TOP DISH IN ${city.name.toUpperCase()}`;
+    }
+
+    const isVeg = famousDish.diet && (famousDish.diet.includes('veg') || famousDish.diet.includes('vegan') || famousDish.category === 'Dessert');
+
+    if (showcaseMetaRow) {
+      showcaseMetaRow.innerHTML = `
+        <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}">
+          <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}"><span class="fssai-dot"></span></span>
+          ${isVeg ? 'Pure Veg 🟢' : 'Non-Veg 🔴'}
+        </span>
+        <span class="badge badge-location"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${city.name} Famous</span>
+        <span class="showcase-cals">${famousDish.calories} kcal</span>
+      `;
+    }
+
+    const quickViewBtn = document.getElementById('heroShowcaseQuickViewBtn');
+    if (quickViewBtn) {
+      quickViewBtn.onclick = (e) => {
+        e.stopPropagation();
+        openDishDetailModal(famousDish);
+      };
+    }
+
+    const heroFeaturedCard = document.getElementById('heroFeaturedCard');
+    if (heroFeaturedCard) {
+      heroFeaturedCard.onclick = () => {
+        openDishDetailModal(famousDish);
+      };
+    }
+
+    refreshLucideIcons();
+  }
+
   function updateLocationUI() {
     const city = getCurrentCity();
     elements.currentLocationText.innerHTML = `${city.name}, ${city.country} <i data-lucide="chevron-down" style="width:14px;height:14px;"></i>`;
@@ -551,6 +644,7 @@
     if (elements.globalSearchInput) {
       elements.globalSearchInput.placeholder = t('search_placeholder') || 'Search any dish, cuisine, ingredient or city (e.g., Biryani, Ramen, Pizza, Tacos, Dosa)...';
     }
+    updateHeroShowcaseCard();
     renderCitySelectorList();
     renderCityModalGrid();
     refreshLucideIcons();
@@ -908,6 +1002,7 @@
     state.selectedDiet = dietId;
     updateDietToggleUI();
     renderDietFilterPills();
+    updateHeroShowcaseCard();
     updateActiveFilterFeedback();
     renderAllGrids();
     playSound('click');
