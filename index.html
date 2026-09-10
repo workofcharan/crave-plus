@@ -553,6 +553,55 @@
           </div>
         </div>
 
+        <!-- Instant Food Delivery Section (Swiggy & Zomato) -->
+        <div class="modal-delivery-card" id="modalDeliveryCard">
+          <div class="delivery-card-top">
+            <div class="delivery-badge-group">
+              <span class="delivery-live-pulse">
+                <span class="pulse-dot"></span>
+                <span id="modalDeliveryLiveTitle">Order Online</span>
+              </span>
+              <span class="delivery-time-tag"><i data-lucide="zap" style="width:12px;height:12px;"></i> 25-35 Mins</span>
+            </div>
+            <span class="delivery-city-badge" id="modalDeliveryCityBadge">📍 Delivering in Hyderabad</span>
+          </div>
+          
+          <div class="delivery-header-title-wrap">
+            <h4 id="modalDeliveryHead">Craving This Now? Order on Delivery Apps</h4>
+            <p id="modalDeliverySub">Get this authentic delicacy prepared fresh and delivered directly to your doorstep:</p>
+          </div>
+
+          <div class="delivery-partners-grid">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="delivery-partner-btn btn-swiggy" id="modalSwiggyLink" title="Search and Order on Swiggy">
+              <div class="partner-icon-wrapper swiggy-bg">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-4.08l-2.71 2.71a.495.495 0 0 1-.7-.7l3.5-3.5c.2-.2.51-.2.71 0l3.5 3.5a.495.495 0 0 1-.7.7L13 12.42v4.08z"/></svg>
+              </div>
+              <div class="partner-btn-text">
+                <span class="partner-sub">Deliver with</span>
+                <span class="partner-name">Swiggy</span>
+              </div>
+              <div class="partner-badge-go">
+                <span>Order Now</span>
+                <i data-lucide="arrow-up-right" style="width:14px;height:14px;"></i>
+              </div>
+            </a>
+
+            <a href="#" target="_blank" rel="noopener noreferrer" class="delivery-partner-btn btn-zomato" id="modalZomatoLink" title="Search and Order on Zomato">
+              <div class="partner-icon-wrapper zomato-bg">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z"/></svg>
+              </div>
+              <div class="partner-btn-text">
+                <span class="partner-sub">Deliver with</span>
+                <span class="partner-name">Zomato</span>
+              </div>
+              <div class="partner-badge-go">
+                <span>Order Now</span>
+                <i data-lucide="arrow-up-right" style="width:14px;height:14px;"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+
         <!-- Description -->
         <div class="modal-section-block">
           <h4>
@@ -637,30 +686,131 @@
 
         <!-- Modal Actions -->
         <div class="modal-actions">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="modalFindNearMeBtn" style="flex:1; min-width:180px;">
-            <i data-lucide="map-pin" style="width:18px;height:18px;"></i>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-swiggy-action" id="modalBottomSwiggyBtn" title="Order directly on Swiggy">
+            <span class="delivery-brand-dot swiggy-dot"></span>
+            <span>Swiggy</span>
+            <i data-lucide="external-link" style="width:13px;height:13px;"></i>
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-zomato-action" id="modalBottomZomatoBtn" title="Order directly on Zomato">
+            <span class="delivery-brand-dot zomato-dot"></span>
+            <span>Zomato</span>
+            <i data-lucide="external-link" style="width:13px;height:13px;"></i>
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="modalFindNearMeBtn" style="flex:1; min-width:160px;">
+            <i data-lucide="map-pin" style="width:16px;height:16px;"></i>
             <span>Google Maps</span>
           </a>
           <button class="btn btn-secondary" id="modalAddToPlannerBtn" title="Add to Daily Meal Plan">
-            <i data-lucide="calendar-plus" style="width:18px;height:18px;color:var(--emerald);"></i>
+            <i data-lucide="calendar-plus" style="width:16px;height:16px;color:var(--emerald);"></i>
             <span>Add to Plan</span>
           </button>
           <button class="btn btn-secondary" id="modalStoryPosterBtn" title="Generate Instagram Story Card">
-            <i data-lucide="share-2" style="width:18px;height:18px;color:var(--amber);"></i>
+            <i data-lucide="share-2" style="width:16px;height:16px;color:var(--amber);"></i>
             <span>Story Card</span>
           </button>
           <button class="btn btn-secondary" id="modalCompareBtn" title="Compare this dish with another">
-            <i data-lucide="swords" style="width:18px;height:18px;color:var(--ruby);"></i>
+            <i data-lucide="swords" style="width:16px;height:16px;color:var(--ruby);"></i>
             <span>Compare</span>
           </button>
           <button class="btn btn-secondary" id="modalSaveFavBtn">
-            <i data-lucide="heart" style="width:18px;height:18px;color:var(--ruby);"></i>
+            <i data-lucide="heart" style="width:16px;height:16px;color:var(--ruby);"></i>
             <span>Save</span>
           </button>
           <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="modalWatchRecipeBtn">
-            <i data-lucide="youtube" style="width:18px;height:18px;color:#ff0000;"></i>
+            <i data-lucide="youtube" style="width:16px;height:16px;color:#ff0000;"></i>
             <span>Watch</span>
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEDICATED QUICK DELIVERY APP PICKER MODAL -->
+  <div class="modal-backdrop" id="deliveryModal">
+    <div class="modal-container delivery-modal-container">
+      <button class="modal-close-btn" id="closeDeliveryModalBtn" title="Close">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="delivery-modal-content">
+        <!-- Dish summary banner -->
+        <div class="delivery-modal-hero">
+          <img src="" alt="" class="delivery-modal-dish-img" id="deliveryModalDishImg">
+          <div class="delivery-modal-hero-overlay">
+            <div id="deliveryModalDishBadges" class="modal-badges-row" style="margin-bottom:4px;"></div>
+            <h3 id="deliveryModalDishName" class="delivery-modal-dish-title">Dish Name</h3>
+            <p id="deliveryModalDishSub" class="delivery-modal-dish-sub">Specialty in Hyderabad • ~₹280</p>
+          </div>
+        </div>
+
+        <div class="delivery-modal-body">
+          <div class="delivery-modal-intro">
+            <div class="delivery-intro-icon"><i data-lucide="bike"></i></div>
+            <div>
+              <h4 id="deliveryModalIntroTitle">Select Food Delivery App</h4>
+              <p id="deliveryModalIntroSub">We will open the delivery app pre-searched for this dish in your current location:</p>
+            </div>
+          </div>
+
+          <!-- Apps Selection Cards -->
+          <div class="delivery-options-cards">
+            <!-- Swiggy Card -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="delivery-choice-card choice-swiggy" id="quickSwiggyBtn">
+              <div class="choice-card-left">
+                <div class="choice-brand-badge swiggy-badge">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5c0 .28-.22.5-.5.5h-1c-.28 0-.5-.22-.5-.5v-4.08l-2.71 2.71a.495.495 0 0 1-.7-.7l3.5-3.5c.2-.2.51-.2.71 0l3.5 3.5a.495.495 0 0 1-.7.7L13 12.42v4.08z"/></svg>
+                </div>
+                <div class="choice-details">
+                  <div class="choice-title-row">
+                    <h5>Swiggy</h5>
+                    <span class="choice-pill swiggy-pill">⚡ 25-35 Mins</span>
+                  </div>
+                  <p>Order fresh from top-rated restaurants & cloud kitchens with live GPS tracking.</p>
+                </div>
+              </div>
+              <div class="choice-action-btn swiggy-cta">
+                <span>Order on Swiggy</span>
+                <i data-lucide="external-link" style="width:16px;height:16px;"></i>
+              </div>
+            </a>
+
+            <!-- Zomato Card -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="delivery-choice-card choice-zomato" id="quickZomatoBtn">
+              <div class="choice-card-left">
+                <div class="choice-brand-badge zomato-badge">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z"/></svg>
+                </div>
+                <div class="choice-details">
+                  <div class="choice-title-row">
+                    <h5>Zomato</h5>
+                    <span class="choice-pill zomato-pill">🔥 Top Deals</span>
+                  </div>
+                  <p>Explore menus, foodie photos, verified ratings and get fast doorstep delivery.</p>
+                </div>
+              </div>
+              <div class="choice-action-btn zomato-cta">
+                <span>Order on Zomato</span>
+                <i data-lucide="external-link" style="width:16px;height:16px;"></i>
+              </div>
+            </a>
+          </div>
+
+          <!-- Quick location info & alternative options -->
+          <div class="delivery-location-hint">
+            <span id="deliveryModalLocationHint">📍 Current Delivery Location: <strong>Hyderabad</strong></span>
+            <span class="hint-small">Queries are automatically localized for maximum accuracy</span>
+          </div>
+
+          <div class="delivery-modal-footer-row">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" id="deliveryModalMapsBtn">
+              <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--emerald);"></i>
+              <span>Find on Google Maps</span>
+            </a>
+            <button class="btn btn-secondary btn-sm" id="deliveryModalViewDetailsBtn">
+              <i data-lucide="book-open" style="width:14px;height:14px;color:var(--amber);"></i>
+              <span>Full Story & Recipe</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

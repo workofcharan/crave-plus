@@ -1809,6 +1809,41 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--emerald-dark);
 }
 
+.dish-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-delivery-quick {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #fff2e8 0%, #ffeae8 100%);
+  border: 1px solid rgba(252, 128, 25, 0.4);
+  color: #d94b0a;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(252, 128, 25, 0.1);
+}
+
+.btn-delivery-quick:hover {
+  background: linear-gradient(135deg, #fc8019 0%, #e23744 100%);
+  border-color: transparent;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(242, 92, 5, 0.3);
+}
+
+.btn-delivery-quick i {
+  color: inherit;
+}
+
 /* ==========================================================================
    Food Trails
    ========================================================================== */
@@ -2118,10 +2153,562 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 24px;
 }
 
+/* ==========================================================================
+   Instant Delivery Section (Swiggy & Zomato)
+   ========================================================================== */
+.modal-delivery-card {
+  background: linear-gradient(135deg, rgba(252, 128, 25, 0.07) 0%, rgba(226, 55, 68, 0.07) 100%);
+  border: 1px solid rgba(252, 128, 25, 0.25);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(242, 92, 5, 0.06);
+}
+
+.modal-delivery-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #fc8019, #e23744);
+}
+
+.delivery-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.delivery-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.delivery-live-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fc8019;
+  background: rgba(252, 128, 25, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fc8019;
+  box-shadow: 0 0 0 0 rgba(252, 128, 25, 0.7);
+  animation: pulseDelivery 1.8s infinite;
+}
+
+@keyframes pulseDelivery {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(252, 128, 25, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(252, 128, 25, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(252, 128, 25, 0);
+  }
+}
+
+.delivery-time-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--emerald-dark);
+  background: rgba(16, 185, 129, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.delivery-city-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.delivery-header-title-wrap {
+  margin-bottom: 14px;
+}
+
+.delivery-header-title-wrap h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.delivery-header-title-wrap p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.delivery-partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.delivery-partner-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btn-swiggy {
+  background: linear-gradient(135deg, #fc8019 0%, #fa6e00 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-swiggy:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(252, 128, 25, 0.45);
+  background: linear-gradient(135deg, #fa6e00 0%, #e65c00 100%);
+}
+
+.btn-zomato {
+  background: linear-gradient(135deg, #e23744 0%, #cb202d 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-zomato:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(226, 55, 68, 0.45);
+  background: linear-gradient(135deg, #cb202d 0%, #b31622 100%);
+}
+
+.partner-icon-wrapper {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.partner-btn-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-right: auto;
+  text-align: left;
+}
+
+.partner-sub {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.88;
+  font-weight: 600;
+}
+
+.partner-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  line-height: 1.1;
+}
+
+.partner-badge-go {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.22);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* Modal actions bar Swiggy & Zomato buttons */
 .modal-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.btn-swiggy-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: #fff5ee;
+  border: 1px solid #fc8019;
+  color: #d95c00 !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-swiggy-action:hover {
+  background: #fc8019;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(252, 128, 25, 0.3);
+}
+
+.btn-zomato-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  background: #fff0f1;
+  border: 1px solid #e23744;
+  color: #c91f2c !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-zomato-action:hover {
+  background: #e23744;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(226, 55, 68, 0.3);
+}
+
+.delivery-brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.swiggy-dot {
+  background: #fc8019;
+}
+
+.zomato-dot {
+  background: #e23744;
+}
+
+.btn-swiggy-action:hover .swiggy-dot,
+.btn-zomato-action:hover .zomato-dot {
+  background: #ffffff;
+}
+
+/* ==========================================================================
+   Dedicated Quick Delivery Modal
+   ========================================================================== */
+.delivery-modal-container {
+  max-width: 540px;
+  width: 95%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-xl);
+}
+
+.delivery-modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.delivery-modal-hero {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  background: #111;
+}
+
+.delivery-modal-dish-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75);
+  transition: transform var(--transition-normal);
+}
+
+.delivery-modal-hero:hover .delivery-modal-dish-img {
+  transform: scale(1.04);
+}
+
+.delivery-modal-hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  color: white;
+}
+
+.delivery-modal-dish-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.delivery-modal-dish-sub {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.delivery-modal-body {
+  padding: 20px 24px 24px;
+}
+
+.delivery-modal-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.delivery-intro-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: rgba(242, 92, 5, 0.12);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.delivery-modal-intro h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.delivery-modal-intro p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.delivery-options-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.delivery-choice-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.choice-swiggy {
+  border-left: 4px solid #fc8019;
+}
+
+.choice-swiggy:hover {
+  background: #fff8f3;
+  border-color: #fc8019;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(252, 128, 25, 0.18);
+}
+
+.choice-zomato {
+  border-left: 4px solid #e23744;
+}
+
+.choice-zomato:hover {
+  background: #fff5f6;
+  border-color: #e23744;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(226, 55, 68, 0.18);
+}
+
+.choice-card-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.choice-brand-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.swiggy-badge {
+  background: #fc8019;
+}
+
+.zomato-badge {
+  background: #e23744;
+}
+
+.choice-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.choice-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.choice-title-row h5 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.choice-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.swiggy-pill {
+  background: rgba(252, 128, 25, 0.14);
+  color: #d95c00;
+}
+
+.zomato-pill {
+  background: rgba(226, 55, 68, 0.14);
+  color: #c91f2c;
+}
+
+.choice-details p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.choice-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.swiggy-cta {
+  background: #fc8019;
+  color: white;
+}
+
+.choice-swiggy:hover .swiggy-cta {
+  background: #e65c00;
+}
+
+.zomato-cta {
+  background: #e23744;
+  color: white;
+}
+
+.choice-zomato:hover .zomato-cta {
+  background: #cb202d;
+}
+
+.delivery-location-hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-subtle);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.delivery-location-hint strong {
+  color: var(--text-primary);
+}
+
+.delivery-location-hint .hint-small {
+  font-size: 0.72rem;
+  color: var(--emerald-dark);
+}
+
+.delivery-modal-footer-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .delivery-partners-grid {
+    grid-template-columns: 1fr;
+  }
+  .delivery-choice-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .choice-action-btn {
+    justify-content: center;
+  }
+  .delivery-modal-footer-row {
+    flex-direction: column;
+  }
+  .delivery-modal-footer-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ==========================================================================

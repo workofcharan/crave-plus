@@ -79,7 +79,17 @@ const TRANSLATIONS = {
     good_afternoon: "Good Afternoon • Chef's Lunch Selection",
     good_evening: "Good Evening • Master Dinner Plates",
     golden_hour: "Golden Hour • High Tea & Street Snacks",
-    late_night: "Midnight Cravings • Late Night Bites"
+    late_night: "Midnight Cravings • Late Night Bites",
+    order_online_title: "Craving to Eat This? Order Delivery",
+    order_online_desc: "Direct 1-tap redirect to top food delivery platforms pre-searched for this dish",
+    order_swiggy: "Order on Swiggy",
+    order_zomato: "Order on Zomato",
+    order_quick_btn: "Order",
+    fast_delivery: "Fast Delivery",
+    delivering_in: "Delivering in",
+    open_in_swiggy: "Open Swiggy Search",
+    open_in_zomato: "Open Zomato Search",
+    choose_delivery_app: "Choose Your Delivery Partner"
   },
   hi: {
     brand_tagline: "प्रसिद्ध व्यंजन और अपने आस-पास क्या खाएं खोजें",
@@ -156,7 +166,17 @@ const TRANSLATIONS = {
     good_afternoon: "शुभ दोपहर • लंच के खास व्यंजन",
     good_evening: "शुभ संध्या • डिनर के बेहतरीन स्वाद",
     golden_hour: "शाम का नाश्ता • चाय और स्नैक्स",
-    late_night: "देर रात की भूख • स्पेशल बाइट्स"
+    late_night: "देर रात की भूख • स्पेशल बाइट्स",
+    order_online_title: "खाने का मन है? ऑनलाइन आर्डर करें",
+    order_online_desc: "इस डिश के लिए सीधे स्विगी और जोमैटो पर तुरंत आर्डर करें",
+    order_swiggy: "Swiggy पर आर्डर करें",
+    order_zomato: "Zomato पर आर्डर करें",
+    order_quick_btn: "आर्डर 🛵",
+    fast_delivery: "फास्ट डिलीवरी",
+    delivering_in: "डिलीवरी शहर",
+    open_in_swiggy: "Swiggy पर खोजें",
+    open_in_zomato: "Zomato पर खोजें",
+    choose_delivery_app: "डिलीवरी पार्टनर चुनें"
   },
   te: {
     brand_tagline: "ప్రసిద్ధ వంటకాలు మరియు మీ దగ్గర ఏం తినాలో కనుగొనండి",
@@ -233,7 +253,17 @@ const TRANSLATIONS = {
     good_afternoon: "శుభ మధ్యాహ్నం • భోజన వంటకాలు",
     good_evening: "శుభ సాయంత్రం • రాత్రి విందు రుచులు",
     golden_hour: "సాయంత్రం టీ & స్నాక్స్ సమయం",
-    late_night: "అర్ధరాత్రి క్రేవింగ్స్ & రుచులు"
+    late_night: "అర్ధరాత్రి క్రేవింగ్స్ & రుచులు",
+    order_online_title: "తినాలని ఉందా? ఆన్‌లైన్‌లో ఆర్డర్ చేయండి",
+    order_online_desc: "ఈ వంటకాన్ని స్విగ్గీ లేదా జొమాటో డెలివరీ యాప్స్ ద్వారా వెంటనే ఆర్డర్ చేయండి",
+    order_swiggy: "Swiggy లో ఆర్డర్ చేయండి",
+    order_zomato: "Zomato లో ఆర్డర్ చేయండి",
+    order_quick_btn: "ఆర్డర్ 🛵",
+    fast_delivery: "ఫాస్ట్ డెలివరీ",
+    delivering_in: "డెలివరీ నగరం",
+    open_in_swiggy: "Swiggy లో వెతకండి",
+    open_in_zomato: "Zomato లో వెతకండి",
+    choose_delivery_app: "డెలివరీ యాప్‌ను ఎంచుకోండి"
   }
 };
 

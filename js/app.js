@@ -166,6 +166,29 @@
     modalGroceryBtn: document.getElementById('modalGroceryBtn'),
     modalCompareBtn: document.getElementById('modalCompareBtn'),
 
+    // Delivery Links in Detail Modal
+    modalSwiggyLink: document.getElementById('modalSwiggyLink'),
+    modalZomatoLink: document.getElementById('modalZomatoLink'),
+    modalBottomSwiggyBtn: document.getElementById('modalBottomSwiggyBtn'),
+    modalBottomZomatoBtn: document.getElementById('modalBottomZomatoBtn'),
+    modalDeliveryCityBadge: document.getElementById('modalDeliveryCityBadge'),
+    modalDeliveryHead: document.getElementById('modalDeliveryHead'),
+    modalDeliverySub: document.getElementById('modalDeliverySub'),
+    modalDeliveryLiveTitle: document.getElementById('modalDeliveryLiveTitle'),
+
+    // Dedicated Quick Delivery App Picker Modal
+    deliveryModal: document.getElementById('deliveryModal'),
+    closeDeliveryModalBtn: document.getElementById('closeDeliveryModalBtn'),
+    deliveryModalDishImg: document.getElementById('deliveryModalDishImg'),
+    deliveryModalDishBadges: document.getElementById('deliveryModalDishBadges'),
+    deliveryModalDishName: document.getElementById('deliveryModalDishName'),
+    deliveryModalDishSub: document.getElementById('deliveryModalDishSub'),
+    quickSwiggyBtn: document.getElementById('quickSwiggyBtn'),
+    quickZomatoBtn: document.getElementById('quickZomatoBtn'),
+    deliveryModalLocationHint: document.getElementById('deliveryModalLocationHint'),
+    deliveryModalMapsBtn: document.getElementById('deliveryModalMapsBtn'),
+    deliveryModalViewDetailsBtn: document.getElementById('deliveryModalViewDetailsBtn'),
+
     // Reviews & Notes in Modal
     toggleAddReviewBtn: document.getElementById('toggleAddReviewBtn'),
     addReviewCard: document.getElementById('addReviewCard'),
@@ -1236,11 +1259,17 @@
         </div>
 
         <div class="dish-footer">
-          <span class="dish-price-tier">₹${dish.price} • ${dish.priceTier} • ~${dish.calories} kcal</span>
-          <button class="btn btn-primary" style="padding:6px 16px; font-size:0.85rem;" data-open-detail="${dish.id}">
-            <span>${t('view_dish')}</span>
-            <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
-          </button>
+          <span class="dish-price-tier">₹${dish.price} • ${dish.priceTier}</span>
+          <div class="dish-footer-actions">
+            <button class="btn-delivery-quick" data-open-delivery="${dish.id}" title="Order on Swiggy or Zomato">
+              <i data-lucide="bike" style="width:13px;height:13px;"></i>
+              <span>${t('order_quick_btn') || 'Order'}</span>
+            </button>
+            <button class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem;" data-open-detail="${dish.id}">
+              <span>${t('view_dish')}</span>
+              <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+            </button>
+          </div>
         </div>
       </div>
     `;
@@ -1251,6 +1280,14 @@
       favBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleFavorite(dish.id);
+      });
+    }
+
+    const deliveryBtn = card.querySelector('[data-open-delivery]');
+    if (deliveryBtn) {
+      deliveryBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDeliveryModal(dish);
       });
     }
 
@@ -1539,6 +1576,36 @@
     const mapsQuery = encodeURIComponent(`${dish.name} ${dish.cityName}`);
     elements.modalFindNearMeBtn.href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
+    // Delivery Links Setup (Swiggy & Zomato)
+    const { swiggyUrl, zomatoUrl, activeCityName } = getDeliveryUrls(dish);
+    if (elements.modalSwiggyLink) {
+      elements.modalSwiggyLink.href = swiggyUrl;
+      elements.modalSwiggyLink.onclick = () => {
+        showToast(`Opening Swiggy for "${dish.name}" in ${activeCityName}...`, 'info');
+      };
+    }
+    if (elements.modalZomatoLink) {
+      elements.modalZomatoLink.href = zomatoUrl;
+      elements.modalZomatoLink.onclick = () => {
+        showToast(`Opening Zomato for "${dish.name}" in ${activeCityName}...`, 'info');
+      };
+    }
+    if (elements.modalBottomSwiggyBtn) {
+      elements.modalBottomSwiggyBtn.href = swiggyUrl;
+      elements.modalBottomSwiggyBtn.onclick = () => {
+        showToast(`Opening Swiggy for "${dish.name}" in ${activeCityName}...`, 'info');
+      };
+    }
+    if (elements.modalBottomZomatoBtn) {
+      elements.modalBottomZomatoBtn.href = zomatoUrl;
+      elements.modalBottomZomatoBtn.onclick = () => {
+        showToast(`Opening Zomato for "${dish.name}" in ${activeCityName}...`, 'info');
+      };
+    }
+    if (elements.modalDeliveryCityBadge) {
+      elements.modalDeliveryCityBadge.textContent = `📍 Delivering in ${activeCityName}`;
+    }
+
     // YouTube Recipe search link
     const ytQuery = encodeURIComponent(`How to cook authentic ${dish.name} recipe`);
     elements.modalWatchRecipeBtn.href = `https://www.youtube.com/results?search_query=${ytQuery}`;
@@ -1608,6 +1675,84 @@
     refreshLucideIcons();
   }
 
+  // --- DELIVERY UTILITY HELPERS ---
+  function getDeliveryUrls(dish) {
+    const currentCity = CITIES_DATA.find(c => c.id === state.currentCityId);
+    const activeCityName = currentCity ? currentCity.name.split('(')[0].trim() : (dish.cityName || 'India');
+    // Localized query combining dish name + current city
+    const localizedQuery = `${dish.name} ${activeCityName}`.trim();
+    const swiggyUrl = `https://www.swiggy.com/search?query=${encodeURIComponent(localizedQuery)}`;
+    const zomatoUrl = `https://www.zomato.com/search?q=${encodeURIComponent(localizedQuery)}`;
+    return { swiggyUrl, zomatoUrl, activeCityName, localizedQuery };
+  }
+
+  function openDeliveryModal(dish) {
+    if (!elements.deliveryModal || !dish) return;
+    state.activeModalDish = dish;
+    const { swiggyUrl, zomatoUrl, activeCityName } = getDeliveryUrls(dish);
+
+    if (elements.deliveryModalDishImg) {
+      elements.deliveryModalDishImg.src = dish.image;
+      elements.deliveryModalDishImg.alt = dish.name;
+    }
+    if (elements.deliveryModalDishName) {
+      elements.deliveryModalDishName.textContent = dish.name;
+    }
+    if (elements.deliveryModalDishSub) {
+      elements.deliveryModalDishSub.textContent = `Specialty from ${dish.cityName} • Approx. ₹${dish.price} (${dish.priceTier})`;
+    }
+
+    const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
+    if (elements.deliveryModalDishBadges) {
+      elements.deliveryModalDishBadges.innerHTML = `
+        <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}" style="font-size:0.75rem; padding:2px 8px;">
+          <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}"><span class="fssai-dot"></span></span>
+          ${isVeg ? `${t('veg')} 🟢` : `${t('non_veg')} 🔴`}
+        </span>
+        <span class="badge badge-location" style="font-size:0.75rem; padding:2px 8px;"><i data-lucide="map-pin" style="width:11px;height:11px;"></i> ${dish.cityName}</span>
+      `;
+    }
+
+    if (elements.quickSwiggyBtn) {
+      elements.quickSwiggyBtn.href = swiggyUrl;
+      elements.quickSwiggyBtn.onclick = () => {
+        showToast(`Opening Swiggy for "${dish.name}" in ${activeCityName}...`, 'info');
+      };
+    }
+    if (elements.quickZomatoBtn) {
+      elements.quickZomatoBtn.href = zomatoUrl;
+      elements.quickZomatoBtn.onclick = () => {
+        showToast(`Opening Zomato for "${dish.name}" in ${activeCityName}...`, 'info');
+      };
+    }
+
+    if (elements.deliveryModalLocationHint) {
+      elements.deliveryModalLocationHint.innerHTML = `📍 Current Delivery Location: <strong>${activeCityName}</strong>`;
+    }
+
+    if (elements.deliveryModalMapsBtn) {
+      const mapsQuery = encodeURIComponent(`${dish.name} ${activeCityName}`);
+      elements.deliveryModalMapsBtn.href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
+    }
+
+    if (elements.deliveryModalViewDetailsBtn) {
+      elements.deliveryModalViewDetailsBtn.onclick = () => {
+        closeDeliveryModal();
+        openDishDetailModal(dish);
+      };
+    }
+
+    elements.deliveryModal.classList.add('active');
+    refreshLucideIcons();
+    playSound('pop');
+  }
+
+  function closeDeliveryModal() {
+    if (elements.deliveryModal) {
+      elements.deliveryModal.classList.remove('active');
+    }
+  }
+
   function updateModalFavButton(dishId) {
     const isFav = state.favorites.includes(dishId);
     if (isFav) {
@@ -1628,7 +1773,7 @@
       elements.modalMarkTastedBtn.style.background = 'var(--emerald)';
       elements.modalMarkTastedBtn.style.color = 'white';
       elements.modalMarkTastedBtn.style.borderColor = 'var(--emerald)';
-      elements.modalTastedLabel.textContent = "Tasted & Passport Logged ✔️";
+      elements.modalTastedLabel.textContent = "Tasted & Passport Logged ✔️ ";
     } else {
       elements.modalMarkTastedBtn.style.background = '';
       elements.modalMarkTastedBtn.style.color = '';
@@ -3175,6 +3320,16 @@
       if (e.target === elements.dishDetailModal) closeDetailModal();
     });
 
+    // Quick Delivery Modal Close
+    if (elements.closeDeliveryModalBtn) {
+      elements.closeDeliveryModalBtn.addEventListener('click', closeDeliveryModal);
+    }
+    if (elements.deliveryModal) {
+      elements.deliveryModal.addEventListener('click', (e) => {
+        if (e.target === elements.deliveryModal) closeDeliveryModal();
+      });
+    }
+
     // Favorites Drawer
     elements.openFavoritesBtn.addEventListener('click', () => {
       renderFavoritesDrawer();
@@ -3305,6 +3460,7 @@
 
       if (e.key === 'Escape') {
         closeDetailModal();
+        closeDeliveryModal();
         elements.wheelModal.classList.remove('active');
         elements.favoritesDrawerBackdrop.classList.remove('active');
         elements.locationDropdown.classList.remove('active');
