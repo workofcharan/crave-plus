@@ -160,7 +160,6 @@
     modalDishHack: document.getElementById('modalDishHack'),
     modalDishDescription: document.getElementById('modalDishDescription'),
     modalDishIngredients: document.getElementById('modalDishIngredients'),
-    modalDishSpots: document.getElementById('modalDishSpots'),
     modalDishRecipe: document.getElementById('modalDishRecipe'),
     modalFindNearMeBtn: document.getElementById('modalFindNearMeBtn'),
     modalSaveFavBtn: document.getElementById('modalSaveFavBtn'),
@@ -843,6 +842,7 @@
 
       const card = document.createElement('div');
       card.className = `city-card-item ${city.id === state.currentCityId ? 'active' : ''}`;
+      card.setAttribute('data-city-id', city.id);
       card.innerHTML = `
         <div class="city-card-name">
           <span>${city.name}</span>

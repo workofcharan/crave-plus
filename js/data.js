@@ -2224,9 +2224,9 @@ const SHOWDOWN_PAIRS = [
   },
   {
     id: "sweet_clash",
-    title: "European Dessert Duel: Roman Gelato vs Paris Croissant",
+    title: "Artisanal Duel: Turkish Pistachio Baklava vs Paris Croissant",
     badge: "🍰 Dessert Duel",
-    dishAId: "rome_gelato",
+    dishAId: "ist_baklava",
     dishBId: "paris_croissant"
   },
   {
