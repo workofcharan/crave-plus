@@ -1317,6 +1317,9 @@
         <button class="btn-bookmark ${isFav ? 'saved' : ''}" data-fav-id="${rawDish.id}" title="${isFav ? 'Remove from Saved' : 'Save Dish'}">
           <i data-lucide="heart" style="width:18px;height:18px;${isFav ? 'fill:white;' : ''}"></i>
         </button>
+        <button class="btn-card-audio" data-listen-dish="${rawDish.id}" title="${t('listen_story')}">
+          <i data-lucide="volume-2" style="width:15px;height:15px;"></i>
+        </button>
       </div>
 
       <div class="dish-body">
@@ -1372,6 +1375,14 @@
       });
     }
 
+    const audioCardBtn = card.querySelector('[data-listen-dish]');
+    if (audioCardBtn) {
+      audioCardBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleAudioNarration(rawDish, audioCardBtn);
+      });
+    }
+
     const deliveryBtn = card.querySelector('[data-open-delivery]');
     if (deliveryBtn) {
       deliveryBtn.addEventListener('click', (e) => {
@@ -1383,7 +1394,12 @@
     const openBtns = card.querySelectorAll('[data-open-detail], .dish-media, .dish-title');
     if (openBtns) {
       openBtns.forEach(btn => {
-        btn.addEventListener('click', () => openDishDetailModal(rawDish));
+        btn.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-bookmark') || e.target.closest('.btn-card-audio') || e.target.closest('[data-open-delivery]')) {
+            return;
+          }
+          openDishDetailModal(rawDish);
+        });
       });
     }
 
@@ -1741,6 +1757,14 @@
       updateModalFavButton(rawDish.id);
     };
 
+    // Story narration button direct binding
+    if (elements.modalAudioNarrateBtn) {
+      elements.modalAudioNarrateBtn.onclick = (e) => {
+        e.stopPropagation();
+        toggleAudioNarration(rawDish, elements.modalAudioNarrateBtn);
+      };
+    }
+
     elements.dishDetailModal.classList.add('active');
     refreshLucideIcons();
   }
@@ -1847,6 +1871,8 @@
   }
 
   // --- WEB SPEECH AUDIO NARRATION ---
+  let activeUtterance = null;
+
   function getBestSpeechVoice(targetLang) {
     if (!('speechSynthesis' in window)) return null;
     const voices = window.speechSynthesis.getVoices() || [];
@@ -1883,7 +1909,35 @@
     return null;
   }
 
-  function toggleAudioNarration() {
+  function stopAudioNarration() {
+    state.speechSynthSpeaking = false;
+    activeUtterance = null;
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch (err) {
+        console.warn('TTS cancel error:', err);
+      }
+    }
+    const audioBtn = elements.modalAudioNarrateBtn || elements.modalAudioBtn;
+    if (audioBtn) {
+      audioBtn.classList.remove('speaking');
+    }
+    if (elements.modalAudioLabel) {
+      elements.modalAudioLabel.textContent = t('listen_story');
+    }
+    if (elements.modalAudioIcon) {
+      elements.modalAudioIcon.setAttribute('data-lucide', 'volume-2');
+    }
+    document.querySelectorAll('.btn-card-audio.speaking').forEach(btn => {
+      btn.classList.remove('speaking');
+      const icon = btn.querySelector('i');
+      if (icon) icon.setAttribute('data-lucide', 'volume-2');
+    });
+    refreshLucideIcons();
+  }
+
+  function toggleAudioNarration(dishToSpeak, triggerBtn) {
     if (!('speechSynthesis' in window)) {
       showToast('Speech synthesis not supported in this browser.');
       return;
@@ -1894,8 +1948,11 @@
       return;
     }
 
-    const rawDish = state.activeModalDish;
-    if (!rawDish) return;
+    const rawDish = dishToSpeak || state.activeModalDish;
+    if (!rawDish) {
+      showToast('No dish selected to narrate.');
+      return;
+    }
     const dish = getLocalizedDish(rawDish);
     const lang = state.currentLang || 'en';
 
@@ -1906,77 +1963,82 @@
     } else if (lang === 'hi') {
       speechText = `${dish.name}. ${dish.cityName} का मशहूर और लजीज व्यंजन. ${dish.famousFor} ${dish.description}`;
     } else {
-      speechText = `${dish.name}. An iconic delicacy from ${dish.cityName}. ${dish.famousFor} ${dish.description}`;
+      speechText = `${dish.name}. An iconic regional dish from ${dish.cityName}. ${dish.famousFor} ${dish.description}`;
     }
 
-    // Cancel any previous speech
-    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+    // Clean text of emojis / symbols
+    speechText = speechText.replace(/[\u{1F600}-\u{1F6FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+
+    // Cancel old speech safely
+    try {
       window.speechSynthesis.cancel();
-    }
+    } catch(e) {}
 
-    const utterance = new SpeechSynthesisUtterance(speechText);
-    
-    // Set appropriate language tag & speaking rate
-    if (lang === 'te') {
-      utterance.lang = 'te-IN';
-      utterance.rate = 0.88;
-      utterance.pitch = 1.0;
-    } else if (lang === 'hi') {
-      utterance.lang = 'hi-IN';
-      utterance.rate = 0.90;
-      utterance.pitch = 1.0;
-    } else {
-      utterance.lang = 'en-US';
-      utterance.rate = 0.95;
-      utterance.pitch = 1.0;
-    }
+    // Short timeout avoids Chrome speech cancellation race condition
+    setTimeout(() => {
+      try {
+        if ('speechSynthesis' in window && window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
 
-    // Match best available browser voice
-    const voice = getBestSpeechVoice(lang);
-    if (voice) {
-      utterance.voice = voice;
-    }
+        const utterance = new SpeechSynthesisUtterance(speechText);
+        activeUtterance = utterance; // Prevent garbage collection bug in Chrome/Edge
+        window.__activeUtterance = utterance;
 
-    const audioBtn = elements.modalAudioNarrateBtn || elements.modalAudioBtn;
+        if (lang === 'te') {
+          utterance.lang = 'te-IN';
+          utterance.rate = 0.88;
+          utterance.pitch = 1.0;
+        } else if (lang === 'hi') {
+          utterance.lang = 'hi-IN';
+          utterance.rate = 0.90;
+          utterance.pitch = 1.0;
+        } else {
+          utterance.lang = 'en-US';
+          utterance.rate = 0.95;
+          utterance.pitch = 1.0;
+        }
 
-    utterance.onstart = () => {
-      state.speechSynthSpeaking = true;
-      if (audioBtn) audioBtn.classList.add('speaking');
-      if (elements.modalAudioLabel) elements.modalAudioLabel.textContent = t('narrating_story');
-      if (elements.modalAudioIcon) {
-        elements.modalAudioIcon.setAttribute('data-lucide', 'square');
-        refreshLucideIcons();
+        const voice = getBestSpeechVoice(lang);
+        if (voice) {
+          utterance.voice = voice;
+        }
+
+        const modalAudioBtn = elements.modalAudioNarrateBtn || elements.modalAudioBtn;
+        const activeBtn = triggerBtn || modalAudioBtn;
+
+        utterance.onstart = () => {
+          state.speechSynthSpeaking = true;
+          if (activeBtn) activeBtn.classList.add('speaking');
+          if (modalAudioBtn && (!triggerBtn || triggerBtn === modalAudioBtn)) {
+            modalAudioBtn.classList.add('speaking');
+            if (elements.modalAudioLabel) elements.modalAudioLabel.textContent = t('narrating_story');
+            if (elements.modalAudioIcon) elements.modalAudioIcon.setAttribute('data-lucide', 'square');
+          }
+          if (triggerBtn && triggerBtn.classList.contains('btn-card-audio')) {
+            const icon = triggerBtn.querySelector('i');
+            if (icon) icon.setAttribute('data-lucide', 'square');
+          }
+          refreshLucideIcons();
+        };
+
+        utterance.onend = () => {
+          stopAudioNarration();
+        };
+
+        utterance.onerror = (e) => {
+          if (e.error !== 'canceled' && e.error !== 'interrupted') {
+            console.warn('Speech synthesis playback ended/interrupted:', e);
+          }
+          stopAudioNarration();
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.error('Speech synthesis invocation failed:', err);
+        stopAudioNarration();
       }
-    };
-
-    utterance.onend = () => {
-      stopAudioNarration();
-    };
-
-    utterance.onerror = (e) => {
-      console.warn('Speech synthesis playback ended/interrupted:', e);
-      stopAudioNarration();
-    };
-
-    window.speechSynthesis.speak(utterance);
-  }
-
-  function stopAudioNarration() {
-    if ('speechSynthesis' in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
-      window.speechSynthesis.cancel();
-    }
-    state.speechSynthSpeaking = false;
-    const audioBtn = elements.modalAudioNarrateBtn || elements.modalAudioBtn;
-    if (audioBtn) {
-      audioBtn.classList.remove('speaking');
-    }
-    if (elements.modalAudioLabel) {
-      elements.modalAudioLabel.textContent = t('listen_story');
-    }
-    if (elements.modalAudioIcon) {
-      elements.modalAudioIcon.setAttribute('data-lucide', 'volume-2');
-      refreshLucideIcons();
-    }
+    }, 60);
   }
 
   // --- REVIEWS & TASTING NOTES SYSTEM ---
