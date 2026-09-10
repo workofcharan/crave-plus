@@ -1,7 +1,8 @@
 /**
  * CravePulse - Modern Food Discovery & Recommendation Engine
- * Enhanced with AI Taste Matcher Quiz, Battle Arena, Curated Food Trails,
- * Gastronomy Passport, Smart Grocery Checklist, Audio Narrator, Community Reviews & Quick Action FAB.
+ * Enhanced with Full Trilingual Localization (English, Telugu, Hindi),
+ * AI Taste Matcher Quiz, Battle Arena, Curated Food Trails, Gastronomy Passport,
+ * Smart Grocery Checklist, Audio Synthesizer, Community Reviews & Quick Action FAB.
  */
 
 (function () {
@@ -90,6 +91,7 @@
     // Time & Greeting
     timeGreetingBadge: document.getElementById('timeGreetingBadge'),
     timeGreetingText: document.getElementById('timeGreetingText'),
+    heroSubtitleEl: document.getElementById('heroSubtitleEl'),
 
     // Search & Autocomplete
     globalSearchInput: document.getElementById('globalSearchInput'),
@@ -106,6 +108,8 @@
     heroSurpriseMeBtn: document.getElementById('heroSurpriseMeBtn'),
     heroQuizBtn: document.getElementById('heroQuizBtn'),
     heroBattleBtn: document.getElementById('heroBattleBtn'),
+    heroMealPlannerBtn: document.getElementById('heroMealPlannerBtn'),
+    heroBlindBoxBtn: document.getElementById('heroBlindBoxBtn'),
 
     // Navigation Feature Triggers
     openQuizBtn: document.getElementById('openQuizBtn'),
@@ -151,6 +155,9 @@
     modalDishPrice: document.getElementById('modalDishPrice'),
     modalDishSpice: document.getElementById('modalDishSpice'),
     modalDishCalories: document.getElementById('modalDishCalories'),
+    modalDishMacros: document.getElementById('modalDishMacros'),
+    modalDishHackContainer: document.getElementById('modalDishHackContainer'),
+    modalDishHack: document.getElementById('modalDishHack'),
     modalDishDescription: document.getElementById('modalDishDescription'),
     modalDishIngredients: document.getElementById('modalDishIngredients'),
     modalDishSpots: document.getElementById('modalDishSpots'),
@@ -165,6 +172,12 @@
     modalTastedLabel: document.getElementById('modalTastedLabel'),
     modalGroceryBtn: document.getElementById('modalGroceryBtn'),
     modalCompareBtn: document.getElementById('modalCompareBtn'),
+    modalCookAlongBtn: document.getElementById('modalCookAlongBtn'),
+    modalCookAlongBtn2: document.getElementById('modalCookAlongBtn2'),
+    modalStoryPosterBtn: document.getElementById('modalStoryPosterBtn'),
+    modalAddToPlannerBtn: document.getElementById('modalAddToPlannerBtn'),
+    modalRadarSection: document.getElementById('modalRadarSection'),
+    modalRadarList: document.getElementById('modalRadarList'),
 
     // Delivery Links in Detail Modal
     modalSwiggyLink: document.getElementById('modalSwiggyLink'),
@@ -252,7 +265,6 @@
     // Daily Meal Planner
     openPlannerNavBtn: document.getElementById('openPlannerNavBtn'),
     plannerCountBadge: document.getElementById('plannerCountBadge'),
-    heroMealPlannerBtn: document.getElementById('heroMealPlannerBtn'),
     mealPlannerModal: document.getElementById('mealPlannerModal'),
     closeMealPlannerBtn: document.getElementById('closeMealPlannerBtn'),
     plannerClearBtn: document.getElementById('plannerClearBtn'),
@@ -270,7 +282,6 @@
     slotSnackContent: document.getElementById('slotSnackContent'),
 
     // Mystery Blind Box
-    heroBlindBoxBtn: document.getElementById('heroBlindBoxBtn'),
     blindBoxModal: document.getElementById('blindBoxModal'),
     closeBlindBoxBtn: document.getElementById('closeBlindBoxBtn'),
     confettiCanvas: document.getElementById('confettiCanvas'),
@@ -310,17 +321,6 @@
     downloadStoryBtn: document.getElementById('downloadStoryBtn'),
     copyStoryImageBtn: document.getElementById('copyStoryImageBtn'),
 
-    // Dish Detail Enhancements
-    modalDishMacros: document.getElementById('modalDishMacros'),
-    modalDishHackContainer: document.getElementById('modalDishHackContainer'),
-    modalDishHack: document.getElementById('modalDishHack'),
-    modalCookAlongBtn: document.getElementById('modalCookAlongBtn'),
-    modalCookAlongBtn2: document.getElementById('modalCookAlongBtn2'),
-    modalStoryPosterBtn: document.getElementById('modalStoryPosterBtn'),
-    modalAddToPlannerBtn: document.getElementById('modalAddToPlannerBtn'),
-    modalRadarSection: document.getElementById('modalRadarSection'),
-    modalRadarList: document.getElementById('modalRadarList'),
-
     // Favorites Drawer
     openFavoritesBtn: document.getElementById('openFavoritesBtn'),
     closeFavoritesBtn: document.getElementById('closeFavoritesBtn'),
@@ -332,7 +332,7 @@
     toastContainer: document.getElementById('toastContainer')
   };
 
-  // --- TRANSLATION HELPER & MULTILINGUAL ENGINE (Telugu, Hindi, English) ---
+  // --- MULTILINGUAL TRANSLATION ENGINE ---
   function t(key, params = {}) {
     const translations = window.TRANSLATIONS || {};
     const langDict = translations[state.currentLang] || translations['en'] || {};
@@ -343,6 +343,77 @@
       });
     }
     return text;
+  }
+
+  function getLocalizedDish(dish) {
+    if (!dish) return dish;
+    const lang = state.currentLang || 'en';
+    const translations = window.DISH_TRANSLATIONS || {};
+    const dishTrans = translations[dish.id] && translations[dish.id][lang] ? translations[dish.id][lang] : null;
+    const cityTrans = window.CITY_TRANSLATIONS && window.CITY_TRANSLATIONS[dish.cityId] && window.CITY_TRANSLATIONS[dish.cityId][lang];
+
+    const locName = (dishTrans && dishTrans.name) || dish.name;
+    const locCategory = (dishTrans && dishTrans.category) || getLocalizedCategory(dish.category);
+    const locDescription = (dishTrans && dishTrans.description) || dish.description;
+    const locFamousFor = (dishTrans && dishTrans.famousFor) || dish.famousFor;
+    const locCityName = (cityTrans && cityTrans.name) || dish.cityName;
+    const locCountry = (lang === 'te' && dish.country === 'India' ? 'భారతదేశం' : (lang === 'hi' && dish.country === 'India' ? 'भारत' : dish.country));
+
+    return {
+      ...dish,
+      name: locName,
+      category: locCategory,
+      description: locDescription,
+      famousFor: locFamousFor,
+      cityName: locCityName,
+      country: locCountry,
+      nativeName: '' // do not display mixed / bilingual texts
+    };
+  }
+
+  function getLocalizedCity(city) {
+    if (!city) return city;
+    const lang = state.currentLang || 'en';
+    const cityTrans = window.CITY_TRANSLATIONS && window.CITY_TRANSLATIONS[city.id] && window.CITY_TRANSLATIONS[city.id][lang];
+    const locCountry = (lang === 'te' && city.country === 'India' ? 'భారతదేశం' : (lang === 'hi' && city.country === 'India' ? 'भारत' : city.country));
+    return {
+      ...city,
+      name: (cityTrans && cityTrans.name) || city.name,
+      country: locCountry,
+      tagline: (cityTrans && cityTrans.tagline) || city.tagline
+    };
+  }
+
+  function getLocalizedCategory(category) {
+    if (!category) return category;
+    const c = category.toLowerCase();
+    if (c.includes('breakfast')) return t('cat_breakfast');
+    if (c.includes('lunch')) return t('cat_lunch');
+    if (c.includes('dinner')) return t('cat_dinner');
+    if (c.includes('snack')) return t('cat_snack');
+    if (c.includes('dessert') || c.includes('sweet')) return t('cat_dessert');
+    return category;
+  }
+
+  function getLocalizedTaste(taste) {
+    if (!taste) return taste;
+    const key = 'taste_' + taste.toLowerCase().replace(/[^a-z]/g, '');
+    const trans = t(key);
+    return (trans && trans !== key) ? trans : taste;
+  }
+
+  function getLocalizedMoodLabel(moodId) {
+    if (!moodId) return '';
+    const key = 'mood_' + moodId.replace('-', '_');
+    const trans = t(key);
+    return (trans && trans !== key) ? trans : moodId;
+  }
+
+  function getLocalizedDietLabel(dietId) {
+    if (!dietId) return '';
+    const key = dietId === 'all' ? 'all_diets' : dietId.replace('-', '_');
+    const trans = t(key);
+    return (trans && trans !== key) ? trans : dietId;
   }
 
   function applyLanguage(lang, notify = true) {
@@ -374,31 +445,38 @@
       if (text) el.placeholder = text;
     });
 
-    // Update search inputs
+    // Update all elements with data-i18n-title
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+      const key = el.getAttribute('data-i18n-title');
+      const text = t(key);
+      if (text) el.title = text;
+    });
+
+    // Update global search input placeholder
     if (elements.globalSearchInput) {
       elements.globalSearchInput.placeholder = t('search_placeholder');
     }
 
     // Dynamic UI updates
+    updateLocationUI();
     renderTimeOfDayGreeting();
     renderMoodFilterChips();
     renderDietFilterPills();
-    updateLocationUI();
+    updateDietToggleUI();
+    updateActiveFilterFeedback();
+    updateMatchedDishesCount();
     renderAllGrids();
-    if (typeof renderFoodTrails === 'function') {
-      renderFoodTrails(state.currentCityId);
-    }
-    if (typeof updatePassportUI === 'function') {
-      updatePassportUI();
-    }
+    renderFoodTrails(state.currentCityId);
+    updatePassportUI();
+    setupBattleArenaSelectors();
+    renderMealPlanner();
 
     if (elements.langDropdown) {
       elements.langDropdown.classList.remove('active');
     }
 
     if (notify) {
-      const toastMsg = lang === 'te' ? 'భాష విజయవంతంగా తెలుగుకు మార్చబడింది' : (lang === 'hi' ? 'भाषा सफलतापूर्वक हिन्दी में बदली गई' : 'Language set to English');
-      showToast(toastMsg);
+      showToast(t('lang_changed_toast'));
       playSound('chime');
     }
   }
@@ -452,8 +530,9 @@
   }
 
   function getAudioContext() {
-    if (!audioCtx && typeof window.AudioContext !== 'undefined') {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
     }
     if (audioCtx && audioCtx.state === 'suspended') {
       audioCtx.resume();
@@ -473,81 +552,93 @@
       gain.connect(ctx.destination);
 
       const now = ctx.currentTime;
-      if (type === 'click' || type === 'pop') {
+
+      if (type === 'click') {
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(540, now);
-        osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.exponentialRampToValueAtTime(150, now + 0.06);
         gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+        osc.start(now);
+        osc.stop(now + 0.06);
+      } else if (type === 'pop') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(350, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+        gain.gain.setValueAtTime(0.15, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
         osc.start(now);
-        osc.stop(now + 0.09);
-      } else if (type === 'chime' || type === 'success') {
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(523.25, now);
-        osc.frequency.setValueAtTime(659.25, now + 0.1);
-        osc.frequency.setValueAtTime(783.99, now + 0.2);
+        osc.stop(now + 0.08);
+      } else if (type === 'chime') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, now); // C5
+        osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+        osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
         gain.gain.setValueAtTime(0.15, now);
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
         osc.start(now);
-        osc.stop(now + 0.36);
-      } else if (type === 'wheel') {
+        osc.stop(now + 0.35);
+      } else if (type === 'success') {
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(700, now);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.setValueAtTime(554.37, now + 0.1);
+        osc.frequency.setValueAtTime(659.25, now + 0.2);
+        osc.frequency.setValueAtTime(880, now + 0.3);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
         osc.start(now);
-        osc.stop(now + 0.05);
+        osc.stop(now + 0.55);
       }
     } catch (e) {
-      // Audio synth optional fallback
+      console.warn('Audio FX error:', e);
     }
   }
 
-  // --- THEME SWITCHER ---
+  // --- THEME MANAGEMENT ---
   function applyTheme(theme) {
     state.theme = theme;
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('cravepulse_theme', theme);
-    if (theme === 'light') {
-      elements.themeIcon.setAttribute('data-lucide', 'moon');
-    } else {
-      elements.themeIcon.setAttribute('data-lucide', 'sun');
+    if (elements.themeIcon) {
+      elements.themeIcon.setAttribute('data-lucide', theme === 'dark' ? 'sun' : 'moon');
+      refreshLucideIcons();
     }
-    refreshLucideIcons();
   }
 
   function toggleTheme() {
-    const nextTheme = state.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(nextTheme);
-    showToast(`Switched to ${nextTheme} theme`);
+    const newTheme = state.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+    playSound('pop');
+    showToast(newTheme === 'dark' ? 'Switched to Radiant Dark' : 'Switched to Fresh Luxe');
   }
 
-  // --- TIME OF DAY LOGIC ---
+  // --- TIME OF DAY DYNAMIC GREETINGS ---
   function getTimePeriod() {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 11) {
-      return { period: 'breakfast', key: 'good_morning', label: 'Good Morning', sub: 'Kickstart with famous breakfast bites' };
+      return { period: 'breakfast', key: 'good_morning', label: 'Morning Breakfast' };
     } else if (hour >= 11 && hour < 16) {
-      return { period: 'lunch', key: 'good_afternoon', label: 'Good Afternoon', sub: 'Legendary lunch favorites near you' };
+      return { period: 'lunch', key: 'good_afternoon', label: 'Midday Lunch' };
     } else if (hour >= 16 && hour < 19) {
-      return { period: 'snack', key: 'golden_hour', label: 'Golden Hour', sub: 'Aromatic high-tea & street snack cravings' };
+      return { period: 'snack', key: 'golden_hour', label: 'Tea & Snacks' };
     } else if (hour >= 19 && hour < 23) {
-      return { period: 'dinner', key: 'good_evening', label: 'Good Evening', sub: 'Hearty master plates & dinner delights' };
+      return { period: 'dinner', key: 'good_evening', label: 'Dinner Delights' };
     } else {
-      return { period: 'late-night', key: 'late_night', label: 'Midnight Cravings', sub: 'Midnight cravings & night market bites' };
+      return { period: 'late-night', key: 'late_night', label: 'Midnight Cravings' };
     }
   }
 
   function renderTimeOfDayGreeting() {
     const info = getTimePeriod();
     if (elements.timeGreetingText) {
-      elements.timeGreetingText.textContent = t(info.key) || `${info.label} • ${info.sub}`;
+      elements.timeGreetingText.textContent = t(info.key) || `${info.label}`;
     }
   }
 
   // --- LOCATION MANAGEMENT ---
   function getCurrentCity() {
-    return CITIES_DATA.find(c => c.id === state.currentCityId) || CITIES_DATA[0];
+    const raw = CITIES_DATA.find(c => c.id === state.currentCityId) || CITIES_DATA[0];
+    return getLocalizedCity(raw);
   }
 
   function setCity(cityId) {
@@ -555,17 +646,18 @@
     if (found) {
       state.currentCityId = cityId;
       localStorage.setItem('cravepulse_city', cityId);
+      const loc = getLocalizedCity(found);
       updateLocationUI();
       renderFoodTrails(cityId);
       renderAllGrids();
-      showToast(`Location set to ${found.name}, ${found.country}`);
+      showToast(`${t('delivering_in', { city: loc.name })}`);
     }
   }
 
   function getFamousDishAtCity(cityId = state.currentCityId) {
     let cityDishes = DISHES_DATA.filter(d => d.cityId === cityId);
     
-    // If diet filter is active, respect it if dishes match
+    // If diet filter is active, respect it
     if (state.selectedDiet && state.selectedDiet !== 'all') {
       const dietFiltered = cityDishes.filter(d => matchesFilter(d, state.selectedDiet, 'all', ''));
       if (dietFiltered.length > 0) {
@@ -581,7 +673,7 @@
       return DISHES_DATA[0];
     }
 
-    // Sort by popularity, rating, and legend status
+    // Sort by popularity and score
     cityDishes.sort((a, b) => {
       const scoreA = (a.trendingScore || 80) + (a.isGlobalIcon ? 20 : 0) + (a.isLocalLegend ? 15 : 0) + (a.rating * 10);
       const scoreB = (b.trendingScore || 80) + (b.isGlobalIcon ? 20 : 0) + (b.isLocalLegend ? 15 : 0) + (b.rating * 10);
@@ -593,16 +685,17 @@
 
   function updateHeroShowcaseCard() {
     const city = getCurrentCity();
-    const famousDish = getFamousDishAtCity(city.id);
-    if (!famousDish) return;
+    const rawFamousDish = getFamousDishAtCity(city.id);
+    if (!rawFamousDish) return;
+    const famousDish = getLocalizedDish(rawFamousDish);
 
     const showcaseImg = document.getElementById('heroShowcaseImg');
     const showcaseTitle = document.getElementById('heroShowcaseTitle');
     const showcaseDesc = document.getElementById('heroShowcaseDesc');
-    const showcasePrice = document.querySelector('.showcase-price-tag');
-    const showcaseRating = document.querySelector('.showcase-rating');
-    const showcaseMetaRow = document.querySelector('.showcase-meta-row');
-    const liveTag = document.querySelector('.showcase-live-tag');
+    const showcasePrice = document.getElementById('heroShowcasePriceTag');
+    const cityBadge = document.getElementById('heroShowcaseCityBadge');
+    const flavorBadge = document.getElementById('heroShowcaseFlavorBadge');
+    const calsBadge = document.getElementById('heroShowcaseCals');
 
     if (showcaseImg) {
       showcaseImg.src = famousDish.image;
@@ -615,40 +708,34 @@
       showcaseDesc.textContent = famousDish.famousFor || famousDish.description;
     }
     if (showcasePrice) {
-      showcasePrice.innerHTML = `₹${famousDish.price} <small>avg plate</small>`;
+      showcasePrice.innerHTML = `₹${famousDish.price} <small>${t('avg_plate')}</small>`;
     }
-    if (showcaseRating) {
-      showcaseRating.innerHTML = `<i data-lucide="star" style="width:14px;height:14px;fill:var(--amber);color:var(--amber);"></i> ${famousDish.rating}`;
+    if (cityBadge) {
+      cityBadge.textContent = `${city.name} Special`;
     }
-    if (liveTag) {
-      liveTag.innerHTML = `<span class="badge-pulse-dot"></span> TOP DISH IN ${city.name.toUpperCase()}`;
+    if (flavorBadge && famousDish.tasteProfile && famousDish.tasteProfile.length > 0) {
+      flavorBadge.textContent = `${getLocalizedTaste(famousDish.tasteProfile[0])}`;
+    }
+    if (calsBadge) {
+      calsBadge.textContent = `${famousDish.calories} kcal`;
     }
 
-    const isVeg = famousDish.diet && (famousDish.diet.includes('veg') || famousDish.diet.includes('vegan') || famousDish.category === 'Dessert');
-
-    if (showcaseMetaRow) {
-      showcaseMetaRow.innerHTML = `
-        <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}">
-          <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}"><span class="fssai-dot"></span></span>
-          ${isVeg ? 'Pure Veg 🟢' : 'Non-Veg 🔴'}
-        </span>
-        <span class="badge badge-location"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${city.name} Famous</span>
-        <span class="showcase-cals">${famousDish.calories} kcal</span>
-      `;
+    if (elements.heroSubtitleEl) {
+      elements.heroSubtitleEl.innerHTML = t('hero_subtitle', { city: `<strong>${city.name}</strong>` });
     }
 
     const quickViewBtn = document.getElementById('heroShowcaseQuickViewBtn');
     if (quickViewBtn) {
       quickViewBtn.onclick = (e) => {
         e.stopPropagation();
-        openDishDetailModal(famousDish);
+        openDishDetailModal(rawFamousDish);
       };
     }
 
     const heroFeaturedCard = document.getElementById('heroFeaturedCard');
     if (heroFeaturedCard) {
       heroFeaturedCard.onclick = () => {
-        openDishDetailModal(famousDish);
+        openDishDetailModal(rawFamousDish);
       };
     }
 
@@ -657,15 +744,16 @@
 
   function updateLocationUI() {
     const city = getCurrentCity();
-    elements.currentLocationText.innerHTML = `${city.name}, ${city.country} <i data-lucide="chevron-down" style="width:14px;height:14px;"></i>`;
-    elements.heroCityName.textContent = city.name;
-    elements.sectionCityName.textContent = city.name;
-    elements.sectionCityTagline.textContent = city.tagline || 'Must-try heritage delicacies and local street food favorites.';
-    if (elements.activeCityIndicator) {
-      elements.activeCityIndicator.textContent = `Currently: ${city.name}, ${city.country}`;
+    if (elements.currentLocationText) {
+      elements.currentLocationText.innerHTML = `${city.name}, ${city.country} <i data-lucide="chevron-down" style="width:14px;height:14px;"></i>`;
     }
-    if (elements.globalSearchInput) {
-      elements.globalSearchInput.placeholder = t('search_placeholder') || 'Search any dish, cuisine, ingredient or city (e.g., Biryani, Ramen, Pizza, Tacos, Dosa)...';
+    if (elements.heroCityName) elements.heroCityName.textContent = city.name;
+    if (elements.sectionCityName) elements.sectionCityName.textContent = city.name;
+    if (elements.sectionCityTagline) {
+      elements.sectionCityTagline.textContent = city.tagline || t('famous_subtitle');
+    }
+    if (elements.activeCityIndicator) {
+      elements.activeCityIndicator.textContent = t('currently_selected_city', { city: city.name, country: city.country });
     }
     updateHeroShowcaseCard();
     renderCitySelectorList();
@@ -675,13 +763,18 @@
 
   function renderCitySelectorList(query = '') {
     const list = elements.cityListContainer;
+    if (!list) return;
     list.innerHTML = '';
+    const q = query.toLowerCase().trim();
+
     const filtered = CITIES_DATA.filter(c => {
-      const q = query.toLowerCase().trim();
       if (!q) return true;
+      const loc = getLocalizedCity(c);
       return (
         c.name.toLowerCase().includes(q) ||
+        loc.name.toLowerCase().includes(q) ||
         c.country.toLowerCase().includes(q) ||
+        loc.country.toLowerCase().includes(q) ||
         (c.popularKeywords && c.popularKeywords.some(k => k.includes(q)))
       );
     });
@@ -691,7 +784,8 @@
       return;
     }
 
-    filtered.forEach(city => {
+    filtered.forEach(rawCity => {
+      const city = getLocalizedCity(rawCity);
       const opt = document.createElement('div');
       opt.className = `location-option ${city.id === state.currentCityId ? 'selected' : ''}`;
       opt.innerHTML = `
@@ -701,7 +795,7 @@
       opt.addEventListener('click', (e) => {
         e.stopPropagation();
         setCity(city.id);
-        elements.locationDropdown.classList.remove('active');
+        if (elements.locationDropdown) elements.locationDropdown.classList.remove('active');
       });
       list.appendChild(opt);
     });
@@ -711,13 +805,16 @@
     const grid = elements.modalCityGrid;
     if (!grid) return;
     grid.innerHTML = '';
+    const q = query.toLowerCase().trim();
 
     const filtered = CITIES_DATA.filter(c => {
-      const q = query.toLowerCase().trim();
       if (!q) return true;
+      const loc = getLocalizedCity(c);
       return (
         c.name.toLowerCase().includes(q) ||
+        loc.name.toLowerCase().includes(q) ||
         c.country.toLowerCase().includes(q) ||
+        loc.country.toLowerCase().includes(q) ||
         (c.popularKeywords && c.popularKeywords.some(k => k.includes(q)))
       );
     });
@@ -727,8 +824,12 @@
       return;
     }
 
-    filtered.forEach(city => {
-      const cityDishes = DISHES_DATA.filter(d => d.cityId === city.id).map(d => d.name).slice(0, 2).join(' & ');
+    filtered.forEach(rawCity => {
+      const city = getLocalizedCity(rawCity);
+      const cityDishes = DISHES_DATA.filter(d => d.cityId === city.id)
+        .map(d => getLocalizedDish(d).name)
+        .slice(0, 2)
+        .join(' & ');
 
       const card = document.createElement('div');
       card.className = `city-card-item ${city.id === state.currentCityId ? 'active' : ''}`;
@@ -738,12 +839,12 @@
           ${city.id === state.currentCityId ? '<i data-lucide="check" style="width:16px;height:16px;color:var(--primary);"></i>' : ''}
         </div>
         <div class="city-card-country">${city.country}</div>
-        <div class="city-card-specialty"><i data-lucide="sparkles" style="width:12px;height:12px;display:inline;"></i> ${cityDishes || 'Iconic Delicacies'}</div>
+        <div class="city-card-specialty"><i data-lucide="sparkles" style="width:12px;height:12px;display:inline;"></i> ${cityDishes || city.tagline}</div>
       `;
 
       card.addEventListener('click', () => {
         setCity(city.id);
-        elements.cityModal.classList.remove('active');
+        if (elements.cityModal) elements.cityModal.classList.remove('active');
       });
 
       grid.appendChild(card);
@@ -759,7 +860,6 @@
     elements.modalCitySearchInput.focus();
   }
 
-  // Geolocation auto-detection
   function detectUserLocation() {
     if (!navigator.geolocation) {
       showToast('Geolocation is not supported by your browser');
@@ -784,9 +884,8 @@
         });
 
         setCity(closestCity.id);
-        elements.locationDropdown.classList.remove('active');
+        if (elements.locationDropdown) elements.locationDropdown.classList.remove('active');
         if (elements.cityModal) elements.cityModal.classList.remove('active');
-        showToast(`📍 Set to closest food hub: ${closestCity.name}!`);
       },
       (err) => {
         console.warn('Geolocation error:', err);
@@ -802,67 +901,51 @@
     const q = query.toLowerCase().trim();
     const suggestions = [];
 
-    // 1. Matching Dishes - Search across ANY food in the entire culinary database
-    DISHES_DATA.forEach(dish => {
-      // Respect active diet filter if applied (Veg / Non-Veg)
+    // 1. Matching Dishes
+    DISHES_DATA.forEach(rawDish => {
       if (state.selectedDiet && state.selectedDiet !== 'all') {
-        if (!matchesFilter(dish, state.selectedDiet, 'all', '')) return;
+        if (!matchesFilter(rawDish, state.selectedDiet, 'all', '')) return;
       }
 
-      const matchName = dish.name.toLowerCase().includes(q);
-      const matchNative = dish.nativeName && dish.nativeName.toLowerCase().includes(q);
-      const matchTaste = dish.tasteProfile && dish.tasteProfile.some(t => t.toLowerCase().includes(q));
-      const matchIngr = dish.ingredients && dish.ingredients.some(i => i.toLowerCase().includes(q));
-      const matchCategory = dish.category && dish.category.toLowerCase().includes(q);
-      const matchFamous = dish.famousFor && dish.famousFor.toLowerCase().includes(q);
-      const matchCity = dish.cityName && dish.cityName.toLowerCase().includes(q);
+      const locDish = getLocalizedDish(rawDish);
+      const matchLocName = locDish.name.toLowerCase().includes(q);
+      const matchRawName = rawDish.name.toLowerCase().includes(q);
+      const matchCity = locDish.cityName.toLowerCase().includes(q) || rawDish.cityName.toLowerCase().includes(q);
+      const matchCategory = locDish.category.toLowerCase().includes(q) || rawDish.category.toLowerCase().includes(q);
+      const matchDesc = locDish.description.toLowerCase().includes(q);
 
-      if (matchName || matchNative || matchTaste || matchIngr || matchCategory || matchFamous || matchCity) {
-        const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
-        const isLocal = dish.cityId === state.currentCityId;
+      if (matchLocName || matchRawName || matchCity || matchCategory || matchDesc) {
+        const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
+        const isLocal = rawDish.cityId === state.currentCityId;
         suggestions.push({
           type: 'dish',
-          title: dish.name,
-          sub: `${isLocal ? '📍 In Your City • ' : ''}${dish.cityName}, ${dish.country} • ${dish.category} • ₹${dish.price}`,
-          tag: isVeg ? '🟢 Pure Veg' : '🔴 Non-Veg',
-          image: dish.image,
+          title: locDish.name,
+          sub: `${isLocal ? '📍 ' : ''}${locDish.cityName}, ${locDish.country} • ${locDish.category} • ₹${rawDish.price}`,
+          tag: isVeg ? t('veg') : t('non_veg'),
+          image: rawDish.image,
           icon: 'utensils',
-          dishRef: dish,
+          dishRef: rawDish,
           isLocal: isLocal,
-          targetQuery: dish.name
+          targetQuery: locDish.name
         });
       }
     });
 
-    // Prioritize local dishes at the top if they match
+    // Prioritize local matches
     suggestions.sort((a, b) => (b.isLocal ? 1 : 0) - (a.isLocal ? 1 : 0));
 
-    // 2. Matching Cities & Food Capitals
-    CITIES_DATA.forEach(city => {
-      if (city.name.toLowerCase().includes(q) || city.country.toLowerCase().includes(q)) {
+    // 2. Matching Cities
+    CITIES_DATA.forEach(rawCity => {
+      const locCity = getLocalizedCity(rawCity);
+      if (locCity.name.toLowerCase().includes(q) || rawCity.name.toLowerCase().includes(q) || locCity.country.toLowerCase().includes(q)) {
         suggestions.push({
           type: 'city',
-          title: `Explore food capital: ${city.name}`,
-          sub: `${city.country} • ${city.tagline || 'Famous Regional Cuisine'}`,
-          tag: 'City Hub',
+          title: `${locCity.name}`,
+          sub: `${locCity.country} • ${locCity.tagline}`,
+          tag: 'City',
           icon: 'map-pin',
-          cityRef: city,
-          targetQuery: city.name
-        });
-      }
-    });
-
-    // 3. Matching Cravings / Moods
-    CRAVING_MOODS.forEach(mood => {
-      if (mood.id !== 'all' && (mood.label.toLowerCase().includes(q) || mood.description.toLowerCase().includes(q))) {
-        suggestions.push({
-          type: 'mood',
-          title: `${mood.label}`,
-          sub: mood.description,
-          tag: 'Craving Filter',
-          icon: 'flame',
-          moodRef: mood,
-          targetQuery: mood.label.replace(/^[^\w]+/, '')
+          cityRef: rawCity,
+          targetQuery: locCity.name
         });
       }
     });
@@ -878,21 +961,17 @@
 
   function renderAutocomplete(query) {
     const list = elements.autocompleteList;
+    if (!list) return;
     list.innerHTML = '';
     state.autocompleteIndex = -1;
 
-    const headerTitle = elements.autocompleteBoard ? elements.autocompleteBoard.querySelector('.autocomplete-header span:first-child') : null;
-    if (headerTitle) {
-      headerTitle.textContent = `🔍 Smart Flavor & Food Suggestions`;
-    }
-
     if (!query || !query.trim()) {
-      elements.autocompleteBoard.classList.remove('active');
-      elements.searchClearBtn.classList.remove('active');
+      if (elements.autocompleteBoard) elements.autocompleteBoard.classList.remove('active');
+      if (elements.searchClearBtn) elements.searchClearBtn.classList.remove('active');
       return;
     }
 
-    elements.searchClearBtn.classList.add('active');
+    if (elements.searchClearBtn) elements.searchClearBtn.classList.add('active');
     const items = getAutocompleteSuggestions(query);
     state.currentAutocompleteItems = items;
 
@@ -900,15 +979,16 @@
       list.innerHTML = `
         <div style="padding:16px; text-align:center; color:var(--text-muted); font-size:0.85rem;">
           No matching dishes found for "<strong>${query}</strong>".
-          <div style="margin-top:6px; font-size:0.78rem; color:var(--emerald-dark);">💡 Try searching for Biryani, Pizza, Ramen, Tacos, Dosa, Burger, or Pasta!</div>
         </div>
       `;
-      elements.autocompleteSummary.textContent = `No dishes found for "${query}"`;
-      elements.autocompleteBoard.classList.add('active');
+      if (elements.autocompleteSummary) elements.autocompleteSummary.textContent = `No dishes found for "${query}"`;
+      if (elements.autocompleteBoard) elements.autocompleteBoard.classList.add('active');
       return;
     }
 
-    elements.autocompleteSummary.textContent = `${items.length} delicacy match${items.length > 1 ? 'es' : ''} found for "${query}"`;
+    if (elements.autocompleteSummary) {
+      elements.autocompleteSummary.textContent = `${items.length} ${t('matching_delicacies', { count: items.length })}`;
+    }
 
     items.forEach((item, index) => {
       const row = document.createElement('div');
@@ -938,35 +1018,28 @@
       list.appendChild(row);
     });
 
-    elements.autocompleteBoard.classList.add('active');
+    if (elements.autocompleteBoard) elements.autocompleteBoard.classList.add('active');
     refreshLucideIcons();
   }
 
   function selectAutocompleteItem(item) {
-    elements.autocompleteBoard.classList.remove('active');
+    if (elements.autocompleteBoard) elements.autocompleteBoard.classList.remove('active');
 
     if (item.type === 'dish' && item.dishRef) {
       openDishDetailModal(item.dishRef);
-      elements.globalSearchInput.value = item.dishRef.name;
-      state.searchQuery = item.dishRef.name;
+      const loc = getLocalizedDish(item.dishRef);
+      elements.globalSearchInput.value = loc.name;
+      state.searchQuery = loc.name;
     } else if (item.type === 'city' && item.cityRef) {
       setCity(item.cityRef.id);
       elements.globalSearchInput.value = '';
       state.searchQuery = '';
       document.getElementById('localSection').scrollIntoView({ behavior: 'smooth' });
-    } else if (item.type === 'mood' && item.moodRef) {
-      state.selectedMood = item.moodRef.id;
-      elements.globalSearchInput.value = '';
-      state.searchQuery = '';
-      renderMoodFilterChips();
-      updateActiveFilterFeedback();
-      renderAllGrids();
-      document.getElementById('smartSuggestionsSection').scrollIntoView({ behavior: 'smooth' });
     }
   }
 
   function handleAutocompleteKeydown(e) {
-    if (!elements.autocompleteBoard.classList.contains('active')) return;
+    if (!elements.autocompleteBoard || !elements.autocompleteBoard.classList.contains('active')) return;
     const items = state.currentAutocompleteItems;
     if (items.length === 0) return;
 
@@ -1006,11 +1079,12 @@
   // --- FILTER CONTROLS ---
   function renderMoodFilterChips() {
     const container = elements.cravingMoodsList;
+    if (!container) return;
     container.innerHTML = '';
     CRAVING_MOODS.forEach(mood => {
       const chip = document.createElement('div');
       chip.className = `mood-chip ${mood.id === state.selectedMood ? 'active' : ''}`;
-      chip.textContent = mood.label;
+      chip.textContent = getLocalizedMoodLabel(mood.id);
       chip.addEventListener('click', () => {
         state.selectedMood = mood.id;
         renderMoodFilterChips();
@@ -1058,8 +1132,7 @@
     DIETARY_FILTERS.forEach(diet => {
       const pill = document.createElement('button');
       pill.className = `diet-pill ${diet.id === state.selectedDiet ? 'active' : ''}`;
-      const translationKey = diet.id === 'all' ? 'all_diets' : diet.id.replace('-', '_');
-      pill.textContent = t(translationKey) || diet.label;
+      pill.textContent = getLocalizedDietLabel(diet.id);
       pill.addEventListener('click', () => {
         setDietFilter(diet.id);
       });
@@ -1069,27 +1142,40 @@
   }
 
   function updateActiveFilterFeedback() {
-    const activeMood = CRAVING_MOODS.find(m => m.id === state.selectedMood) || CRAVING_MOODS[0];
-    const activeDiet = DIETARY_FILTERS.find(d => d.id === state.selectedDiet) || DIETARY_FILTERS[0];
-    let feedback = `Showing: ${activeMood.label}`;
+    if (!elements.activeFilterFeedback) return;
+    if (state.selectedMood === 'all' && state.selectedDiet === 'all' && state.selectedSpice === 'all' && state.maxCalories >= 1200 && !state.searchQuery) {
+      elements.activeFilterFeedback.textContent = t('showing_all_cravings');
+      return;
+    }
+    const moodText = getLocalizedMoodLabel(state.selectedMood);
+    let feedback = `${t('showing_mood', { mood: moodText })}`;
     if (state.selectedDiet !== 'all') {
-      feedback += ` + ${activeDiet.label}`;
+      feedback += ` + ${getLocalizedDietLabel(state.selectedDiet)}`;
     }
     if (state.selectedSpice !== 'all') {
-      feedback += ` + Spice: Level ${state.selectedSpice}`;
+      feedback += ` + ${t('spice')}: ${state.selectedSpice}`;
     }
     if (state.maxCalories < 1200) {
       feedback += ` + ≤ ${state.maxCalories} kcal`;
     }
     if (state.searchQuery) {
-      feedback += ` matching "${state.searchQuery}"`;
+      feedback += ` ("${state.searchQuery}")`;
     }
     elements.activeFilterFeedback.textContent = feedback;
   }
 
+  function updateMatchedDishesCount() {
+    if (!elements.matchedDishesCountBadge) return;
+    const matched = DISHES_DATA.filter(d => matchesFilter(d)).length;
+    if (matched === DISHES_DATA.length) {
+      elements.matchedDishesCountBadge.textContent = t('showing_all_delicacies');
+    } else {
+      elements.matchedDishesCountBadge.textContent = t('matching_delicacies', { count: matched });
+    }
+  }
+
   // --- DISH FILTERING & SORTING ENGINE ---
   function matchesFilter(dish, filterDiet = state.selectedDiet, filterMood = state.selectedMood, query = state.searchQuery) {
-    // Diet filter (Veg / Non-Veg / Special diets)
     if (filterDiet && filterDiet !== 'all') {
       if (filterDiet === 'veg') {
         const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
@@ -1104,14 +1190,12 @@
       }
     }
 
-    // Mood filter
     if (filterMood !== 'all') {
       if (!dish.moodTags || !dish.moodTags.includes(filterMood)) {
         return false;
       }
     }
 
-    // Spice filter
     if (state.selectedSpice !== 'all') {
       const targetSpice = parseInt(state.selectedSpice, 10);
       if (dish.spiceLevel !== targetSpice) {
@@ -1119,28 +1203,24 @@
       }
     }
 
-    // Max Calories filter
     if (state.maxCalories < 1200) {
       if (dish.calories && dish.calories > state.maxCalories) {
         return false;
       }
     }
 
-    // Search query - matches ANY food across full library
     if (query && query.trim()) {
       const q = query.toLowerCase().trim();
-      const matchName = dish.name.toLowerCase().includes(q);
-      const matchNative = dish.nativeName && dish.nativeName.toLowerCase().includes(q);
-      const matchCity = dish.cityName && dish.cityName.toLowerCase().includes(q);
-      const matchCountry = dish.country && dish.country.toLowerCase().includes(q);
-      const matchDesc = dish.description && dish.description.toLowerCase().includes(q);
+      const locDish = getLocalizedDish(dish);
+      const matchName = dish.name.toLowerCase().includes(q) || locDish.name.toLowerCase().includes(q);
+      const matchCity = dish.cityName.toLowerCase().includes(q) || locDish.cityName.toLowerCase().includes(q);
+      const matchDesc = dish.description.toLowerCase().includes(q) || locDish.description.toLowerCase().includes(q);
       const matchFamous = dish.famousFor && dish.famousFor.toLowerCase().includes(q);
       const matchTaste = dish.tasteProfile && dish.tasteProfile.some(t => t.toLowerCase().includes(q));
       const matchIngr = dish.ingredients && dish.ingredients.some(i => i.toLowerCase().includes(q));
-      const matchCategory = dish.category && dish.category.toLowerCase().includes(q);
-      const matchMood = dish.moodTags && dish.moodTags.some(m => m.toLowerCase().includes(q));
+      const matchCategory = dish.category.toLowerCase().includes(q) || locDish.category.toLowerCase().includes(q);
 
-      if (!matchName && !matchNative && !matchCity && !matchCountry && !matchDesc && !matchFamous && !matchTaste && !matchIngr && !matchCategory && !matchMood) {
+      if (!matchName && !matchCity && !matchDesc && !matchFamous && !matchTaste && !matchIngr && !matchCategory) {
         return false;
       }
     }
@@ -1172,19 +1252,20 @@
   }
 
   // --- CARD GENERATION ---
-  function createDishCard(dish) {
+  function createDishCard(rawDish) {
+    const dish = getLocalizedDish(rawDish);
     const card = document.createElement('div');
     card.className = 'dish-card';
-    card.setAttribute('data-id', dish.id);
+    card.setAttribute('data-id', rawDish.id);
 
-    const isFav = state.favorites.includes(dish.id);
-    const isTasted = state.tastedDishes.includes(dish.id);
-    const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
+    const isFav = state.favorites.includes(rawDish.id);
+    const isTasted = state.tastedDishes.includes(rawDish.id);
+    const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
 
     // Spice flames
     let spiceHtml = '';
     for (let i = 1; i <= 4; i++) {
-      spiceHtml += `<span class="spice-flame ${i <= dish.spiceLevel ? 'active' : ''}">🔥</span>`;
+      spiceHtml += `<span class="spice-flame ${i <= rawDish.spiceLevel ? 'active' : ''}">🔥</span>`;
     }
 
     // Badges & FSSAI Diet Indicators
@@ -1195,36 +1276,35 @@
       badgeHtml += `<span class="badge badge-diet-nonveg"><span class="fssai-symbol non-veg"><span class="fssai-dot"></span></span> ${t('non_veg')}</span>`;
     }
 
-    if (dish.cityId === state.currentCityId) {
+    if (rawDish.cityId === state.currentCityId) {
       badgeHtml += `<span class="badge badge-location"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${dish.cityName} Special</span>`;
-    } else if (dish.isGlobalIcon) {
-      badgeHtml += `<span class="badge badge-global"><i data-lucide="award" style="width:12px;height:12px;"></i> Global Icon</span>`;
+    } else if (rawDish.isGlobalIcon) {
+      badgeHtml += `<span class="badge badge-global"><i data-lucide="award" style="width:12px;height:12px;"></i> ${t('global_icon_badge')}</span>`;
     }
-    if (dish.trendingScore >= 95) {
-      badgeHtml += `<span class="badge badge-trending"><i data-lucide="trending-up" style="width:12px;height:12px;"></i> Hot</span>`;
+    if (rawDish.trendingScore >= 95) {
+      badgeHtml += `<span class="badge badge-trending"><i data-lucide="trending-up" style="width:12px;height:12px;"></i> ${t('hot_badge')}</span>`;
     }
     if (isTasted) {
       badgeHtml += `<span class="badge" style="background:var(--emerald); color:white;"><i data-lucide="check" style="width:12px;height:12px;"></i> ${t('tasted_badge')}</span>`;
     }
 
-    // Diet tag (Veg / Non-Veg)
-    const dietTagHtml = isVeg
-      ? `<span class="taste-tag tag-diet-veg"><span class="fssai-symbol veg"><span class="fssai-dot"></span></span> ${t('veg')} 🟢</span>`
-      : `<span class="taste-tag tag-diet-nonveg"><span class="fssai-symbol non-veg"><span class="fssai-dot"></span></span> ${t('non_veg')} 🔴</span>`;
-
     // Taste tags
-    const tasteTagsHtml = dietTagHtml + dish.tasteProfile
+    const dietTagHtml = isVeg
+      ? `<span class="taste-tag tag-diet-veg"><span class="fssai-symbol veg"><span class="fssai-dot"></span></span> ${t('veg')}</span>`
+      : `<span class="taste-tag tag-diet-nonveg"><span class="fssai-symbol non-veg"><span class="fssai-dot"></span></span> ${t('non_veg')}</span>`;
+
+    const tasteTagsHtml = dietTagHtml + (rawDish.tasteProfile || [])
       .slice(0, 3)
-      .map(t => `<span class="taste-tag">${t}</span>`)
+      .map(tag => `<span class="taste-tag">${getLocalizedTaste(tag)}</span>`)
       .join('');
 
     card.innerHTML = `
       <div class="dish-media">
-        <img src="${dish.image}" alt="${dish.name}" class="dish-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+        <img src="${rawDish.image}" alt="${dish.name}" class="dish-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
         <div class="dish-badges">
           ${badgeHtml}
         </div>
-        <button class="btn-bookmark ${isFav ? 'saved' : ''}" data-fav-id="${dish.id}" title="${isFav ? 'Remove from Saved' : 'Save Dish'}">
+        <button class="btn-bookmark ${isFav ? 'saved' : ''}" data-fav-id="${rawDish.id}" title="${isFav ? 'Remove from Saved' : 'Save Dish'}">
           <i data-lucide="heart" style="width:18px;height:18px;${isFav ? 'fill:white;' : ''}"></i>
         </button>
       </div>
@@ -1236,18 +1316,17 @@
               <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}" title="${isVeg ? 'Vegetarian' : 'Non-Vegetarian'}"><span class="fssai-dot"></span></span>
               <h3 class="dish-title">${dish.name}</h3>
             </div>
-            ${dish.nativeName ? `<div class="dish-native">${dish.nativeName}</div>` : ''}
           </div>
           <div class="dish-rating">
             <i data-lucide="star" style="width:14px;height:14px;fill:#f59e0b;"></i>
-            ${dish.rating}
+            ${rawDish.rating}
           </div>
         </div>
 
         <div class="dish-meta-row">
           <span class="meta-item"><i data-lucide="map-pin" style="width:13px;height:13px;"></i> ${dish.cityName}, ${dish.country}</span>
           <span class="meta-item"><i data-lucide="clock" style="width:13px;height:13px;"></i> ${dish.category}</span>
-          <div class="spice-meter" title="Spice Level: ${dish.spiceLevel}/4">
+          <div class="spice-meter" title="${t('spice_level_label')}: ${rawDish.spiceLevel}/4">
             ${spiceHtml}
           </div>
         </div>
@@ -1259,13 +1338,13 @@
         </div>
 
         <div class="dish-footer">
-          <span class="dish-price-tier">₹${dish.price} • ${dish.priceTier}</span>
+          <span class="dish-price-tier">₹${rawDish.price}</span>
           <div class="dish-footer-actions">
-            <button class="btn-delivery-quick" data-open-delivery="${dish.id}" title="Order on Swiggy or Zomato">
+            <button class="btn-delivery-quick" data-open-delivery="${rawDish.id}" title="Order on Delivery Apps">
               <i data-lucide="bike" style="width:13px;height:13px;"></i>
-              <span>${t('order_quick_btn') || 'Order'}</span>
+              <span>${t('order_quick_btn')}</span>
             </button>
-            <button class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem;" data-open-detail="${dish.id}">
+            <button class="btn btn-primary" style="padding:6px 14px; font-size:0.85rem;" data-open-detail="${rawDish.id}">
               <span>${t('view_dish')}</span>
               <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
             </button>
@@ -1275,11 +1354,11 @@
     `;
 
     // Event listeners
-    const favBtn = card.querySelector('.btn-bookmark, .dish-save-btn');
+    const favBtn = card.querySelector('.btn-bookmark');
     if (favBtn) {
       favBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        toggleFavorite(dish.id);
+        toggleFavorite(rawDish.id);
       });
     }
 
@@ -1287,21 +1366,21 @@
     if (deliveryBtn) {
       deliveryBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        openDeliveryModal(dish);
+        openDeliveryModal(rawDish);
       });
     }
 
     const openBtns = card.querySelectorAll('[data-open-detail], .dish-media, .dish-title');
-    if (openBtns && openBtns.forEach) {
+    if (openBtns) {
       openBtns.forEach(btn => {
-        btn.addEventListener('click', () => openDishDetailModal(dish));
+        btn.addEventListener('click', () => openDishDetailModal(rawDish));
       });
     }
 
     return card;
   }
 
-  // --- RENDER ALL GRIDS ---
+  // --- GRID RENDERING ---
   function renderAllGrids() {
     renderLocalDishes();
     renderSmartSuggestions();
@@ -1310,25 +1389,19 @@
     refreshLucideIcons();
   }
 
-  function updateMatchedDishesCount() {
-    const totalMatching = DISHES_DATA.filter(d => matchesFilter(d)).length;
-    if (elements.matchedDishesCountBadge) {
-      elements.matchedDishesCountBadge.textContent = `${totalMatching} Delicac${totalMatching === 1 ? 'y' : 'ies'} Found`;
-    }
-  }
-
-  // 1. Local Dishes
   function renderLocalDishes() {
     const grid = elements.localDishesGrid;
+    if (!grid) return;
     grid.innerHTML = '';
 
     const localDishes = sortDishes(DISHES_DATA.filter(d => d.cityId === state.currentCityId && matchesFilter(d)));
+    const city = getCurrentCity();
 
     if (localDishes.length === 0) {
       grid.innerHTML = `
         <div class="empty-state">
           <div class="empty-icon">🍲</div>
-          <h3>No matching dishes found in ${getCurrentCity().name}</h3>
+          <h3>No matching dishes found in ${city.name}</h3>
           <p style="color:var(--text-secondary); margin-top:6px;">Try adjusting your calorie, spice, or veg/non-veg filters.</p>
         </div>
       `;
@@ -1340,15 +1413,12 @@
     });
   }
 
-  // 2. Smart Personalized Suggestions
   function renderSmartSuggestions() {
     const grid = elements.smartSuggestionsGrid;
+    if (!grid) return;
     grid.innerHTML = '';
 
     const timeInfo = getTimePeriod();
-    elements.smartSuggestionsTitle.textContent = `Smart Suggestions for ${timeInfo.label}`;
-    elements.smartSuggestionsSubtitle.textContent = `Tailored for ${timeInfo.period.toUpperCase()} cravings & your active filters.`;
-
     const scoredDishes = DISHES_DATA.filter(d => matchesFilter(d)).map(dish => {
       let score = 0;
       if (dish.mealTimes && dish.mealTimes.includes(timeInfo.period)) {
@@ -1357,7 +1427,7 @@
       if (dish.cityId === state.currentCityId) {
         score += 20;
       }
-      if (state.selectedMood !== 'all' && dish.moodTags.includes(state.selectedMood)) {
+      if (state.selectedMood !== 'all' && dish.moodTags && dish.moodTags.includes(state.selectedMood)) {
         score += 25;
       }
       score += (dish.trendingScore || 80) * 0.2;
@@ -1383,9 +1453,9 @@
     });
   }
 
-  // 3. Global Hall of Fame
   function renderGlobalDishes() {
     const grid = elements.globalDishesGrid;
+    if (!grid) return;
     grid.innerHTML = '';
 
     const globalDishes = sortDishes(DISHES_DATA.filter(d => d.isGlobalIcon && matchesFilter(d)));
@@ -1413,11 +1483,12 @@
     if (!tabsContainer || !showcaseContainer) return;
 
     tabsContainer.innerHTML = '';
+    const localizedTrails = getLocalizedTrails();
 
-    let activeTrail = FOOD_TRAILS.find(t => t.cityId === selectedCityId) || FOOD_TRAILS[0];
+    let activeTrail = localizedTrails.find(t => t.cityId === selectedCityId) || localizedTrails[0];
     state.activeTrailCity = activeTrail.cityId;
 
-    FOOD_TRAILS.forEach(trail => {
+    localizedTrails.forEach(trail => {
       const tab = document.createElement('button');
       tab.className = `trail-city-tab ${trail.cityId === state.activeTrailCity ? 'active' : ''}`;
       tab.textContent = `${trail.cityName}`;
@@ -1429,14 +1500,15 @@
 
     let stopsHtml = '';
     activeTrail.stops.forEach((stop) => {
-      const dish = DISHES_DATA.find(d => d.id === stop.dishId);
+      const rawDish = DISHES_DATA.find(d => d.id === stop.dishId);
+      const locDish = rawDish ? getLocalizedDish(rawDish) : null;
       stopsHtml += `
         <div class="trail-stop-item" data-dish-id="${stop.dishId}">
           <span class="trail-stop-time"><i data-lucide="clock" style="width:12px;height:12px;"></i> ${stop.time}</span>
-          <div class="trail-stop-title">${stop.title}</div>
+          <div class="trail-stop-title">${locDish ? locDish.name : stop.title}</div>
           <div class="trail-stop-spot"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${stop.spot}</div>
           <p class="trail-stop-notes">${stop.notes}</p>
-          ${dish ? `<button class="btn btn-secondary btn-sm" style="margin-top:auto; font-size:0.75rem;" data-trail-dish="${dish.id}">View Dish Details</button>` : ''}
+          ${rawDish ? `<button class="btn btn-secondary btn-sm" style="margin-top:auto; font-size:0.75rem;" data-trail-dish="${rawDish.id}">${t('view_dish')}</button>` : ''}
         </div>
       `;
     });
@@ -1457,7 +1529,7 @@
           </div>
           <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:10px 22px;">
             <i data-lucide="navigation" style="width:16px;height:16px;"></i>
-            <span>Open Route in Google Maps</span>
+            <span>${t('find_near_me')}</span>
           </a>
         </div>
 
@@ -1470,102 +1542,142 @@
     showcaseContainer.querySelectorAll('[data-trail-dish]').forEach(btn => {
       btn.addEventListener('click', () => {
         const dishId = btn.getAttribute('data-trail-dish');
-        const dish = DISHES_DATA.find(d => d.id === dishId);
-        if (dish) openDishDetailModal(dish);
+        const d = DISHES_DATA.find(x => x.id === dishId);
+        if (d) openDishDetailModal(d);
       });
     });
 
     refreshLucideIcons();
   }
 
+  function getLocalizedTrails() {
+    const lang = state.currentLang || 'en';
+    return FOOD_TRAILS.map(trail => {
+      const cityTrans = window.CITY_TRANSLATIONS && window.CITY_TRANSLATIONS[trail.cityId] && window.CITY_TRANSLATIONS[trail.cityId][lang];
+      const cityName = (cityTrans && cityTrans.name) || trail.cityName;
+      
+      let title = trail.title;
+      let subtitle = trail.subtitle;
+      if (lang === 'te') {
+        if (trail.cityId === 'hyderabad') {
+          title = "హైదరాబాద్ నవాబీ ఆహార యాత్ర";
+          subtitle = "చార్మినార్ ఇరానీ ఛాయ్ నుండి అర్థరాత్రి బిర్యానీ & హలీమ్ వరకు లెజెండరీ ఫుడ్ క్రాల్.";
+        } else if (trail.cityId === 'mumbai') {
+          title = "ముంబై వీధి ఆహార యాత్ర";
+          subtitle = "దాదర్ వడా పావ్ నుండి చౌపాటీ పావ్ భాజీ & కుల్ఫీ వరకు అసలైన బొంబాయి రుచులు.";
+        } else if (trail.cityId === 'delhi') {
+          title = "పురానీ ఢిల్లీ చాట్ & మొఘలాయి యాత్ర";
+          subtitle = "చాందినీ చౌక్ పరాటాల నుండి కరీమ్స్ తందూరీ చికెన్ వరకు చారిత్రక రుచులు.";
+        } else if (trail.cityId === 'bangalore') {
+          title = "బెంగళూరు టిఫిన్ & కాఫీ యాత్ర";
+          subtitle = "వీవీ పురం దోశల నుండి ఎంటీఆర్ ఫిల్టర్ కాఫీ వరకు రుచికరమైన ఉదయం క్రాల్.";
+        } else if (trail.cityId === 'tokyo') {
+          title = "టోక్యో రామెన్ & సుషీ యాత్ర";
+          subtitle = "త్సుకిజీ తాజా చేపల మార్కెట్ నుండి షింజుకు లేట్ నైట్ రామెన్ గల్లీల వరకు.";
+        }
+      } else if (lang === 'hi') {
+        if (trail.cityId === 'hyderabad') {
+          title = "हैदराबाद नवाबी स्वाद यात्रा";
+          subtitle = "चारमीनार ईरानी चाय से लेकर देर रात की दम बिरयानी और हलीम तक की प्रसिद्ध यात्रा।";
+        } else if (trail.cityId === 'mumbai') {
+          title = "मुंबई स्ट्रीट फूड ट्रेल";
+          subtitle = "दादर वड़ा पाव से लेकर गिरगांव चौपाटी पाव भाजी और कुल्फी तक असली मुंबई का स्वाद।";
+        } else if (trail.cityId === 'delhi') {
+          title = "पुरानी दिल्ली चाट और मुगलई ट्रेल";
+          subtitle = "चांदनी चौक की पराठे वाली गली से लेकर जामा मस्जिद के तंदूरी कबाब तक की ऐतिहासिक सैर।";
+        } else if (trail.cityId === 'bangalore') {
+          title = "बेंगलुरु टिफिन और फिल्टर कॉफी ट्रेल";
+          subtitle = "वीवी पुरम के कुरकुरे डोसे से लेकर पारंपरिक फिल्टर कॉफी की सुगंधित यात्रा।";
+        } else if (trail.cityId === 'tokyo') {
+          title = "टोक्यो रामेन और सुशी ट्रेल";
+          subtitle = "त्सुकिजी फिश मार्केट की ताजी सुशी से लेकर शिंजुकु की रामेन गलियों तक।";
+        }
+      }
+
+      return {
+        ...trail,
+        cityName,
+        title,
+        subtitle
+      };
+    });
+  }
+
   // --- DISH DETAIL MODAL ---
-  function openDishDetailModal(dish) {
-    state.activeModalDish = dish;
-    elements.modalDishImg.src = dish.image;
+  function openDishDetailModal(rawDish) {
+    if (!rawDish) return;
+    state.activeModalDish = rawDish;
+    const dish = getLocalizedDish(rawDish);
+
+    elements.modalDishImg.src = rawDish.image;
     elements.modalDishImg.alt = dish.name;
     elements.modalDishName.textContent = dish.name;
-    elements.modalDishNative.textContent = dish.nativeName || '';
-    elements.modalDishRating.innerHTML = `<i data-lucide="star" style="width:16px;height:16px;fill:#f59e0b;"></i> ${dish.rating} (${(dish.reviewsCount || 1000).toLocaleString()})`;
+    elements.modalDishNative.textContent = '';
+    elements.modalDishRating.innerHTML = `<i data-lucide="star" style="width:16px;height:16px;fill:#f59e0b;"></i> ${rawDish.rating} (${(rawDish.reviewsCount || 1000).toLocaleString()})`;
 
-    const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
+    const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
     if (elements.modalDishBadges) {
       elements.modalDishBadges.innerHTML = `
         <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}" style="font-size:0.8rem; padding:4px 10px;">
           <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}"><span class="fssai-dot"></span></span>
-          ${isVeg ? `${t('veg')} 🟢` : `${t('non_veg')} 🔴`}
+          ${isVeg ? `${t('pure_veg')}` : `${t('non_veg')}`}
         </span>
         <span class="badge badge-location" style="font-size:0.8rem; padding:4px 10px;"><i data-lucide="map-pin" style="width:12px;height:12px;"></i> ${dish.cityName} Special</span>
-        ${dish.isGlobalIcon ? `<span class="badge badge-global" style="font-size:0.8rem; padding:4px 10px;"><i data-lucide="award" style="width:12px;height:12px;"></i> Global Icon</span>` : ''}
+        ${rawDish.isGlobalIcon ? `<span class="badge badge-global" style="font-size:0.8rem; padding:4px 10px;"><i data-lucide="award" style="width:12px;height:12px;"></i> ${t('global_icon_badge')}</span>` : ''}
       `;
     }
 
     elements.modalDishOrigin.textContent = `${dish.cityName}, ${dish.country}`;
-    elements.modalDishCategory.textContent = `${dish.category} (${dish.mealTimes ? dish.mealTimes.join(', ') : ''})`;
+    elements.modalDishCategory.textContent = dish.category;
     if (elements.modalDishPrice) {
-      elements.modalDishPrice.textContent = `₹${dish.price} (${dish.priceTier})`;
+      elements.modalDishPrice.textContent = `₹${rawDish.price}`;
     }
     
-    let spiceText = 'Mild';
-    if (dish.spiceLevel === 2) spiceText = 'Medium 🔥';
-    if (dish.spiceLevel === 3) spiceText = 'Hot 🔥🔥';
-    if (dish.spiceLevel >= 4) spiceText = 'Fiery 🔥🔥🔥';
-    if (dish.spiceLevel === 0) spiceText = 'Zero Spice';
+    let spiceText = t('spice_mild');
+    if (rawDish.spiceLevel === 2) spiceText = t('spice_medium');
+    if (rawDish.spiceLevel === 3) spiceText = t('spice_hot');
+    if (rawDish.spiceLevel >= 4) spiceText = t('spice_fiery');
+    if (rawDish.spiceLevel === 0) spiceText = t('spice_zero');
     elements.modalDishSpice.textContent = spiceText;
-    elements.modalDishCalories.textContent = `${dish.calories} kcal`;
-    if (elements.modalDishMacros && dish.macros) {
-      elements.modalDishMacros.textContent = `P: ${dish.macros.protein}g • C: ${dish.macros.carbs}g • F: ${dish.macros.fat}g`;
+    elements.modalDishCalories.textContent = `${rawDish.calories} kcal`;
+    if (elements.modalDishMacros && rawDish.macros) {
+      elements.modalDishMacros.textContent = `P: ${rawDish.macros.protein}g • C: ${rawDish.macros.carbs}g • F: ${rawDish.macros.fat}g`;
     }
 
-    // Foodie Hack
     if (elements.modalDishHack) {
-      elements.modalDishHack.textContent = dish.foodieHack || `Order this hot at top spots in ${dish.cityName}.`;
+      elements.modalDishHack.textContent = dish.famousFor || rawDish.famousFor || `Authentic delicacy from ${dish.cityName}.`;
     }
 
     elements.modalDishDescription.textContent = dish.description;
-    elements.modalDishRecipe.textContent = dish.recipeOverview || 'Traditional secret family and street vendor recipe prepared with artisanal care.';
+    elements.modalDishRecipe.textContent = rawDish.recipeOverview || 'Prepared fresh with traditional spices and authentic care.';
 
     // Ingredients
     elements.modalDishIngredients.innerHTML = '';
-    dish.ingredients.forEach(ing => {
+    (rawDish.ingredients || []).forEach(ing => {
       const tag = document.createElement('span');
       tag.className = 'ingredient-tag';
       tag.textContent = `• ${ing}`;
       elements.modalDishIngredients.appendChild(tag);
     });
 
-    // Iconic Places to Eat It & Radar
-    if (elements.modalDishSpots) {
-      elements.modalDishSpots.innerHTML = '';
-      if (dish.iconicSpots && dish.iconicSpots.length > 0) {
-        dish.iconicSpots.forEach(spot => {
-          const item = document.createElement('div');
-          item.className = 'spot-item';
-          item.innerHTML = `<i data-lucide="map-pin" style="color:var(--primary); width:16px;height:16px;"></i> <span><strong>${spot}</strong></span>`;
-          elements.modalDishSpots.appendChild(item);
-        });
-      } else {
-        elements.modalDishSpots.innerHTML = `<div class="spot-item">Popular in top authentic restaurants throughout ${dish.cityName}.</div>`;
-      }
-    }
-
-    // Live Restaurant Radar List
+    // Radar spots
     if (elements.modalRadarList) {
       elements.modalRadarList.innerHTML = '';
-      const radarSpots = dish.radarPlaces || [];
+      const radarSpots = rawDish.radarPlaces || [];
       radarSpots.forEach(rp => {
         const spotCard = document.createElement('div');
         spotCard.className = 'radar-place-card';
         spotCard.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span class="radar-place-name">${rp.name}</span>
-            <span class="badge" style="font-size:0.65rem; padding:2px 6px; background:rgba(242,92,5,0.15); color:var(--primary);">${rp.badge}</span>
+            <span class="badge" style="font-size:0.65rem; padding:2px 6px; background:rgba(16,185,129,0.15); color:var(--primary);">${rp.badge}</span>
           </div>
           <div class="radar-place-meta">
-            <span>📍 ${rp.distanceKm} km away • ⭐ ${rp.rating}</span>
-            <span class="radar-status-tag">${rp.status}</span>
+            <span>📍 ${rp.distanceKm} km • ⭐ ${rp.rating}</span>
+            <span class="radar-status-tag">${t('open_now')}</span>
           </div>
           <a href="https://www.google.com/maps/search/?api=1&query=${rp.mapsQuery}" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--primary); font-weight:600; text-decoration:none; margin-top:4px;">
-            Navigate on Maps →
+            ${t('directions')} →
           </a>
         `;
         elements.modalRadarList.appendChild(spotCard);
@@ -1573,172 +1685,109 @@
     }
 
     // Google Maps Search link
-    const mapsQuery = encodeURIComponent(`${dish.name} ${dish.cityName}`);
+    const mapsQuery = encodeURIComponent(`${rawDish.name} ${rawDish.cityName}`);
     elements.modalFindNearMeBtn.href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
     // Delivery Links Setup (Swiggy & Zomato)
-    const { swiggyUrl, zomatoUrl, activeCityName } = getDeliveryUrls(dish);
-    if (elements.modalSwiggyLink) {
-      elements.modalSwiggyLink.href = swiggyUrl;
-      elements.modalSwiggyLink.onclick = () => {
-        showToast(`Opening Swiggy for "${dish.name}" in ${activeCityName}...`, 'info');
-      };
-    }
-    if (elements.modalZomatoLink) {
-      elements.modalZomatoLink.href = zomatoUrl;
-      elements.modalZomatoLink.onclick = () => {
-        showToast(`Opening Zomato for "${dish.name}" in ${activeCityName}...`, 'info');
-      };
-    }
-    if (elements.modalBottomSwiggyBtn) {
-      elements.modalBottomSwiggyBtn.href = swiggyUrl;
-      elements.modalBottomSwiggyBtn.onclick = () => {
-        showToast(`Opening Swiggy for "${dish.name}" in ${activeCityName}...`, 'info');
-      };
-    }
-    if (elements.modalBottomZomatoBtn) {
-      elements.modalBottomZomatoBtn.href = zomatoUrl;
-      elements.modalBottomZomatoBtn.onclick = () => {
-        showToast(`Opening Zomato for "${dish.name}" in ${activeCityName}...`, 'info');
-      };
-    }
+    const { swiggyUrl, zomatoUrl, activeCityName } = getDeliveryUrls(rawDish);
+    if (elements.modalSwiggyLink) elements.modalSwiggyLink.href = swiggyUrl;
+    if (elements.modalZomatoLink) elements.modalZomatoLink.href = zomatoUrl;
+    if (elements.modalBottomSwiggyBtn) elements.modalBottomSwiggyBtn.href = swiggyUrl;
+    if (elements.modalBottomZomatoBtn) elements.modalBottomZomatoBtn.href = zomatoUrl;
     if (elements.modalDeliveryCityBadge) {
-      elements.modalDeliveryCityBadge.textContent = `📍 Delivering in ${activeCityName}`;
+      elements.modalDeliveryCityBadge.textContent = `📍 ${t('delivering_in', { city: dish.cityName })}`;
     }
 
-    // YouTube Recipe search link
-    const ytQuery = encodeURIComponent(`How to cook authentic ${dish.name} recipe`);
+    // YouTube Recipe link
+    const ytQuery = encodeURIComponent(`How to cook authentic ${rawDish.name} recipe`);
     elements.modalWatchRecipeBtn.href = `https://www.youtube.com/results?search_query=${ytQuery}`;
 
-    // Cook Along Buttons
-    if (elements.modalCookAlongBtn) {
-      elements.modalCookAlongBtn.onclick = () => {
-        closeDetailModal();
-        openCookAlongModal(dish);
-      };
-    }
-    if (elements.modalCookAlongBtn2) {
-      elements.modalCookAlongBtn2.onclick = () => {
-        closeDetailModal();
-        openCookAlongModal(dish);
-      };
-    }
-
-    // Story Poster Button
-    if (elements.modalStoryPosterBtn) {
-      elements.modalStoryPosterBtn.onclick = () => {
-        openStoryPosterModal(dish);
-      };
-    }
-
-    // Add to Meal Plan Button
-    if (elements.modalAddToPlannerBtn) {
-      elements.modalAddToPlannerBtn.onclick = () => {
-        promptAddToMealPlan(dish.id);
-      };
-    }
-
     // Tasted Button state
-    updateModalTastedButton(dish.id);
+    updateModalTastedButton(rawDish.id);
     elements.modalMarkTastedBtn.onclick = () => {
-      toggleTastedDish(dish.id);
-      updateModalTastedButton(dish.id);
+      toggleTastedDish(rawDish.id);
+      updateModalTastedButton(rawDish.id);
     };
 
     // Grocery List Button
     elements.modalGroceryBtn.onclick = () => {
-      openGroceryList(dish.ingredients, `${dish.name} Grocery List`, `Essential ingredients to prepare ${dish.name} (${dish.cityName})`);
+      openGroceryList(rawDish.ingredients, `${dish.name} ${t('grocery_list')}`, `${dish.name} (${dish.cityName})`);
     };
 
     // Battle Arena Compare Button
     elements.modalCompareBtn.onclick = () => {
       closeDetailModal();
-      openBattleArenaWithDish(dish.id);
+      openBattleArenaWithDish(rawDish.id);
     };
 
-    // Audio narration reset
-    stopAudioNarration();
-
-    // Community Reviews render
-    renderDishReviews(dish.id);
+    // Reviews render
+    renderDishReviews(rawDish.id);
     elements.addReviewCard.style.display = 'none';
 
-    // Modal Favorite button state
-    updateModalFavButton(dish.id);
+    // Favorite button state
+    updateModalFavButton(rawDish.id);
     elements.modalSaveFavBtn.onclick = () => {
-      toggleFavorite(dish.id);
-      updateModalFavButton(dish.id);
+      toggleFavorite(rawDish.id);
+      updateModalFavButton(rawDish.id);
     };
 
-    // Show modal
     elements.dishDetailModal.classList.add('active');
     refreshLucideIcons();
   }
 
   // --- DELIVERY UTILITY HELPERS ---
   function getDeliveryUrls(dish) {
-    const currentCity = CITIES_DATA.find(c => c.id === state.currentCityId);
-    const activeCityName = currentCity ? currentCity.name.split('(')[0].trim() : (dish.cityName || 'India');
-    // Localized query combining dish name + current city
+    const currentCity = getCurrentCity();
+    const activeCityName = currentCity ? currentCity.name : (dish.cityName || 'India');
     const localizedQuery = `${dish.name} ${activeCityName}`.trim();
     const swiggyUrl = `https://www.swiggy.com/search?query=${encodeURIComponent(localizedQuery)}`;
     const zomatoUrl = `https://www.zomato.com/search?q=${encodeURIComponent(localizedQuery)}`;
-    return { swiggyUrl, zomatoUrl, activeCityName, localizedQuery };
+    return { swiggyUrl, zomatoUrl, activeCityName };
   }
 
-  function openDeliveryModal(dish) {
-    if (!elements.deliveryModal || !dish) return;
-    state.activeModalDish = dish;
-    const { swiggyUrl, zomatoUrl, activeCityName } = getDeliveryUrls(dish);
+  function openDeliveryModal(rawDish) {
+    if (!elements.deliveryModal || !rawDish) return;
+    state.activeModalDish = rawDish;
+    const dish = getLocalizedDish(rawDish);
+    const { swiggyUrl, zomatoUrl, activeCityName } = getDeliveryUrls(rawDish);
 
     if (elements.deliveryModalDishImg) {
-      elements.deliveryModalDishImg.src = dish.image;
+      elements.deliveryModalDishImg.src = rawDish.image;
       elements.deliveryModalDishImg.alt = dish.name;
     }
     if (elements.deliveryModalDishName) {
       elements.deliveryModalDishName.textContent = dish.name;
     }
     if (elements.deliveryModalDishSub) {
-      elements.deliveryModalDishSub.textContent = `Specialty from ${dish.cityName} • Approx. ₹${dish.price} (${dish.priceTier})`;
+      elements.deliveryModalDishSub.textContent = `${dish.category} • ${dish.cityName} • ~₹${rawDish.price}`;
     }
 
-    const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
+    const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
     if (elements.deliveryModalDishBadges) {
       elements.deliveryModalDishBadges.innerHTML = `
         <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}" style="font-size:0.75rem; padding:2px 8px;">
           <span class="fssai-symbol ${isVeg ? 'veg' : 'non-veg'}"><span class="fssai-dot"></span></span>
-          ${isVeg ? `${t('veg')} 🟢` : `${t('non_veg')} 🔴`}
+          ${isVeg ? `${t('pure_veg')}` : `${t('non_veg')}`}
         </span>
         <span class="badge badge-location" style="font-size:0.75rem; padding:2px 8px;"><i data-lucide="map-pin" style="width:11px;height:11px;"></i> ${dish.cityName}</span>
       `;
     }
 
-    if (elements.quickSwiggyBtn) {
-      elements.quickSwiggyBtn.href = swiggyUrl;
-      elements.quickSwiggyBtn.onclick = () => {
-        showToast(`Opening Swiggy for "${dish.name}" in ${activeCityName}...`, 'info');
-      };
-    }
-    if (elements.quickZomatoBtn) {
-      elements.quickZomatoBtn.href = zomatoUrl;
-      elements.quickZomatoBtn.onclick = () => {
-        showToast(`Opening Zomato for "${dish.name}" in ${activeCityName}...`, 'info');
-      };
-    }
-
+    if (elements.quickSwiggyBtn) elements.quickSwiggyBtn.href = swiggyUrl;
+    if (elements.quickZomatoBtn) elements.quickZomatoBtn.href = zomatoUrl;
     if (elements.deliveryModalLocationHint) {
-      elements.deliveryModalLocationHint.innerHTML = `📍 Current Delivery Location: <strong>${activeCityName}</strong>`;
+      elements.deliveryModalLocationHint.innerHTML = t('delivery_location_hint', { city: dish.cityName });
     }
 
     if (elements.deliveryModalMapsBtn) {
-      const mapsQuery = encodeURIComponent(`${dish.name} ${activeCityName}`);
+      const mapsQuery = encodeURIComponent(`${dish.name} ${dish.cityName}`);
       elements.deliveryModalMapsBtn.href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
     }
 
     if (elements.deliveryModalViewDetailsBtn) {
       elements.deliveryModalViewDetailsBtn.onclick = () => {
         closeDeliveryModal();
-        openDishDetailModal(dish);
+        openDishDetailModal(rawDish);
       };
     }
 
@@ -1758,11 +1807,11 @@
     if (isFav) {
       elements.modalSaveFavBtn.classList.add('btn-primary');
       elements.modalSaveFavBtn.classList.remove('btn-secondary');
-      elements.modalSaveFavBtn.innerHTML = `<i data-lucide="check" style="width:18px;height:18px;"></i> <span>Saved in Favorites</span>`;
+      elements.modalSaveFavBtn.innerHTML = `<i data-lucide="check" style="width:18px;height:18px;"></i> <span>${t('saved_btn')}</span>`;
     } else {
       elements.modalSaveFavBtn.classList.remove('btn-primary');
       elements.modalSaveFavBtn.classList.add('btn-secondary');
-      elements.modalSaveFavBtn.innerHTML = `<i data-lucide="heart" style="width:18px;height:18px;"></i> <span>Save to Favorites</span>`;
+      elements.modalSaveFavBtn.innerHTML = `<i data-lucide="heart" style="width:18px;height:18px;"></i> <span>${t('save')}</span>`;
     }
     refreshLucideIcons();
   }
@@ -1773,12 +1822,12 @@
       elements.modalMarkTastedBtn.style.background = 'var(--emerald)';
       elements.modalMarkTastedBtn.style.color = 'white';
       elements.modalMarkTastedBtn.style.borderColor = 'var(--emerald)';
-      elements.modalTastedLabel.textContent = "Tasted & Passport Logged ✔️ ";
+      elements.modalTastedLabel.textContent = t('tasted_btn_active');
     } else {
       elements.modalMarkTastedBtn.style.background = '';
       elements.modalMarkTastedBtn.style.color = '';
       elements.modalMarkTastedBtn.style.borderColor = '';
-      elements.modalTastedLabel.textContent = "I've Tasted This";
+      elements.modalTastedLabel.textContent = t('tasted_btn');
     }
   }
 
@@ -1799,19 +1848,19 @@
       return;
     }
 
-    const dish = state.activeModalDish;
-    if (!dish) return;
+    const rawDish = state.activeModalDish;
+    if (!rawDish) return;
+    const dish = getLocalizedDish(rawDish);
 
-    const speechText = `${dish.name}, originating from ${dish.cityName}, ${dish.country}. ${dish.description}. Key ingredients include: ${dish.ingredients.slice(0, 4).join(', ')}.`;
-
+    const speechText = `${dish.name}. ${dish.description}.`;
     const utterance = new SpeechSynthesisUtterance(speechText);
+    utterance.lang = state.currentLang === 'te' ? 'te-IN' : (state.currentLang === 'hi' ? 'hi-IN' : 'en-US');
     utterance.rate = 0.95;
-    utterance.pitch = 1.0;
 
     utterance.onstart = () => {
       state.speechSynthSpeaking = true;
       elements.modalAudioBtn.classList.add('speaking');
-      elements.modalAudioLabel.textContent = 'Speaking... (Click to stop)';
+      elements.modalAudioLabel.textContent = t('narrating_story');
       elements.modalAudioIcon.setAttribute('data-lucide', 'square');
       refreshLucideIcons();
     };
@@ -1834,7 +1883,7 @@
     state.speechSynthSpeaking = false;
     if (elements.modalAudioBtn) {
       elements.modalAudioBtn.classList.remove('speaking');
-      elements.modalAudioLabel.textContent = 'Listen Story';
+      elements.modalAudioLabel.textContent = t('listen_story');
       elements.modalAudioIcon.setAttribute('data-lucide', 'volume-2');
       refreshLucideIcons();
     }
@@ -1861,7 +1910,7 @@
       card.innerHTML = `
         <div class="review-card-head">
           <span class="review-author">${rev.author}</span>
-          <span style="color:#f59e0b; font-size:0.85rem;">${stars} <span style="color:var(--text-muted); font-size:0.75rem;">• ${rev.date || 'Recently'}</span></span>
+          <span style="color:#f59e0b; font-size:0.85rem;">${stars}</span>
         </div>
         <p class="review-comment">"${rev.comment}"</p>
       `;
@@ -1873,7 +1922,7 @@
     const dish = state.activeModalDish;
     if (!dish) return;
 
-    const author = elements.reviewAuthorInput.value.trim() || 'Fellow Foodie';
+    const author = elements.reviewAuthorInput.value.trim() || 'Foodie Connoisseur';
     const comment = elements.reviewCommentInput.value.trim();
 
     if (!comment) {
@@ -1895,21 +1944,21 @@
     elements.reviewCommentInput.value = '';
     elements.addReviewCard.style.display = 'none';
     renderDishReviews(dish.id);
-    showToast('Tasting note posted! Thank you for contributing.');
+    showToast('Tasting note posted! Thank you.');
   }
 
   // --- FAVORITES MANAGEMENT ---
   function toggleFavorite(dishId) {
     const index = state.favorites.indexOf(dishId);
-    const dish = DISHES_DATA.find(d => d.id === dishId);
-    const dishName = dish ? dish.name : 'Dish';
+    const rawDish = DISHES_DATA.find(d => d.id === dishId);
+    const dish = rawDish ? getLocalizedDish(rawDish) : { name: 'Dish' };
 
     if (index > -1) {
       state.favorites.splice(index, 1);
-      showToast(`Removed "${dishName}" from Saved`);
+      showToast(`Removed "${dish.name}"`);
     } else {
       state.favorites.push(dishId);
-      showToast(`Saved "${dishName}" to your Favorites ❤️`);
+      showToast(`Saved "${dish.name}" ❤️`);
     }
 
     localStorage.setItem('cravepulse_favorites', JSON.stringify(state.favorites));
@@ -1924,45 +1973,46 @@
 
   function renderFavoritesDrawer() {
     const container = elements.favoritesListContainer;
+    if (!container) return;
     container.innerHTML = '';
 
     if (elements.drawerItemsSummary) {
-      elements.drawerItemsSummary.textContent = `${state.favorites.length} delicacy${state.favorites.length === 1 ? '' : 'ies'} bookmarked`;
+      elements.drawerItemsSummary.textContent = t('saved_items_summary', { count: state.favorites.length });
     }
 
     if (state.favorites.length === 0) {
       container.innerHTML = `
         <div class="empty-state" style="padding:40px 10px;">
           <div class="empty-icon">❤️</div>
-          <h4>No saved dishes yet</h4>
-          <p style="color:var(--text-muted); font-size:0.85rem; margin-top:6px;">Tap the heart icon on any dish card to bookmark your favorites here.</p>
+          <h4>${t('no_saved_dishes')}</h4>
         </div>
       `;
       return;
     }
 
     state.favorites.forEach(favId => {
-      const dish = DISHES_DATA.find(d => d.id === favId);
-      if (!dish) return;
+      const rawDish = DISHES_DATA.find(d => d.id === favId);
+      if (!rawDish) return;
+      const dish = getLocalizedDish(rawDish);
 
       const item = document.createElement('div');
       item.className = 'fav-item';
       item.innerHTML = `
-        <img src="${dish.image}" alt="${dish.name}" class="fav-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+        <img src="${rawDish.image}" alt="${dish.name}" class="fav-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
         <div class="fav-info">
           <div class="fav-title">${dish.name}</div>
-          <div class="fav-city">${dish.cityName} • ${dish.category} • <strong style="color:var(--emerald);">₹${dish.price}</strong></div>
+          <div class="fav-city">${dish.cityName} • ${dish.category} • <strong style="color:var(--emerald);">₹${rawDish.price}</strong></div>
         </div>
         <button class="btn btn-secondary btn-icon" style="width:34px;height:34px;" title="Remove">
-          <i data-lucide="trash-2" style="width:16px;height:16px;color:var(--accent);"></i>
+          <i data-lucide="trash-2" style="width:16px;height:16px;color:var(--ruby);"></i>
         </button>
       `;
 
       item.addEventListener('click', (e) => {
         if (e.target.closest('button')) {
-          toggleFavorite(dish.id);
+          toggleFavorite(rawDish.id);
         } else {
-          openDishDetailModal(dish);
+          openDishDetailModal(rawDish);
           elements.favoritesDrawerBackdrop.classList.remove('active');
         }
       });
@@ -1976,15 +2026,15 @@
   // --- GASTRONOMY PASSPORT & TASTED TRACKER ---
   function toggleTastedDish(dishId) {
     const idx = state.tastedDishes.indexOf(dishId);
-    const dish = DISHES_DATA.find(d => d.id === dishId);
-    const name = dish ? dish.name : 'Dish';
+    const rawDish = DISHES_DATA.find(d => d.id === dishId);
+    const dish = rawDish ? getLocalizedDish(rawDish) : { name: 'Dish' };
 
     if (idx > -1) {
       state.tastedDishes.splice(idx, 1);
-      showToast(`Removed "${name}" from Tasted log.`);
+      showToast(`Removed "${dish.name}"`);
     } else {
       state.tastedDishes.push(dishId);
-      showToast(`† "${name}" marked as Tasted! Passport updated.`);
+      showToast(`✓ "${dish.name}" ${t('tasted_badge')}!`);
     }
 
     localStorage.setItem('cravepulse_tasted', JSON.stringify(state.tastedDishes));
@@ -1994,12 +2044,8 @@
 
   function updatePassportUI() {
     const tasted = state.tastedDishes;
-    if (elements.passportCountBadge) {
-      elements.passportCountBadge.textContent = tasted.length;
-    }
-    if (elements.pstatTastedCount) {
-      elements.pstatTastedCount.textContent = tasted.length;
-    }
+    if (elements.passportCountBadge) elements.passportCountBadge.textContent = tasted.length;
+    if (elements.pstatTastedCount) elements.pstatTastedCount.textContent = tasted.length;
 
     const tastedCities = new Set();
     tasted.forEach(id => {
@@ -2011,18 +2057,14 @@
       elements.pstatCitiesCount.textContent = tastedCities.size;
     }
 
-    let levelTitle = 'Novice Eater';
-    let stars = '★☆†☆†';
-    if (tasted.length >= 3) {
-      levelTitle = 'Street Foodie';
-      stars = '★★☆†';
-    }
-    if (tasted.length >= 7) {
-      levelTitle = 'Foodie Explorer';
-      stars = '★★★';
+    let levelTitle = t('passport_level_explorer');
+    let stars = '★★★';
+    if (tasted.length >= 8) {
+      levelTitle = t('passport_level_connoisseur');
+      stars = '★★★★';
     }
     if (tasted.length >= 15) {
-      levelTitle = 'Grand Epicurean Master';
+      levelTitle = t('passport_level_master');
       stars = '★★★★★';
     }
 
@@ -2059,14 +2101,15 @@
 
     if (elements.passportStampsGrid) {
       elements.passportStampsGrid.innerHTML = '';
-      CITIES_DATA.forEach(city => {
+      CITIES_DATA.forEach(rawCity => {
+        const city = getLocalizedCity(rawCity);
         const unlocked = tastedCities.has(city.id);
         const stamp = document.createElement('div');
         stamp.className = `passport-stamp-item ${unlocked ? 'unlocked' : ''}`;
         stamp.innerHTML = `
-          <div class="passport-stamp-icon">${unlocked ? '›' : '📍'}</div>
+          <div class="passport-stamp-icon">${unlocked ? '✨' : '📍'}</div>
           <div class="passport-stamp-city">${city.name}</div>
-          <div style="font-size:0.7rem; color:var(--text-muted);">${unlocked ? 'Visa Verified' : 'Locked'}</div>
+          <div style="font-size:0.7rem; color:var(--text-muted);">${unlocked ? t('unlocked_on') : 'Locked'}</div>
         `;
         elements.passportStampsGrid.appendChild(stamp);
       });
@@ -2075,14 +2118,15 @@
     if (elements.passportTastedLogList) {
       elements.passportTastedLogList.innerHTML = '';
       if (tasted.length === 0) {
-        elements.passportTastedLogList.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted);">No dishes logged yet. Click "I've Tasted This" on any dish to build your log!</div>`;
+        elements.passportTastedLogList.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted);">${t('no_dishes_tasted_yet')}</div>`;
       } else {
         tasted.forEach(id => {
-          const d = DISHES_DATA.find(x => x.id === id);
-          if (d) {
+          const rawDish = DISHES_DATA.find(x => x.id === id);
+          if (rawDish) {
+            const dish = getLocalizedDish(rawDish);
             const chip = document.createElement('span');
             chip.className = 'tasted-chip';
-            chip.innerHTML = `<i data-lucide="check" style="width:12px;height:12px;"></i> ${d.name} (${d.cityName})`;
+            chip.innerHTML = `<i data-lucide="check" style="width:12px;height:12px;"></i> ${dish.name} (${dish.cityName})`;
             elements.passportTastedLogList.appendChild(chip);
           }
         });
@@ -2098,7 +2142,7 @@
   }
 
   // --- SMART GROCERY SHOPPING LIST ---
-  function openGroceryList(ingredients, title = 'Smart Grocery Checklist', subtitle = 'Organized shopping list') {
+  function openGroceryList(ingredients, title = t('grocery_modal_title'), subtitle = t('grocery_modal_sub')) {
     elements.groceryModalTitle.textContent = title;
     elements.groceryModalSubtitle.textContent = subtitle;
 
@@ -2133,7 +2177,7 @@
 
   function openCombinedFavoritesGroceryList() {
     if (state.favorites.length === 0) {
-      showToast('Save some favorite dishes first to generate a combined grocery list!');
+      showToast('Save some favorite dishes first!');
       return;
     }
 
@@ -2146,7 +2190,7 @@
     });
 
     elements.favoritesDrawerBackdrop.classList.remove('active');
-    openGroceryList(Array.from(allIngs), 'Combined Favorites Grocery List', `Shopping checklist combining ${state.favorites.length} saved delicacies`);
+    openGroceryList(Array.from(allIngs), t('combined_grocery_btn'), `${state.favorites.length} ${t('saved')}`);
   }
 
   function copyGroceryList() {
@@ -2154,10 +2198,10 @@
     if (items.length === 0) return;
 
     const listText = Array.from(items).map(s => `• ${s.textContent}`).join('\n');
-    navigator.clipboard.writeText(`CRAVEPULSE SHOPPING LIST:\n\n${listText}`).then(() => {
-      showToast('📍‹ Shopping list copied to clipboard!');
+    navigator.clipboard.writeText(`CRAVEPULSE GROCERY LIST:\n\n${listText}`).then(() => {
+      showToast(t('grocery_copied_toast'));
     }).catch(() => {
-      showToast('Shopping list ready to write down!');
+      showToast('List ready to write down!');
     });
   }
 
@@ -2167,42 +2211,70 @@
     const selB = elements.dishSelectB;
     if (!selA || !selB) return;
 
+    const curA = selA.value;
+    const curB = selB.value;
+
     selA.innerHTML = '';
     selB.innerHTML = '';
 
-    DISHES_DATA.forEach(d => {
+    DISHES_DATA.forEach(rawDish => {
+      const dish = getLocalizedDish(rawDish);
       const optA = document.createElement('option');
-      optA.value = d.id;
-      optA.textContent = `${d.name} (${d.cityName})`;
+      optA.value = rawDish.id;
+      optA.textContent = `${dish.name} (${dish.cityName})`;
       selA.appendChild(optA);
 
       const optB = document.createElement('option');
-      optB.value = d.id;
-      optB.textContent = `${d.name} (${d.cityName})`;
+      optB.value = rawDish.id;
+      optB.textContent = `${dish.name} (${dish.cityName})`;
       selB.appendChild(optB);
     });
 
-    selA.value = SHOWDOWN_PAIRS[0].dishAId;
-    selB.value = SHOWDOWN_PAIRS[0].dishBId;
+    selA.value = curA || SHOWDOWN_PAIRS[0].dishAId;
+    selB.value = curB || SHOWDOWN_PAIRS[0].dishBId;
 
+    const localizedShowdowns = getLocalizedShowdowns();
     const pillsList = elements.showdownPillsList;
-    pillsList.innerHTML = '';
-    SHOWDOWN_PAIRS.forEach((pair, idx) => {
-      const pill = document.createElement('button');
-      pill.className = `showdown-pill ${idx === 0 ? 'active' : ''}`;
-      pill.textContent = pair.title;
-      pill.addEventListener('click', () => {
-        pillsList.querySelectorAll('.showdown-pill').forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        selA.value = pair.dishAId;
-        selB.value = pair.dishBId;
-        renderBattleComparison();
+    if (pillsList) {
+      pillsList.innerHTML = '';
+      localizedShowdowns.forEach((pair, idx) => {
+        const pill = document.createElement('button');
+        pill.className = `showdown-pill ${idx === 0 ? 'active' : ''}`;
+        pill.textContent = pair.title;
+        pill.addEventListener('click', () => {
+          pillsList.querySelectorAll('.showdown-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          selA.value = pair.dishAId;
+          selB.value = pair.dishBId;
+          renderBattleComparison();
+        });
+        pillsList.appendChild(pill);
       });
-      pillsList.appendChild(pill);
-    });
+    }
 
-    selA.addEventListener('change', renderBattleComparison);
-    selB.addEventListener('change', renderBattleComparison);
+    selA.onchange = renderBattleComparison;
+    selB.onchange = renderBattleComparison;
+  }
+
+  function getLocalizedShowdowns() {
+    const lang = state.currentLang || 'en';
+    return SHOWDOWN_PAIRS.map(pair => {
+      let title = pair.title;
+      if (lang === 'te') {
+        if (pair.id === 'biryani_clash') title = "హైదరాబాద్ vs కోల్‌కతా బిర్యానీ";
+        if (pair.id === 'street_clash') title = "ముంబై వడా పావ్ vs ఢిల్లీ చోలే బటూరే";
+        if (pair.id === 'noodle_clash') title = "టోక్యో రామెన్ vs వియత్నామీస్ ఫో";
+        if (pair.id === 'sweet_clash') title = "టర్కిష్ బక్లావా vs బెంగాలీ రసగుల్లా";
+        if (pair.id === 'hawker_clash') title = "సింగపూర్ చికెన్ రైస్ vs బ్యాంకాక్ పాడ్ థాయ్";
+      } else if (lang === 'hi') {
+        if (pair.id === 'biryani_clash') title = "हैदराबादी vs कोलकाता बिरयानी";
+        if (pair.id === 'street_clash') title = "मुंबई वड़ा पाव vs दिल्ली छोले भटूरे";
+        if (pair.id === 'noodle_clash') title = "टोक्यो रामेन vs वियतनामी फो";
+        if (pair.id === 'sweet_clash') title = "तुर्की बकलावा vs बंगाली रसगुल्ला";
+        if (pair.id === 'hawker_clash') title = "सिंगापुर चिकन राइस vs बैंकॉक पैड थाई";
+      }
+      return { ...pair, title };
+    });
   }
 
   function openBattleArenaWithDish(dishId) {
@@ -2216,8 +2288,11 @@
   function renderBattleComparison() {
     const idA = elements.dishSelectA.value;
     const idB = elements.dishSelectB.value;
-    const dishA = DISHES_DATA.find(d => d.id === idA) || DISHES_DATA[0];
-    const dishB = DISHES_DATA.find(d => d.id === idB) || DISHES_DATA[1];
+    const rawDishA = DISHES_DATA.find(d => d.id === idA) || DISHES_DATA[0];
+    const rawDishB = DISHES_DATA.find(d => d.id === idB) || DISHES_DATA[1];
+
+    const dishA = getLocalizedDish(rawDishA);
+    const dishB = getLocalizedDish(rawDishB);
 
     const battleKey = [dishA.id, dishB.id].sort().join('_vs_');
     const votes = state.arenaVotes[battleKey] || { a: 124, b: 118 };
@@ -2227,74 +2302,64 @@
       <div class="arena-grid-split">
         <!-- Contender A -->
         <div class="arena-col">
-          <img src="${dishA.image}" alt="${dishA.name}" class="arena-dish-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+          <img src="${rawDishA.image}" alt="${dishA.name}" class="arena-dish-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
           <div>
             <h3 style="font-size:1.25rem;">${dishA.name}</h3>
             <span style="font-size:0.85rem; color:var(--text-muted);"><i data-lucide="map-pin" style="width:12px;height:12px;display:inline;"></i> ${dishA.cityName}, ${dishA.country}</span>
           </div>
           
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Spice Meter</span>
-            <span class="arena-metric-val">${'🔥'.repeat(dishA.spiceLevel || 1)} (Level ${dishA.spiceLevel})</span>
+            <span class="arena-metric-label">${t('spice_level_label')}</span>
+            <span class="arena-metric-val">${'🔥'.repeat(rawDishA.spiceLevel || 1)}</span>
           </div>
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Caloric Energy</span>
-            <span class="arena-metric-val" style="color:var(--secondary);">${dishA.calories} kcal</span>
+            <span class="arena-metric-label">${t('est_calories')}</span>
+            <span class="arena-metric-val" style="color:var(--secondary);">${rawDishA.calories} kcal</span>
           </div>
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Preparation Time</span>
-            <span class="arena-metric-val">${dishA.prepTime}</span>
+            <span class="arena-metric-label">${t('category_time')}</span>
+            <span class="arena-metric-val">${dishA.category}</span>
           </div>
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Rating & Foodies</span>
-            <span class="arena-metric-val" style="color:#f59e0b;">★ ${dishA.rating} (${(dishA.reviewsCount || 1000).toLocaleString()})</span>
-          </div>
-          <div class="arena-metric-row">
-            <span class="arena-metric-label">Price & Tier</span>
-            <span class="arena-metric-val" style="color:var(--emerald);">₹${dishA.price} (${dishA.priceTier})</span>
+            <span class="arena-metric-label">${t('approx_price')}</span>
+            <span class="arena-metric-val" style="color:var(--emerald);">₹${rawDishA.price}</span>
           </div>
 
-          <div style="margin-top:4px;">
-            <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Flavor Radar:</span>
+          <div style="margin-top:8px;">
             <div style="display:flex; gap:4px; flex-wrap:wrap; margin-top:4px;">
-              ${dishA.tasteProfile.map(t => `<span class="taste-tag">${t}</span>`).join('')}
+              ${(rawDishA.tasteProfile || []).map(tag => `<span class="taste-tag">${getLocalizedTaste(tag)}</span>`).join('')}
             </div>
           </div>
         </div>
 
         <!-- Contender B -->
         <div class="arena-col">
-          <img src="${dishB.image}" alt="${dishB.name}" class="arena-dish-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+          <img src="${rawDishB.image}" alt="${dishB.name}" class="arena-dish-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
           <div>
             <h3 style="font-size:1.25rem;">${dishB.name}</h3>
             <span style="font-size:0.85rem; color:var(--text-muted);"><i data-lucide="map-pin" style="width:12px;height:12px;display:inline;"></i> ${dishB.cityName}, ${dishB.country}</span>
           </div>
 
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Spice Meter</span>
-            <span class="arena-metric-val">${'🔥'.repeat(dishB.spiceLevel || 1)} (Level ${dishB.spiceLevel})</span>
+            <span class="arena-metric-label">${t('spice_level_label')}</span>
+            <span class="arena-metric-val">${'🔥'.repeat(rawDishB.spiceLevel || 1)}</span>
           </div>
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Caloric Energy</span>
-            <span class="arena-metric-val" style="color:var(--secondary);">${dishB.calories} kcal</span>
+            <span class="arena-metric-label">${t('est_calories')}</span>
+            <span class="arena-metric-val" style="color:var(--secondary);">${rawDishB.calories} kcal</span>
           </div>
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Preparation Time</span>
-            <span class="arena-metric-val">${dishB.prepTime}</span>
+            <span class="arena-metric-label">${t('category_time')}</span>
+            <span class="arena-metric-val">${dishB.category}</span>
           </div>
           <div class="arena-metric-row">
-            <span class="arena-metric-label">Rating & Foodies</span>
-            <span class="arena-metric-val" style="color:#f59e0b;">★ ${dishB.rating} (${(dishB.reviewsCount || 1000).toLocaleString()})</span>
-          </div>
-          <div class="arena-metric-row">
-            <span class="arena-metric-label">Price & Tier</span>
-            <span class="arena-metric-val" style="color:var(--emerald);">₹${dishB.price} (${dishB.priceTier})</span>
+            <span class="arena-metric-label">${t('approx_price')}</span>
+            <span class="arena-metric-val" style="color:var(--emerald);">₹${rawDishB.price}</span>
           </div>
 
-          <div style="margin-top:4px;">
-            <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Flavor Radar:</span>
+          <div style="margin-top:8px;">
             <div style="display:flex; gap:4px; flex-wrap:wrap; margin-top:4px;">
-              ${dishB.tasteProfile.map(t => `<span class="taste-tag">${t}</span>`).join('')}
+              ${(rawDishB.tasteProfile || []).map(tag => `<span class="taste-tag">${getLocalizedTaste(tag)}</span>`).join('')}
             </div>
           </div>
         </div>
@@ -2303,11 +2368,11 @@
       <!-- Live Community Vote Bar -->
       <div class="arena-vote-bar">
         <button class="btn btn-primary btn-sm" id="voteBtnA" style="flex:1;">
-          <i data-lucide="thumbs-up" style="width:14px;height:14px;"></i> Vote for ${dishA.name} (<span id="voteCountA">${votes.a}</span>)
+          <i data-lucide="thumbs-up" style="width:14px;height:14px;"></i> ${t('vote_for', { name: dishA.name })} (<span id="voteCountA">${votes.a}</span>)
         </button>
-        <span style="font-weight:900; color:var(--text-muted);">VS</span>
+        <span style="font-weight:900; color:var(--text-muted);">${t('vs_text')}</span>
         <button class="btn btn-primary btn-sm" id="voteBtnB" style="flex:1; background:linear-gradient(135deg, #ec4899, #8b5cf6);">
-          <i data-lucide="thumbs-up" style="width:14px;height:14px;"></i> Vote for ${dishB.name} (<span id="voteCountB">${votes.b}</span>)
+          <i data-lucide="thumbs-up" style="width:14px;height:14px;"></i> ${t('vote_for', { name: dishB.name })} (<span id="voteCountB">${votes.b}</span>)
         </button>
       </div>
     `;
@@ -2317,7 +2382,7 @@
       state.arenaVotes[battleKey] = votes;
       localStorage.setItem('cravepulse_arena_votes', JSON.stringify(state.arenaVotes));
       document.getElementById('voteCountA').textContent = votes.a;
-      showToast(`🗳️ Voted for ${dishA.name}!`);
+      showToast(`${t('voted')}: ${dishA.name}!`);
     });
 
     document.getElementById('voteBtnB').addEventListener('click', () => {
@@ -2325,59 +2390,158 @@
       state.arenaVotes[battleKey] = votes;
       localStorage.setItem('cravepulse_arena_votes', JSON.stringify(state.arenaVotes));
       document.getElementById('voteCountB').textContent = votes.b;
-      showToast(`🗳️ Voted for ${dishB.name}!`);
+      showToast(`${t('voted')}: ${dishB.name}!`);
     });
 
     refreshLucideIcons();
   }
 
   // --- AI TASTE MATCHER QUIZ ---
-  const QUIZ_QUESTIONS = [
-    {
-      step: 1,
-      title: "Step 1: What flavor atmosphere are you craving?",
-      key: "flavor",
-      options: [
-        { label: "Savory, Rich & Aromatic", icon: "🍲", sub: "Deep spices, slow-cooked layers & comfort", val: "savory" },
-        { label: "Fiery, Tangy & Bold", icon: "🔥", sub: "Explosive chilies, street chaats & zing", val: "spicy" },
-        { label: "Artisanal & Sweet Decadence", icon: "🍰", sub: "Silky creams, caramels & pastries", val: "sweet" },
-        { label: "Light, Crisp & Umami", icon: "🥗", sub: "Fresh noodles, fresh broths & herbs", val: "light" }
-      ]
-    },
-    {
-      step: 2,
-      title: "Step 2: What is your spice tolerance today?",
-      key: "spice",
-      options: [
-        { label: "Zero Spice (Zero Flames)", icon: "🟢", sub: "Smooth, mild, sweet or purely herbal", val: 0 },
-        { label: "Mild & Gentle Heat", icon: "🔥", sub: "Delicate warmth without burning", val: 1 },
-        { label: "Medium & Zesty Fire", icon: "🔥🔥", sub: "Comfortable tingling chili heat", val: 2 },
-        { label: "Volcano Slayer (Level 3-4)", icon: "🔥🔥🔥", sub: "Bring on the fiery adrenaline rush!", val: 4 }
-      ]
-    },
-    {
-      step: 3,
-      title: "Step 3: What calorie & energy target fits your day?",
-      key: "calories",
-      options: [
-        { label: "Light & Guilt-Free (< 400 kcal)", icon: "🌿", sub: "Vibrant, clean & energizing", val: 400 },
-        { label: "Balanced Plate (400 - 650 kcal)", icon: "⚖️", sub: "Satisfying full meal balance", val: 650 },
-        { label: "Grand Gourmet Feast (650+ kcal)", icon: "👑", sub: "Pure indulgence with butter & gravies", val: 9999 },
-        { label: "No Calorie Restrictions!", icon: "🎉", sub: "Whatever tastes legendary", val: 99999 }
-      ]
-    },
-    {
-      step: 4,
-      title: "Step 4: What is the dining occasion?",
-      key: "occasion",
-      options: [
-        { label: "Fast & Fun Street Food Walk", icon: "🌮", sub: "Quick bites, crunchy & handheld", val: "street" },
-        { label: "Warm Comfort Food Snuggle", icon: "🍲", sub: "Soul-soothing steaming bowl or biryani", val: "comfort" },
-        { label: "Sophisticated Date Night Plate", icon: "🍷", sub: "Fine dining masterpieces & aromas", val: "date-night" },
-        { label: "Late-Night Midnight Fuel", icon: "🌙", sub: "Night market noodles & snacks", val: "late-night" }
-      ]
+  function getLocalizedQuizQuestions() {
+    const lang = state.currentLang || 'en';
+    if (lang === 'te') {
+      return [
+        {
+          step: 1,
+          title: "దశ 1: ఈరోజు మీరు ఏ రకమైన రుచిని ఆస్వాదించాలనుకుంటున్నారు?",
+          key: "flavor",
+          options: [
+            { label: "సువాసన & ఘాటైన మసాలాలు", icon: "🍲", sub: "దమ్ బిర్యానీ, దట్టమైన మసాలాల సంప్రదాయం", val: "savory" },
+            { label: "కారంగా & ఘాటుగా", icon: "🔥", sub: "పచ్చిమిర్చి, తీపి-కారం చాట్ రుచులు", val: "spicy" },
+            { label: "తీపి & రసగుల్లా వంటి డెసర్ట్స్", icon: "🍰", sub: "క్రీమ్, రబ్రీ మరియు స్వీట్లు", val: "sweet" },
+            { label: "తాజా, తేలికపాటి ఆహారం", icon: "🥗", sub: "నూడుల్స్, తాజా సూప్‌లు మరియు హెర్బ్స్", val: "light" }
+          ]
+        },
+        {
+          step: 2,
+          title: "దశ 2: మీ కారం సహన స్థాయి ఎంత?",
+          key: "spice",
+          options: [
+            { label: "కారం అస్సలు వద్దు", icon: "🟢", sub: "తీపి, తేలికపాటి రుచులు", val: 0 },
+            { label: "తక్కువ కారం", icon: "🔥", sub: "తేలికపాటి వెచ్చదనం", val: 1 },
+            { label: "మధ్యస్థ కారం", icon: "🔥🔥", sub: "సరిపడా మసాలా కారం", val: 2 },
+            { label: "చాలా ఎక్కువ ఘాటు (లెవల్ 3-4)", icon: "🔥🔥🔥", sub: "కారం ప్రియుల కోసం!", val: 4 }
+          ]
+        },
+        {
+          step: 3,
+          title: "దశ 3: కేలరీల ప్రాధాన్యత ఏమిటి?",
+          key: "calories",
+          options: [
+            { label: "తక్కువ కేలరీలు (< 400 kcal)", icon: "🌿", sub: "తేలికైన తాజా ఆహారం", val: 400 },
+            { label: "సమతుల్య భోజనం (400 - 650 kcal)", icon: "⚖️", sub: "రోజూ తినే పూర్తి భోజనం", val: 650 },
+            { label: "రాయల్ విందు (650+ kcal)", icon: "👑", sub: "నెయ్యి, వెన్నతో కూడిన రిచ్ రుచులు", val: 9999 },
+            { label: "కేలరీల పరిమితి లేదు!", icon: "🎉", sub: "ఏదైనా పర్వాలేదు", val: 99999 }
+          ]
+        },
+        {
+          step: 4,
+          title: "దశ 4: ఏ సందర్భం కోసం చూస్తున్నారు?",
+          key: "occasion",
+          options: [
+            { label: "స్ట్రీట్ ఫుడ్ అన్వేషణ", icon: "🌮", sub: "త్వరిత వీధి ఆహారాలు", val: "street" },
+            { label: "మనసుకు నచ్చిన సాంప్రదాయ భోజనం", icon: "🍲", sub: "వేడి బిర్యానీ లేదా భోజనం", val: "comfort" },
+            { label: "స్పెషల్ డిన్నర్", icon: "🍷", sub: "రాయల్ వంటకాలు", val: "date-night" },
+            { label: "అర్ధరాత్రి క్రేవింగ్స్", icon: "🌙", sub: "లేట్ నైట్ స్నాక్స్", val: "late-night" }
+          ]
+        }
+      ];
+    } else if (lang === 'hi') {
+      return [
+        {
+          step: 1,
+          title: "चरण 1: आज आपका क्या स्वाद खाने का मन है?",
+          key: "flavor",
+          options: [
+            { label: "सुगंधित, शाही और पारंपरिक", icon: "🍲", sub: "दम बिरयानी, रिच मसाले और आराम", val: "savory" },
+            { label: "तीखा, चटपटा और मसालेदार", icon: "🔥", sub: "तीखी मिर्च, स्ट्रीट चाट और नया स्वाद", val: "spicy" },
+            { label: "मीठे और मलाईदार पकवान", icon: "🍰", sub: "मलाई, रबड़ी और शाही मिठाइयां", val: "sweet" },
+            { label: "हल्का, ताजा और पौष्टिक", icon: "🥗", sub: "ताजे नूडल्स, साफ सूप और सब्जियां", val: "light" }
+          ]
+        },
+        {
+          step: 2,
+          title: "चरण 2: आज तीखापन कितना पसंद करेंगे?",
+          key: "spice",
+          options: [
+            { label: "बिल्कुल तीखा नहीं", icon: "🟢", sub: "हल्का, मीठा या बिना मिर्च का", val: 0 },
+            { label: "हल्का तीखा", icon: "🔥", sub: "कम मिर्च वाला सुखद स्वाद", val: 1 },
+            { label: "मध्यम तीखा", icon: "🔥🔥", sub: "संतुलित चटपटा तीखापन", val: 2 },
+            { label: "अत्यधिक तीखा (स्तर 3-4)", icon: "🔥🔥🔥", sub: "तीखे के दीवानों के लिए!", val: 4 }
+          ]
+        },
+        {
+          step: 3,
+          title: "चरण 3: आज की कैलोरी पसंद क्या है?",
+          key: "calories",
+          options: [
+            { label: "हल्का भोजन (< 400 kcal)", icon: "🌿", sub: "पौष्टिक, हल्का और ऊर्जावान", val: 400 },
+            { label: "संतुलित थाली (400 - 650 kcal)", icon: "⚖️", sub: "तृप्त करने वाला संपूर्ण भोजन", val: 650 },
+            { label: "शाही दावत (650+ kcal)", icon: "👑", sub: "मक्खन, घी और मलाईदार व्यंजन", val: 9999 },
+            { label: "कोई कैलोरी प्रतिबंध नहीं!", icon: "🎉", sub: "जो भी स्वादिष्ट हो", val: 99999 }
+          ]
+        },
+        {
+          step: 4,
+          title: "चरण 4: किस अवसर के लिए भोजन चाहिए?",
+          key: "occasion",
+          options: [
+            { label: "स्ट्रीट फूड वॉक", icon: "🌮", sub: "झटपट कुरकुरे स्ट्रीट स्नैक्स", val: "street" },
+            { label: "मनपसंद पारंपरिक भोजन", icon: "🍲", sub: "गरमा-गरम बिरयानी या थाली", val: "comfort" },
+            { label: "स्पेशल डिनर", icon: "🍷", sub: "शानदार व्यंजन और माहौल", val: "date-night" },
+            { label: "देर रात की भूख", icon: "🌙", sub: "नाइट मार्केट नूडल्स और स्नैक्स", val: "late-night" }
+          ]
+        }
+      ];
+    } else {
+      return [
+        {
+          step: 1,
+          title: "Step 1: What flavor atmosphere are you craving?",
+          key: "flavor",
+          options: [
+            { label: "Savory, Rich & Aromatic", icon: "🍲", sub: "Deep spices, slow-cooked layers & comfort", val: "savory" },
+            { label: "Fiery, Tangy & Bold", icon: "🔥", sub: "Explosive chilies, street chaats & zing", val: "spicy" },
+            { label: "Artisanal & Sweet Decadence", icon: "🍰", sub: "Silky creams, caramels & pastries", val: "sweet" },
+            { label: "Light, Crisp & Umami", icon: "🥗", sub: "Fresh noodles, fresh broths & herbs", val: "light" }
+          ]
+        },
+        {
+          step: 2,
+          title: "Step 2: What is your spice tolerance today?",
+          key: "spice",
+          options: [
+            { label: "Zero Spice (Zero Flames)", icon: "🟢", sub: "Smooth, mild, sweet or purely herbal", val: 0 },
+            { label: "Mild & Gentle Heat", icon: "🔥", sub: "Delicate warmth without burning", val: 1 },
+            { label: "Medium & Zesty Fire", icon: "🔥🔥", sub: "Comfortable tingling chili heat", val: 2 },
+            { label: "Volcano Slayer (Level 3-4)", icon: "🔥🔥🔥", sub: "Bring on the fiery adrenaline rush!", val: 4 }
+          ]
+        },
+        {
+          step: 3,
+          title: "Step 3: What calorie & energy target fits your day?",
+          key: "calories",
+          options: [
+            { label: "Light & Guilt-Free (< 400 kcal)", icon: "🌿", sub: "Vibrant, clean & energizing", val: 400 },
+            { label: "Balanced Plate (400 - 650 kcal)", icon: "⚖️", sub: "Satisfying full meal balance", val: 650 },
+            { label: "Grand Gourmet Feast (650+ kcal)", icon: "👑", sub: "Pure indulgence with butter & gravies", val: 9999 },
+            { label: "No Calorie Restrictions!", icon: "🎉", sub: "Whatever tastes legendary", val: 99999 }
+          ]
+        },
+        {
+          step: 4,
+          title: "Step 4: What is the dining occasion?",
+          key: "occasion",
+          options: [
+            { label: "Fast & Fun Street Food Walk", icon: "🌮", sub: "Quick bites, crunchy & handheld", val: "street" },
+            { label: "Warm Comfort Food Snuggle", icon: "🍲", sub: "Soul-soothing steaming bowl or biryani", val: "comfort" },
+            { label: "Sophisticated Date Night Plate", icon: "🍷", sub: "Fine dining masterpieces & aromas", val: "date-night" },
+            { label: "Late-Night Midnight Fuel", icon: "🌙", sub: "Night market noodles & snacks", val: "late-night" }
+          ]
+        }
+      ];
     }
-  ];
+  }
 
   function openTasteQuiz() {
     state.quizStep = 1;
@@ -2389,10 +2553,11 @@
   }
 
   function renderQuizStep() {
-    const q = QUIZ_QUESTIONS[state.quizStep - 1];
+    const questions = getLocalizedQuizQuestions();
+    const q = questions[state.quizStep - 1];
     if (!q) return;
 
-    elements.quizStepIndicator.textContent = `Step ${q.step} of 4: ${q.key.toUpperCase()}`;
+    elements.quizStepIndicator.textContent = t('quiz_step_indicator', { step: q.step, key: q.key.toUpperCase() });
     elements.quizProgressFill.style.width = `${(q.step / 4) * 100}%`;
 
     const body = elements.quizQuestionBody;
@@ -2433,43 +2598,43 @@
     resultsView.innerHTML = `
       <div style="text-align:center; padding:40px 20px;">
         <div class="quiz-icon-badge" style="margin:0 auto 16px auto; width:50px; height:50px; font-size:1.5rem;">✨</div>
-        <h3 style="font-size:1.4rem;">Analyzing Your Flavor DNA...</h3>
-        <p style="color:var(--text-secondary); margin-top:8px;">Matching your palate against 70+ culinary treasures worldwide.</p>
+        <h3 style="font-size:1.4rem;">${t('quiz_analyzing_title')}</h3>
+        <p style="color:var(--text-secondary); margin-top:8px;">${t('quiz_analyzing_sub')}</p>
       </div>
     `;
 
     setTimeout(() => {
       const ans = state.quizAnswers;
-      const scored = DISHES_DATA.map(d => {
+      const scored = DISHES_DATA.map(rawDish => {
         let matchScore = 70;
 
         if (typeof ans.spice === 'number') {
-          if (d.spiceLevel === ans.spice) matchScore += 15;
-          else if (Math.abs(d.spiceLevel - ans.spice) <= 1) matchScore += 8;
+          if (rawDish.spiceLevel === ans.spice) matchScore += 15;
+          else if (Math.abs(rawDish.spiceLevel - ans.spice) <= 1) matchScore += 8;
         }
 
-        if (ans.calories && d.calories <= ans.calories) {
+        if (ans.calories && rawDish.calories <= ans.calories) {
           matchScore += 8;
         }
 
-        if (ans.flavor === 'spicy' && (d.spiceLevel >= 2 || (d.moodTags && d.moodTags.includes('spicy')))) {
+        if (ans.flavor === 'spicy' && (rawDish.spiceLevel >= 2 || (rawDish.moodTags && rawDish.moodTags.includes('spicy')))) {
           matchScore += 12;
-        } else if (ans.flavor === 'sweet' && (d.category === 'Dessert' || (d.moodTags && d.moodTags.includes('sweet')))) {
+        } else if (ans.flavor === 'sweet' && (rawDish.category === 'Dessert' || (rawDish.moodTags && rawDish.moodTags.includes('sweet')))) {
           matchScore += 15;
         } else if (ans.flavor === 'savory') {
           matchScore += 10;
         }
 
-        if (ans.occasion === 'street' && (d.category === 'Street Food' || (d.moodTags && d.moodTags.includes('street-food')))) {
+        if (ans.occasion === 'street' && (rawDish.category === 'Street Food' || (rawDish.moodTags && rawDish.moodTags.includes('street-food')))) {
           matchScore += 12;
-        } else if (ans.occasion === 'date-night' && d.moodTags && d.moodTags.includes('date-night')) {
+        } else if (ans.occasion === 'date-night' && rawDish.moodTags && rawDish.moodTags.includes('date-night')) {
           matchScore += 14;
-        } else if (ans.occasion === 'comfort' && d.moodTags && d.moodTags.includes('comfort')) {
+        } else if (ans.occasion === 'comfort' && rawDish.moodTags && rawDish.moodTags.includes('comfort')) {
           matchScore += 12;
         }
 
         const finalPercent = Math.min(99, Math.max(82, matchScore + Math.floor(Math.random() * 6)));
-        return { dish: d, score: finalPercent };
+        return { dish: rawDish, score: finalPercent };
       });
 
       scored.sort((a, b) => b.score - a.score);
@@ -2477,32 +2642,34 @@
 
       resultsView.innerHTML = `
         <div style="text-align:center; margin-bottom:20px;">
-          <span class="badge badge-trending">🎉 Match Found!</span>
-          <h3 style="font-size:1.6rem; margin-top:6px;">Your Top 3 Culinary Soulmates</h3>
-          <p style="color:var(--text-secondary); font-size:0.85rem;">Calculated exclusively for your flavor, spice and mood preference.</p>
+          <span class="badge badge-trending">${t('quiz_winner_badge')}</span>
+          <h3 style="font-size:1.6rem; margin-top:6px;">${t('quiz_soulmate_title')}</h3>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:12px;">
-          ${top3.map(item => `
-            <div class="quiz-results-card" data-dish-id="${item.dish.id}">
-              <div class="quiz-match-score">
-                <span>${item.score}%</span>
-                <span style="font-size:0.65rem; font-weight:normal;">MATCH</span>
+          ${top3.map(item => {
+            const locDish = getLocalizedDish(item.dish);
+            return `
+              <div class="quiz-results-card" data-dish-id="${item.dish.id}">
+                <div class="quiz-match-score">
+                  <span>${item.score}%</span>
+                  <span style="font-size:0.65rem; font-weight:normal;">MATCH</span>
+                </div>
+                <img src="${item.dish.image}" alt="${locDish.name}" style="width:70px; height:70px; border-radius:var(--radius-md); object-fit:cover;">
+                <div style="flex:1;">
+                  <h4 style="font-size:1.05rem; margin-bottom:2px;">${locDish.name}</h4>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">${locDish.cityName}, ${locDish.country} • ₹${item.dish.price}</div>
+                  <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">${locDish.description.substring(0, 85)}...</p>
+                </div>
+                <button class="btn btn-primary btn-sm" data-quiz-view="${item.dish.id}">${t('view_dish')}</button>
               </div>
-              <img src="${item.dish.image}" alt="${item.dish.name}" style="width:70px; height:70px; border-radius:var(--radius-md); object-fit:cover;">
-              <div style="flex:1;">
-                <h4 style="font-size:1.05rem; margin-bottom:2px;">${item.dish.name}</h4>
-                <div style="font-size:0.8rem; color:var(--text-muted);">${item.dish.cityName}, ${item.dish.country} • ₹${item.dish.price} • ${'🔥'.repeat(item.dish.spiceLevel || 1)}</div>
-                <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">${item.dish.famousFor.substring(0, 80)}...</p>
-              </div>
-              <button class="btn btn-primary btn-sm" data-quiz-view="${item.dish.id}">View</button>
-            </div>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
 
         <div style="display:flex; justify-content:center; gap:10px; margin-top:20px;">
           <button class="btn btn-secondary" id="retakeQuizBtn">
-            <i data-lucide="rotate-ccw" style="width:16px;height:16px;"></i> Retake Quiz
+            <i data-lucide="rotate-ccw" style="width:16px;height:16px;"></i> ${t('quiz_start_over')}
           </button>
         </div>
       `;
@@ -2520,7 +2687,7 @@
 
       document.getElementById('retakeQuizBtn').addEventListener('click', openTasteQuiz);
       refreshLucideIcons();
-    }, 900);
+    }, 850);
   }
 
   // --- INTERACTIVE CRAVING WHEEL ---
@@ -2533,7 +2700,7 @@
     }
     state.wheelDishes = pool;
     elements.wheelResultContainer.style.display = 'none';
-    elements.spinButtonLabel.textContent = 'SPIN THE WHEEL';
+    elements.spinButtonLabel.textContent = t('spin_button');
     elements.executeSpinBtn.disabled = false;
     elements.wheelModal.classList.add('active');
 
@@ -2542,6 +2709,7 @@
 
   function drawWheel(rotationOffset = 0) {
     const canvas = elements.wheelCanvas;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const dishes = state.wheelDishes;
     const numSlices = dishes.length;
@@ -2554,8 +2722,8 @@
     ctx.rotate(rotationOffset);
 
     const colors = [
-      '#f25c05', '#ff9800', '#e11d48', '#8b5cf6',
-      '#059669', '#d97706', '#0284c7', '#ec4899'
+      '#059669', '#e11d48', '#d97706', '#0284c7',
+      '#8b5cf6', '#10b981', '#f59e0b', '#ec4899'
     ];
 
     for (let i = 0; i < numSlices; i++) {
@@ -2567,20 +2735,17 @@
       ctx.closePath();
       ctx.fill();
 
-      // Border
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      // Label text
       ctx.save();
       ctx.rotate(angle + arc / 2);
       ctx.textAlign = 'right';
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 12px Outfit, sans-serif';
-      ctx.shadowColor = 'rgba(0,0,0,0.6)';
-      ctx.shadowBlur = 4;
-      const text = dishes[i].name.length > 14 ? dishes[i].name.substring(0, 12) + '...' : dishes[i].name;
+      const locDish = getLocalizedDish(dishes[i]);
+      const text = locDish.name.length > 14 ? locDish.name.substring(0, 12) + '...' : locDish.name;
       ctx.fillText(text, radius - 20, 4);
       ctx.restore();
     }
@@ -2592,7 +2757,7 @@
     if (state.wheelSpinning) return;
     state.wheelSpinning = true;
     elements.executeSpinBtn.disabled = true;
-    elements.spinButtonLabel.textContent = 'Spinning your craving...';
+    elements.spinButtonLabel.textContent = '...';
     elements.wheelResultContainer.style.display = 'none';
 
     const numSlices = state.wheelDishes.length;
@@ -2610,28 +2775,26 @@
     setTimeout(() => {
       state.wheelSpinning = false;
       elements.executeSpinBtn.disabled = false;
-      elements.spinButtonLabel.textContent = 'SPIN AGAIN';
+      elements.spinButtonLabel.textContent = t('spin_button');
 
       const winner = state.wheelDishes[winningIndex];
       displayWheelWinner(winner);
     }, 4600);
   }
 
-  function displayWheelWinner(dish) {
+  function displayWheelWinner(rawDish) {
+    const dish = getLocalizedDish(rawDish);
     const container = elements.wheelResultContainer;
     container.innerHTML = `
       <div style="background:var(--bg-card); padding:20px; border-radius:var(--radius-lg); border:2px solid var(--primary); text-align:center; box-shadow:var(--shadow-lg);">
-        <span class="badge badge-trending" style="margin-bottom:8px;">🎉 Your Destiny Pick</span>
+        <span class="badge badge-trending" style="margin-bottom:8px;">${t('destiny_pick')}</span>
         <h3 style="font-size:1.4rem; margin:6px 0;">${dish.name}</h3>
-        <div style="font-weight:700; color:var(--emerald); margin-bottom:8px; font-size:0.95rem;">₹${dish.price} (${dish.priceTier}) • ~${dish.calories} kcal</div>
-        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">${dish.famousFor}</p>
+        <div style="font-weight:700; color:var(--emerald); margin-bottom:8px; font-size:0.95rem;">₹${rawDish.price} • ${dish.cityName}</div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">${dish.famousFor || dish.description}</p>
         <div style="display:flex; gap:10px; justify-content:center;">
           <button class="btn btn-primary" id="wheelWinnerDetailBtn" style="padding:8px 20px;">
-            <i data-lucide="eye" style="width:16px;height:16px;"></i> View Full Dish
+            <i data-lucide="eye" style="width:16px;height:16px;"></i> ${t('view_dish')}
           </button>
-          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dish.name + ' ' + dish.cityName)}" target="_blank" class="btn btn-secondary" style="padding:8px 16px;">
-            <i data-lucide="map-pin" style="width:16px;height:16px;"></i> Find Near Me
-          </a>
         </div>
       </div>
     `;
@@ -2639,7 +2802,7 @@
     
     document.getElementById('wheelWinnerDetailBtn').addEventListener('click', () => {
       elements.wheelModal.classList.remove('active');
-      openDishDetailModal(dish);
+      openDishDetailModal(rawDish);
     });
 
     refreshLucideIcons();
@@ -2649,7 +2812,8 @@
   function triggerInstantSurprise() {
     const pool = DISHES_DATA.filter(d => matchesFilter(d));
     const randomDish = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : DISHES_DATA[0];
-    showToast(`✨ Surprise Pick: ${randomDish.name}!`);
+    const loc = getLocalizedDish(randomDish);
+    showToast(`✨ ${loc.name}!`);
     openDishDetailModal(randomDish);
   }
 
@@ -2697,23 +2861,24 @@
       if (!contentEl) return;
 
       const dishId = plan[slot];
-      const dish = dishId ? DISHES_DATA.find(d => d.id === dishId) : null;
+      const rawDish = dishId ? DISHES_DATA.find(d => d.id === dishId) : null;
+      const dish = rawDish ? getLocalizedDish(rawDish) : null;
 
-      if (dish) {
-        totalCals += dish.calories || 0;
-        if (dish.macros) {
-          totalProtein += dish.macros.protein || 0;
-          totalCarbs += dish.macros.carbs || 0;
-          totalFat += dish.macros.fat || 0;
+      if (rawDish && dish) {
+        totalCals += rawDish.calories || 0;
+        if (rawDish.macros) {
+          totalProtein += rawDish.macros.protein || 0;
+          totalCarbs += rawDish.macros.carbs || 0;
+          totalFat += rawDish.macros.fat || 0;
         }
-        totalBudget += dish.price || 0;
+        totalBudget += rawDish.price || 0;
 
         contentEl.innerHTML = `
           <div class="planned-dish-card" style="display:flex; gap:10px; align-items:center;">
-            <img src="${dish.image}" alt="${dish.name}" style="width:52px; height:52px; border-radius:var(--radius-sm); object-fit:cover;" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+            <img src="${rawDish.image}" alt="${dish.name}" style="width:52px; height:52px; border-radius:var(--radius-sm); object-fit:cover;" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
             <div style="flex:1;">
               <h4 style="font-size:0.95rem; margin-bottom:2px;">${dish.name}</h4>
-              <div style="font-size:0.75rem; color:var(--text-muted);">${dish.cityName} • <strong style="color:var(--emerald-dark);">₹${dish.price}</strong> • ${dish.calories} kcal</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">${dish.cityName} • <strong style="color:var(--emerald-dark);">₹${rawDish.price}</strong> • ${rawDish.calories} kcal</div>
             </div>
             <button class="btn btn-secondary btn-icon" style="width:30px; height:30px;" title="Remove" data-remove-slot="${slot}">
               <i data-lucide="x" style="width:14px; height:14px; color:var(--ruby);"></i>
@@ -2727,8 +2892,8 @@
         contentEl.innerHTML = `
           <div style="text-align:center; padding:16px 8px; color:var(--text-muted); font-size:0.82rem; border:1px dashed var(--border-subtle); border-radius:var(--radius-sm);">
             <i data-lucide="plus-circle" style="width:20px; height:20px; color:var(--emerald); margin-bottom:4px; display:inline-block;"></i>
-            <div>No dish assigned yet.</div>
-            <button class="btn btn-secondary btn-sm" style="margin-top:8px; font-size:0.75rem; padding:4px 10px;" data-auto-pick="${slot}">Auto-Suggest Dish</button>
+            <div>${t('empty_slot_prompt')}</div>
+            <button class="btn btn-secondary btn-sm" style="margin-top:8px; font-size:0.75rem; padding:4px 10px;" data-auto-pick="${slot}">${t('auto_pick')}</button>
           </div>
         `;
         contentEl.querySelector('[data-auto-pick]').addEventListener('click', () => {
@@ -2756,7 +2921,8 @@
     state.mealPlan[slot] = dish.id;
     localStorage.setItem('cravepulse_meal_plan', JSON.stringify(state.mealPlan));
     updateMealPlannerBadge();
-    showToast(`Added "${dish.name}" to ${slot.toUpperCase()} plan! 📅`);
+    const loc = getLocalizedDish(dish);
+    showToast(`Added "${loc.name}" 📅`);
   }
 
   function removeDishFromSlot(slot) {
@@ -2792,12 +2958,12 @@
     });
 
     if (allIngs.size === 0) {
-      showToast('Add dishes to your Daily Meal Plan first to export grocery list!');
+      showToast('Add dishes to your Daily Meal Plan first!');
       return;
     }
 
     elements.mealPlannerModal.classList.remove('active');
-    openGroceryList(Array.from(allIngs), 'Day Meal Plan Grocery List', 'Combined shopping ingredients for your full-day culinary plan');
+    openGroceryList(Array.from(allIngs), t('export_day_grocery'), 'Shopping checklist for full-day meal plan');
   }
 
   // --- MYSTERY BLIND BOX ---
@@ -2816,20 +2982,21 @@
 
     setTimeout(() => {
       const pool = DISHES_DATA.filter(d => matchesFilter(d));
-      const dish = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : DISHES_DATA[0];
+      const rawDish = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : DISHES_DATA[0];
+      const dish = getLocalizedDish(rawDish);
       
       elements.blindBoxStage.style.display = 'none';
       const res = elements.blindBoxResultView;
       res.innerHTML = `
         <div style="background:var(--bg-card); padding:20px; border-radius:var(--radius-lg); border:2px solid var(--emerald); text-align:center;">
-          <span class="badge badge-emerald" style="margin-bottom:8px;">🎁 UNBOXED DELICACY</span>
-          <img src="${dish.image}" alt="${dish.name}" style="width:100%; height:180px; object-fit:cover; border-radius:var(--radius-md); margin:8px 0;" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+          <span class="badge badge-emerald" style="margin-bottom:8px;">${t('unboxed_success')}</span>
+          <img src="${rawDish.image}" alt="${dish.name}" style="width:100%; height:180px; object-fit:cover; border-radius:var(--radius-md); margin:8px 0;" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
           <h3 style="font-size:1.4rem;">${dish.name}</h3>
-          <div style="color:var(--emerald-dark); font-weight:700; font-size:0.95rem; margin-bottom:8px;">₹${dish.price} • ${dish.cityName}, ${dish.country}</div>
+          <div style="color:var(--emerald-dark); font-weight:700; font-size:0.95rem; margin-bottom:8px;">₹${rawDish.price} • ${dish.cityName}, ${dish.country}</div>
           <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:14px;">${dish.description}</p>
           <div style="display:flex; gap:10px; justify-content:center;">
-            <button class="btn btn-primary btn-sm" id="blindBoxViewDetailBtn">View Story & Radar</button>
-            <button class="btn btn-secondary btn-sm" id="blindBoxRetryBtn">Unbox Another</button>
+            <button class="btn btn-primary btn-sm" id="blindBoxViewDetailBtn">${t('view_dish')}</button>
+            <button class="btn btn-secondary btn-sm" id="blindBoxRetryBtn">${t('unbox_btn')}</button>
           </div>
         </div>
       `;
@@ -2837,7 +3004,7 @@
 
       document.getElementById('blindBoxViewDetailBtn').addEventListener('click', () => {
         elements.blindBoxModal.classList.remove('active');
-        openDishDetailModal(dish);
+        openDishDetailModal(rawDish);
       });
 
       document.getElementById('blindBoxRetryBtn').addEventListener('click', openBlindBoxModal);
@@ -2849,23 +3016,24 @@
   function openCookAlongModal(dish) {
     state.activeCookDish = dish || state.activeModalDish || DISHES_DATA[0];
     state.currentCookStepIndex = 0;
-    elements.cookDishTitle.textContent = state.activeCookDish.name;
+    const loc = getLocalizedDish(state.activeCookDish);
+    elements.cookDishTitle.textContent = loc.name;
     elements.cookAlongModal.classList.add('active');
     renderCookAlongStep();
   }
 
   function renderCookAlongStep() {
-    const dish = state.activeCookDish;
-    if (!dish) return;
+    const rawDish = state.activeCookDish;
+    if (!rawDish) return;
     const steps = [
-      { title: 'Aromatic Prep & Mise en Place', desc: 'Prepare and measure all whole spices, slice onions thinly, and rinse fresh ingredients thoroughly.', duration: 10 },
-      { title: 'Sautéing & Base Creation', desc: 'Heat ghee/oil in a heavy-bottomed vessel, bloom whole spices until aromatic, and sauté aromatics to golden perfection.', duration: 15 },
-      { title: 'Layering & Slow Dum Cooking', desc: 'Layer rice and protein, seal with dough or tight lid, and slow-cook on gentle dum heat until fragrant steam escapes.', duration: 25 },
-      { title: 'Garnish & Plating', desc: 'Garnish with fresh mint, coriander, fried onions, and serve steaming hot with chilled raita.', duration: 5 }
+      { title: 'Aromatic Prep & Mise en Place', desc: 'Prepare and measure whole spices, chop fresh ingredients, and set everything ready.', duration: 10 },
+      { title: 'Sautéing & Base Creation', desc: 'Heat ghee/oil, bloom whole spices, and sauté aromatics to golden perfection.', duration: 15 },
+      { title: 'Layering & Slow Dum Cooking', desc: 'Combine key elements, seal with tight lid, and slow-cook on gentle dum heat until aromatic steam escapes.', duration: 25 },
+      { title: 'Garnish & Plating', desc: 'Garnish with fresh herbs and serve piping hot in authentic regional style.', duration: 5 }
     ];
 
     const cur = steps[state.currentCookStepIndex] || steps[0];
-    elements.cookStepBadge.textContent = `STEP ${state.currentCookStepIndex + 1} OF ${steps.length}`;
+    elements.cookStepBadge.textContent = t('step_n_of_m', { step: state.currentCookStepIndex + 1, total: steps.length });
     elements.cookStepName.textContent = cur.title;
     elements.cookStepDesc.textContent = cur.desc;
     state.cookTimerSeconds = cur.duration * 60;
@@ -2875,7 +3043,7 @@
     const grid = elements.cookIngredientsGrid;
     if (grid) {
       grid.innerHTML = '';
-      (dish.ingredients || []).forEach(ing => {
+      (rawDish.ingredients || []).forEach(ing => {
         const item = document.createElement('div');
         item.className = 'ingredient-pill';
         item.textContent = `✓ ${ing} (${state.cookServingScale}x)`;
@@ -2902,8 +3070,9 @@
     const canvas = elements.storyCanvas;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    const dish = state.activePosterDish;
-    if (!dish) return;
+    const rawDish = state.activePosterDish;
+    if (!rawDish) return;
+    const dish = getLocalizedDish(rawDish);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -2926,14 +3095,14 @@
     ctx.fillText('CRAVEPULSE', 40, 60);
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 32px Outfit, sans-serif';
+    ctx.font = 'bold 30px Outfit, sans-serif';
     ctx.fillText(dish.name, 40, 120);
 
     ctx.fillStyle = '#94a3b8';
     ctx.font = '18px Plus Jakarta Sans, sans-serif';
-    ctx.fillText(`${dish.cityName}, ${dish.country} • ₹${dish.price}`, 40, 160);
+    ctx.fillText(`${dish.cityName}, ${dish.country} • ₹${rawDish.price}`, 40, 160);
 
-    const quote = elements.storyCaptionInput ? elements.storyCaptionInput.value : 'Pure culinary heaven! Must try.';
+    const quote = elements.storyCaptionInput ? elements.storyCaptionInput.value : 'Pure culinary heaven! 10/10 must try.';
     ctx.fillStyle = '#f59e0b';
     ctx.font = 'italic 20px Plus Jakarta Sans, sans-serif';
     ctx.fillText(`"${quote}"`, 40, 220);
@@ -2941,7 +3110,6 @@
 
   // --- EVENT LISTENERS ---
   function setupEventListeners() {
-    // Theme toggle
     elements.themeToggleBtn.addEventListener('click', toggleTheme);
 
     // Language Dropdown Toggle
@@ -2979,10 +3147,10 @@
         if (elements.langDropdown) elements.langDropdown.classList.remove('active');
       }
       if (!elements.locationDropdownToggle.contains(e.target)) {
-        elements.locationDropdown.classList.remove('active');
+        if (elements.locationDropdown) elements.locationDropdown.classList.remove('active');
       }
       if (!e.target.closest('.search-box-container')) {
-        elements.autocompleteBoard.classList.remove('active');
+        if (elements.autocompleteBoard) elements.autocompleteBoard.classList.remove('active');
       }
     });
 
@@ -3018,7 +3186,7 @@
       });
     }
 
-    // Veg / Non-Veg Quick Toggle Buttons (Hero & Toolbar)
+    // Veg / Non-Veg Quick Toggle Buttons
     document.querySelectorAll('.veg-toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const diet = btn.getAttribute('data-diet') || 'all';
@@ -3029,7 +3197,6 @@
     document.querySelectorAll('.toolbar-diet-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const diet = btn.getAttribute('data-diet') || 'all';
-        // Toggle on/off if clicked again
         if (state.selectedDiet === diet) {
           setDietFilter('all');
         } else {
@@ -3087,7 +3254,7 @@
         renderDietFilterPills();
         updateActiveFilterFeedback();
         renderAllGrids();
-        showToast('All filters and sorts reset!');
+        showToast('All filters reset!');
       });
     }
 
@@ -3146,27 +3313,8 @@
         updateActiveFilterFeedback();
         renderAllGrids();
         document.getElementById('localSection').scrollIntoView({ behavior: 'smooth' });
-        showToast(`Searching: "${query}"`);
       });
     });
-
-    // Hero Featured Showcase Quick View
-    const heroShowcaseQuickViewBtn = document.getElementById('heroShowcaseQuickViewBtn');
-    const heroFeaturedCard = document.getElementById('heroFeaturedCard');
-    if (heroShowcaseQuickViewBtn) {
-      heroShowcaseQuickViewBtn.addEventListener('click', () => {
-        const topDish = DISHES_DATA.find(d => d.id === 'biryani_hyd') || DISHES_DATA[0];
-        openDishDetailModal(topDish);
-      });
-    }
-    if (heroFeaturedCard) {
-      heroFeaturedCard.addEventListener('click', (e) => {
-        if (!e.target.closest('#heroShowcaseQuickViewBtn')) {
-          const topDish = DISHES_DATA.find(d => d.id === 'biryani_hyd') || DISHES_DATA[0];
-          openDishDetailModal(topDish);
-        }
-      });
-    }
 
     // Wheel Triggers
     elements.heroSpinWheelBtn.addEventListener('click', openWheelModal);
@@ -3359,7 +3507,7 @@
     const fabBlindBoxBtn = document.getElementById('fabBlindBoxBtn');
     if (fabBlindBoxBtn) {
       fabBlindBoxBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         openBlindBoxModal();
       });
     }
@@ -3367,7 +3515,7 @@
     const fabPlannerBtn = document.getElementById('fabPlannerBtn');
     if (fabPlannerBtn) {
       fabPlannerBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         openMealPlanner();
       });
     }
@@ -3375,7 +3523,7 @@
     const fabSpinBtn = document.getElementById('fabSpinBtn');
     if (fabSpinBtn) {
       fabSpinBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         openWheelModal();
       });
     }
@@ -3383,7 +3531,7 @@
     const fabQuizBtn = document.getElementById('fabQuizBtn');
     if (fabQuizBtn) {
       fabQuizBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         openTasteQuiz();
       });
     }
@@ -3391,7 +3539,7 @@
     const fabBattleBtn = document.getElementById('fabBattleBtn');
     if (fabBattleBtn) {
       fabBattleBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         elements.battleArenaModal.classList.add('active');
         renderBattleComparison();
       });
@@ -3400,7 +3548,7 @@
     const fabTrailsBtn = document.getElementById('fabTrailsBtn');
     if (fabTrailsBtn) {
       fabTrailsBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         document.getElementById('foodTrailsSection').scrollIntoView({ behavior: 'smooth' });
       });
     }
@@ -3408,7 +3556,7 @@
     const fabPassportBtn = document.getElementById('fabPassportBtn');
     if (fabPassportBtn) {
       fabPassportBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         openPassportModal();
       });
     }
@@ -3416,7 +3564,7 @@
     const fabTopBtn = document.getElementById('fabTopBtn');
     if (fabTopBtn) {
       fabTopBtn.addEventListener('click', () => {
-        fabContainer.classList.remove('active');
+        if (fabContainer) fabContainer.classList.remove('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     }
@@ -3477,7 +3625,7 @@
         }
         if (elements.posterModal) elements.posterModal.classList.remove('active');
         if (fabContainer) fabContainer.classList.remove('active');
-        elements.autocompleteBoard.classList.remove('active');
+        if (elements.autocompleteBoard) elements.autocompleteBoard.classList.remove('active');
       }
     });
   }
@@ -3493,5 +3641,3 @@
   document.addEventListener('DOMContentLoaded', init);
 
 })();
-
-
