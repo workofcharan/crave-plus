@@ -2104,7 +2104,7 @@ const DISH_TRANSLATIONS = {
   kyo_matcha_parfait: {
     en: {
       name: "Artisanal Uji Matcha Parfait",
-      category: "Dessert & Sweet",
+      category: "Dessert",
       famousFor: "Multi-layered tall glass of ceremonial Uji green tea gelato, warabi mochi, azuki red beans, and matcha jelly.",
       description: "Kyoto's imperial dessert showcase. Layer upon layer of bittersweet ceremonial Uji matcha soft-serve, chewy warabi mochi cubes, sweetened Hokkaido azuki red beans, crisp matcha wafer rolls, and delicate agar jelly cubes in a chilled glass."
     },
@@ -2120,7 +2120,407 @@ const DISH_TRANSLATIONS = {
       famousFor: "प्रीमियम जापानी ग्रीन टी आइसक्रीम, मोची, मीठी रेड बीन्स और माचा जेली का लेयर्ड डेजर्ट।",
       description: "जापान के क्योटो का शाही डेजर्ट। ग्लास में कड़वी-मीठी ग्रीन टी आइसक्रीम, चबाने वाली मोची और मीठी रेड बीन्स की कई परतों से सजाया जाता है।"
     }
-  }
+  },
+  hyd_chicken_mandi: {
+    "en": {
+      "name": "Arabian Chicken Mandi",
+      "category": "Dinner",
+      "famousFor": "Slow-roasted tender chicken over fragrant mandi rice topped with fried cashews, almonds and tomato salsa.",
+      "description": "A beloved Middle Eastern delicacy transformed by Hyderabad's culinary masters. Long-grain fragrant rice cooked in rich stock and aromatic spices, crowned with tender char-roasted chicken, crispy fried onions, and dry fruits."
+    },
+    "te": {
+      "name": "అరేబియన్ చికెన్ మండి",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "సుగంధ ద్రవ్యాలతో వండిన మండి రైస్ మరియు రోస్ట్ చేసిన చికెన్, జీడిపప్పు, బాదం కాంబినేషన్.",
+      "description": "హైదరాబాద్ లో అత్యంత ప్రాచుర్యం పొందిన అరేబియన్ వంటకం. రుచికరమైన సూప్‌తో వండిన బియ్యంపై చక్కగా వేయించిన చికెన్, డ్రై ఫ్రూట్స్ మరియు టమాటా చట్నీతో వడ్డిస్తారు."
+    },
+    "hi": {
+      "name": "अरेबियन चिकन मंडी",
+      "category": "रात का भोजन",
+      "famousFor": "धीमी आंच पर भुना हुआ चिकन, सुगंधित मंडी चावल, तले हुए मेवे और टमाटर चटनी।",
+      "description": "हैदराबाद का बेहद लोकप्रिय अरेबियन व्यंजन। खास मसालों के स्टॉक में पके लंबे चावल और ऊपर से रोस्ट किया हुआ चिकन तथा भुने हुए काजू-बादाम।"
+    }
+  },
+  hyd_chicken_65: {
+    "en": {
+      "name": "Hyderabadi Chicken 65",
+      "category": "Snack",
+      "famousFor": "Crispy fried boneless chicken tossed with fresh curry leaves, crushed garlic, slit green chilies, and fiery red masala.",
+      "description": "Hyderabad's most ordered bar and dinner starter. Bite-sized boneless chicken cubes marinated in ginger, garlic, Kashmiri chili, and egg-cornstarch batter, deep-fried to crisp perfection and flash-tossed in temper of curry leaves and green chilies."
+    },
+    "te": {
+      "name": "హైదరాబాదీ చికెన్ 65",
+      "category": "స్నాక్స్",
+      "famousFor": "కరివేపాకు, పచ్చిమిర్చి, వెల్లుల్లి మరియు ఘాటైన ఎరుపు మసాలాతో వేయించిన క్రిస్పీ చికెన్ ముక్కలు.",
+      "description": "హైదరాబాద్‌లో అత్యధికంగా ఆర్డర్ చేసే పాపులర్ స్టార్టర్. కారంగా, క్రిస్పీగా ఉండే చికెన్ ముక్కలను కరివేపాకు తాలింపుతో వేడివేడిగా సర్వ్ చేస్తారు."
+    },
+    "hi": {
+      "name": "हैदराबादी चिकन 65",
+      "category": "स्नैक्स",
+      "famousFor": "कुरकुरा तला हुआ चिकन, करी पत्ता, लहसुन और चटपटे तीखे लाल मसाले का तड़का।",
+      "description": "हैदराबाद का नंबर वन स्टार्टर। अदरक-लहसुन और कश्मीरी मिर्च में मैरीनेट किया हुआ कुरकुरा चिकन जिसे करी पत्ते और हरी मिर्च के साथ टॉस किया जाता है।"
+    }
+  },
+  del_paneer_butter_masala: {
+    "en": {
+      "name": "Paneer Butter Masala",
+      "category": "Dinner",
+      "famousFor": "Velvety, creamy tomato and cashew nut gravy enriched with butter, kasuri methi, and melt-in-mouth cottage cheese cubes.",
+      "description": "India's highest ordered vegetarian curry on Swiggy and Zomato. Fresh paneer cubes simmered in a silky-smooth gravy of vine-ripened tomatoes, soaked cashew cream, butter, and fragrant crushed fenugreek leaves."
+    },
+    "te": {
+      "name": "పన్నీర్ బటర్ మసాలా",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "వెన్న, క్రీమ్, జీడిపప్పు పేస్ట్ మరియు టమాటా గ్రేవీలో మెత్తని పన్నీర్ ముక్కలు.",
+      "description": "భారతదేశంలో అత్యధికంగా ఆర్డర్ చేసే వెజ్ కర్రీ. తాజా పన్నీర్ ముక్కలను టమాటా, వెన్న మరియు క్రీమీ గ్రేవీలో కసూరి మేథీ సువాసనలతో వండుతారు."
+    },
+    "hi": {
+      "name": "पनीर बटर मसाला",
+      "category": "रात का भोजन",
+      "famousFor": "मखमली क्रीमी टमाटर-काजू ग्रेवी में मक्खन, कसूरी मेथी और मलाईदार पनीर के टुकड़े।",
+      "description": "भारत में स्विगी और जोमैटो पर सबसे ज्यादा ऑर्डर की जाने वाली वेज डिश। ताजे पनीर को काजू-टमाटर की मखमली ग्रेवी और ढेर सारे मक्खन के साथ पकाया जाता है।"
+    }
+  },
+  del_dal_makhani: {
+    "en": {
+      "name": "Shahi Dal Makhani",
+      "category": "Dinner",
+      "famousFor": "Slow-cooked whole black urad lentils and kidney beans simmered for over 12 hours with fresh butter and cream.",
+      "description": "The crown jewel of Punjabi cuisine. Whole black lentils and rajma slow-simmered over low charcoal embers with tomato reduction, white butter, and aromatic spices until velvety smooth and soul-satisfying."
+    },
+    "te": {
+      "name": "షాహీ దాల్ మఖానీ",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "నల్ల మినుములు మరియు రాజ్మాను వెన్న, క్రీమ్‌తో గంటల తరబడి సన్నని మంటపై ఉడికించిన పంజాబీ దాల్.",
+      "description": "పంజాబీ వంటకాలలో రారాజు. నల్ల మినుములు మరియు రాజ్మాను స్వచ్ఛమైన వెన్న, క్రీమ్ మరియు సుగంధ మసాలాలతో మృదువుగా ఉడికిస్తారు."
+    },
+    "hi": {
+      "name": "शाही दाल मखनी",
+      "category": "रात का भोजन",
+      "famousFor": "मक्खन और क्रीम के साथ धीमी आंच पर घंटों पकी हुई काली उड़द दाल और राजमा।",
+      "description": "पंजाबी खाने की शान। काली उड़द की दाल और राजमा को टमाटर, ताजे मक्खन और मलाई के साथ धीमी आंच पर पकाकर रेशमी बनाया जाता है।"
+    }
+  },
+  hyd_chicken_shawarma: {
+    "en": {
+      "name": "Chicken Shawarma Roll",
+      "category": "Snack",
+      "famousFor": "Slow-roasted vertical spit chicken rolled in thin rumali roti or pita with creamy garlic toum and crispy French fries.",
+      "description": "The ultimate late-night craving food. Thin shavings of marinated spit-roasted chicken packed inside warm bread with silky garlic toum, pickled veggies, and spicy jalapeño sauce."
+    },
+    "te": {
+      "name": "చికెన్ షవర్మా రోల్",
+      "category": "స్నాక్స్",
+      "famousFor": "రోస్ట్ చేసిన చికెన్ ముక్కలను గార్లిక్ మయోనీస్, సలాడ్‌తో రుమాలి రోటీలో చుట్టిన షవర్మా.",
+      "description": "సాయంత్రం మరియు రాత్రి సమయాల్లో యువతకు అత్యంత ఇష్టమైన ఆహారం. కాల్చిన జ్యూసీ చికెన్ ముక్కలను తెల్లటి వెల్లుల్లి క్రీమ్ మరియు పికిల్స్‌తో రోల్ చేస్తారు."
+    },
+    "hi": {
+      "name": "चिकन शॉर्मा रोल",
+      "category": "स्नैक्स",
+      "famousFor": "रोस्टेड चिकन, मखमली गार्लिक मायोनीज और सलाद को रुमाली रोटी या पीटा ब्रेड में लपेटा हुआ रोल।",
+      "description": "स्ट्रीट फूड का सबसे पसंदीदा स्वाद। धीमी आंच पर भुने चिकन के बारीक टुकड़ों को लहसुन सॉस और क्रिस्पी फ्राइज के साथ गरमा-गरम ब्रेड में रोल किया जाता है।"
+    }
+  },
+  del_steamed_momos: {
+    "en": {
+      "name": "Steamed Chicken & Veg Momos",
+      "category": "Snack",
+      "famousFor": "Delicate thin-skinned steamed dumplings served with incendiary red chili-garlic chutney and creamy mayo.",
+      "description": "India's undisputed king of evening street food. Paper-thin flour casings filled with juicy spiced minced chicken, scallions, and ginger, steamed to translucent perfection."
+    },
+    "te": {
+      "name": "స్టీమ్డ్ చికెన్ మోమోస్",
+      "category": "స్నాక్స్",
+      "famousFor": "ఆవిరిపై ఉడికించిన మెత్తటి మోమోలు మరియు ఘాటైన ఎర్రటి మిరపకాయ చట్నీ కాంబినేషన్.",
+      "description": "సాయంత్రం వేళల్లో అందరూ ఇష్టపడే రుచికరమైన స్నాక్. సన్నని పిండి పొరలో మసాలా చికెన్ లేదా కూరగాయల మిశ్రమాన్ని ఉంచి ఆవిరిపై ఉడికిస్తారు."
+    },
+    "hi": {
+      "name": "स्टीम्ड मोमोज़",
+      "category": "स्नैक्स",
+      "famousFor": "भाप में पके हुए पतली परत वाले मोमोज और तीखी लाल मिर्च-लहसुन वाली चटनी।",
+      "description": "शाम के नाश्ते का सबसे लोकप्रिय स्ट्रीट फूड। रसीली स्टफिंग से भरे गरमा-गरम मोमोज और साथ में तीखी लाल शेजवान चटनी व मेयोनीज।"
+    }
+  },
+  mum_hakka_noodles: {
+    "en": {
+      "name": "Indo-Chinese Hakka Noodles",
+      "category": "Dinner",
+      "famousFor": "Wok-tossed noodles with shredded cabbage, bell peppers, carrots, spring onions, and savory soy-garlic seasoning.",
+      "description": "Born in Kolkata's Chinatown and loved across all Indian metros. Springy noodles flash-fried over roaring wok flames with crunchy julienned vegetables, dark soy sauce, white pepper, and green chili vinegar."
+    },
+    "te": {
+      "name": "హక్కా నూడుల్స్",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "కూరగాయలు, సోయా సాస్, వెల్లుల్లి మరియు మిరియాల పొడితో వోక్‌లో వేయించిన నూడుల్స్.",
+      "description": "ఇండో-చైనీస్ స్టైల్ ప్రసిద్ధ నూడుల్స్. తాజా క్యాబేజీ, క్యారెట్, క్యాప్సికమ్ మరియు సోయా సాస్‌తో వేడి మంటపై వేయించి తయారు చేస్తారు."
+    },
+    "hi": {
+      "name": "हक्का नूडल्स",
+      "category": "रात का भोजन",
+      "famousFor": "कटा हुआ पत्तागोभी, शिमला मिर्च, गाजर और सोया-गार्लिक सॉस में तेज आंच पर टॉस किए गए नूडल्स।",
+      "description": "कोलकाता के चाइनाटाउन से निकला लोकप्रिय इंडो-चाइनीज व्यंजन। कुरकुरी सब्जियों और स्वादिष्ट सॉस के साथ बना परफेक्ट नूडल्स।"
+    }
+  },
+  mum_schezwan_fried_rice: {
+    "en": {
+      "name": "Schezwan Chicken Fried Rice",
+      "category": "Dinner",
+      "famousFor": "Wok-tossed long grain rice with shredded chicken, scrambled eggs, and spicy homemade red Schezwan sauce.",
+      "description": "A fiery Indo-Chinese favorite ordered millions of times daily. Cooked basmati rice flash-tossed in high-flame woks with spicy homemade red chili-garlic paste, chicken pieces, crunchy carrots, bell peppers, and scallions."
+    },
+    "te": {
+      "name": "షెజ్వాన్ చికెన్ ఫ్రైడ్ రైస్",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "స్పైసీ షెజ్వాన్ సాస్, చికెన్ ముక్కలు మరియు గుడ్డుతో హై-ఫ్లేమ్‌పై టాస్ చేసిన బాస్మతి రైస్.",
+      "description": "కారం ప్రియులకు అత్యంత ఇష్టమైన ఫ్రైడ్ రైస్. ఘాటైన ఎర్రటి షెజ్వాన్ సాస్, చికెన్ మరియు కూరగాయలతో వోక్‌లో వేడివేడిగా తయారు చేస్తారు."
+    },
+    "hi": {
+      "name": "शेजवान चिकन फ्राइड राइस",
+      "category": "रात का भोजन",
+      "famousFor": "तीखे शेजवान सॉस, रसीले चिकन और अंडे के साथ तेज आंच पर भुने हुए लंबे बासमती चावल।",
+      "description": "तीखे खाने के शौकीनों की पहली पसंद। लहसुन और लाल मिर्च के शेजवान सॉस के साथ तेज कड़ाही में भुना हुआ शानदार फ्राइड राइस।"
+    }
+  },
+  ccu_chilli_chicken: {
+    "en": {
+      "name": "Tangra Chilli Chicken Dry",
+      "category": "Snack",
+      "famousFor": "Crispy fried boneless chicken tossed with diced capsicum, onions, green chillies, dark soy sauce and vinegar.",
+      "description": "The birthplace creation of Indian-Chinese food from Kolkata's Tangra Chinatown. Batter-fried succulent chicken morsels tossed in a sizzling pan with garlic, slit green chilies, onions, and umami soy glaze."
+    },
+    "te": {
+      "name": "టాంగ్రా చిల్లీ చికెన్",
+      "category": "స్నాక్స్",
+      "famousFor": "క్రిస్పీ చికెన్ ముక్కలు, క్యాప్సికమ్, ఉల్లిపాయలు మరియు సోయా సాస్‌తో తయారుచేసిన చిల్లీ చికెన్.",
+      "description": "కోల్‌కతా టాంగ్రా చైనాటౌన్ ప్రసిద్ధ వంటకం. క్రిస్పీగా వేయించిన చికెన్ ముక్కలను సోయా సాస్, పచ్చిమిర్చి మరియు వెల్లుల్లితో టాస్ చేస్తారు."
+    },
+    "hi": {
+      "name": "तांगड़ा चिली चिकन",
+      "category": "स्नैक्स",
+      "famousFor": "कुरकुरा तला चिकन, शिमला मिर्च, प्याज, हरी मिर्च और डार्क सोया सॉस का लाजवाब स्वाद।",
+      "description": "कोलकाता के तांगड़ा चाइनाटाउन की ऐतिहासिक डिश। कुरकुरे चिकन को हरी मिर्च, लहसुन और सोया सॉस की चटपटी ग्रेवी में टॉस किया जाता है।"
+    }
+  },
+  blr_farmhouse_pizza: {
+    "en": {
+      "name": "Farmhouse Cheesy Loaded Pizza",
+      "category": "Dinner",
+      "famousFor": "Hand-tossed crust loaded with gooey melted mozzarella, sliced mushrooms, crisp capsicum, golden corn, and olives.",
+      "description": "The top comfort pizza across delivery apps. Stone-baked crust slathered with rich Italian herbed marinara sauce, smothered in stretchy mozzarella and loaded generously with fresh garden vegetables."
+    },
+    "te": {
+      "name": "ఫార్మ్‌హౌస్ చీజ్ పిజ్జా",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "మొజారెల్లా చీజ్, పుట్టగొడుగులు, మొక్కజొన్న మరియు క్యాప్సికమ్‌తో నిండిన పిజ్జా.",
+      "description": "డెలివరీ యాప్స్‌లో అత్యధికంగా ఆర్డర్ చేసే చీజ్ పిజ్జా. క్రిస్పీ బేస్‌పై ఇటాలియన్ సాస్, తాజా కూరగాయలు మరియు కరిగే చీజ్ వేసి బేక్ చేస్తారు."
+    },
+    "hi": {
+      "name": "फार्महाउस चीज़ी पिज़्ज़ा",
+      "category": "रात का भोजन",
+      "famousFor": "ढेर सारे मोज़ेरेला चीज़, मशरूम, शिमला मिर्च, स्वीट कॉर्न और ऑलिव्स से भरा क्रिस्पी पिज़्ज़ा।",
+      "description": "पार्टी और वीकेंड का सबसे पसंदीदा पिज़्ज़ा। क्रिस्पी क्रस्ट पर इटैलियन हर्ब सॉस, भरपूर मोज़ेरेला चीज़ और ताजी सब्जियों का मेल।"
+    }
+  },
+  mum_peri_peri_fries: {
+    "en": {
+      "name": "Crispy Peri-Peri French Fries",
+      "category": "Snack",
+      "famousFor": "Golden double-fried potato fingers tossed generously in spicy, zesty African Bird's Eye chili peri-peri seasoning.",
+      "description": "The most popular side order in delivery carts nationwide. Golden, piping-hot crispy potato fries tossed in a shaker bag with tangy African peri-peri spice blend and served with garlic dip."
+    },
+    "te": {
+      "name": "పెరి-పెరి ఫ్రెంచ్ ఫ్రైస్",
+      "category": "స్నాక్స్",
+      "famousFor": "స్పైసీ పెరి-పెరి మసాలా చల్లిన బంగారు రంగు క్రిస్పీ బంగాళాదుంప ఫ్రైస్.",
+      "description": "అందరూ అమితంగా ఇష్టపడే స్నాక్. క్రిస్పీగా వేయించిన పొటాటో ఫింగర్స్‌పై కారంగా ఉండే పెరి-పెరి మసాలా చల్లి వెల్లుల్లి డిప్‌తో సర్వ్ చేస్తారు."
+    },
+    "hi": {
+      "name": "पेरी-पेरी फ्रेंच फ्राइज",
+      "category": "स्नैक्स",
+      "famousFor": "चटपटे पेरी-पेरी मसाले में लिपटे हुए कुरकुरे सुनहरे आलू के फ्राइज।",
+      "description": "स्विगी और जोमैटो पर सबसे ज्यादा आर्डर होने वाला साइड स्नैक। क्रिस्पी पोटैटो फिंगर्स को तीखे पेरी-पेरी मसाले के साथ टॉस करके दिया जाता है।"
+    }
+  },
+  blr_ghee_podi_idli: {
+    "en": {
+      "name": "Ghee Podi Thatte Idlis",
+      "category": "Breakfast",
+      "famousFor": "Pillow-soft giant plate idlis drenched in hot melted cow ghee and generously coated in spicy roasted lentil gunpowder podi.",
+      "description": "Bengaluru's iconic breakfast pride. Massive, ultra-fluffy steamed rice-lentil Thatte idlis drenched in pure steaming Desi ghee and dusted with crunchy, spicy roasted dal podi, served with fresh coconut chutney."
+    },
+    "te": {
+      "name": "నెయ్యి పొడి తట్టె ఇడ్లీ",
+      "category": "ఉదయం అల్పాహారం",
+      "famousFor": "స్వచ్ఛమైన ఆవు నెయ్యి మరియు కారప్పొడితో తడిసిన మెత్తటి పెద్ద తట్టె ఇడ్లీలు.",
+      "description": "బెంగళూరు ప్రసిద్ధ టిఫిన్. మెత్తటి మల్లెపూవు లాంటి తట్టె ఇడ్లీలపై వేడివేడి కమ్మని నెయ్యి మరియు కారప్పొడి వేసి కొబ్బరి చట్నీతో వడ్డిస్తారు."
+    },
+    "hi": {
+      "name": "घी पोड़ी थट्टे इडली",
+      "category": "सुबह का नाश्ता",
+      "famousFor": "शुद्ध देसी घी और तीखे गनपाउडर पोड़ी मसाले से नहाई हुई रुई जैसी नरम बड़ी इडली।",
+      "description": "बेंगलुरु का सबसे मशहूर नाश्ता। बड़ी और स्पंजी थट्टे इडली पर भरपूर गर्म देसी घी और भुनी हुई दालों का पोड़ी मसाला छिड़का जाता है।"
+    }
+  },
+  del_pani_puri: {
+    "en": {
+      "name": "Crispy Street Pani Puri / Golgappe",
+      "category": "Snack",
+      "famousFor": "Crisp hollow semolina spheres filled with spiced mashed potatoes, black chickpeas, sweet tamarind chutney, and chilled mint-coriander water.",
+      "description": "India's greatest street food sensation. Crispy puris cracked open on top, stuffed with spicy potato and chickpea mixture, dipped in chilled, tangy mint-cumin water and sweet date-tamarind chutney."
+    },
+    "te": {
+      "name": "స్ట్రీట్ పానీ పూరీ / గోల్గప్పా",
+      "category": "స్నాక్స్",
+      "famousFor": "ఆలూ మిశ్రమం, తీపి చింతపండు చట్నీ మరియు చల్లని పుదీనా నీటితో నింపిన క్రిస్పీ పూరీలు.",
+      "description": "భారతదేశం అంతటా అమితంగా ఇష్టపడే స్ట్రీట్ ఫుడ్. కరకరలాడే పూరీలలో ఆలుగడ్డ మిశ్రమం, తీపి చట్నీ మరియు చల్లటి ఘాటైన పుదీనా నీళ్లు నింపి తింటారు."
+    },
+    "hi": {
+      "name": "पानी पूरी / गोलगप्पे",
+      "category": "स्नैक्स",
+      "famousFor": "मसालेदार आलू-चने, मीठी सोंठ चटनी और ठंडे-तीखे पुदीना-जीरा पानी से भरी कुरकुरी पूरियां।",
+      "description": "भारत का सबसे चहेता स्ट्रीट फूड। कुरकुरी पूरी में चटपटा आलू मसाला, मीठी चटनी और बर्फ जैसा ठंडा तीखा पुदीने का पानी डालकर एक बाइट में खाया जाता है।"
+    }
+  },
+  lko_gulab_jamun_rabdi: {
+    "en": {
+      "name": "Warm Gulab Jamun with Shahi Rabdi",
+      "category": "Dessert",
+      "famousFor": "Piping-hot soft khoya dumplings soaked in saffron-rose syrup topped with chilled, slow-reduced malai rabdi and slivered pistachios.",
+      "description": "The royal Awadhi dessert marriage of temperatures. Steaming hot, soft khoya jamuns steeped in fragrant saffron syrup, paired harmoniously with chilled, thick, creamy layered rabdi."
+    },
+    "te": {
+      "name": "గులాబ్ జామూన్ విత్ రబ్రీ",
+      "category": "మిఠాయిలు",
+      "famousFor": "వేడివేడి గులాబ్ జామూన్‌పై చల్లటి చిక్కటి రబ్రీ మరియు పిస్తా పలుకులు.",
+      "description": "అద్భుతమైన రాయల్ స్వీట్ కాంబినేషన్. వేడి జామూన్‌లను జాఫ్రాన్ పాకంలో నానబెట్టి, పైన చల్లని మలై రబ్రీ పోసి సర్వ్ చేస్తారు."
+    },
+    "hi": {
+      "name": "गुलाब जामुन और शाही रबड़ी",
+      "category": "मिठाई",
+      "famousFor": "गरमा-गरम रसीले गुलाब जामुन पर ठंडी मलाईदार लच्छेदार रबड़ी और पिस्ता।",
+      "description": "शाही अवधी मिठाई की सबसे शानदार जोड़ी। गर्म केसरिया गुलाब जामुन को ठंडी गाढ़ी मलाईदार रबड़ी के साथ परोसा जाता है।"
+    }
+  },
+  blr_sizzling_brownie: {
+    "en": {
+      "name": "Sizzling Chocolate Walnut Brownie",
+      "category": "Dessert",
+      "famousFor": "Fudgy walnut brownie placed on a red-hot iron sizzler plate, topped with vanilla ice cream and bubbling chocolate sauce.",
+      "description": "The ultimate restaurant dessert spectacle. A warm, dense Belgian chocolate walnut brownie served on a smoking iron cast pan, crowned with rich vanilla ice cream, and drenched table-side with bubbling hot chocolate fudge sauce."
+    },
+    "te": {
+      "name": "సిజ్లింగ్ చాక్లెట్ బ్రౌనీ",
+      "category": "మిఠాయిలు",
+      "famousFor": "వేడి ఇనుప ప్లేట్‌పై బ్రౌనీ, వెనిల్లా ఐస్ క్రీమ్ మరియు పొగలు కక్కే హాట్ చాక్లెట్ ఫడ్జ్.",
+      "description": "రెస్టారెంట్లలో అత్యంత ఆకర్షణీయమైన డిజర్ట్. వేడి కాస్ట్ ఐరన్ ప్లేట్‌పై చాక్లెట్ బ్రౌనీ, ఐస్ క్రీమ్ ఉంచి, దానిపై మరుగుతున్న చాక్లెట్ సాస్ పోసినప్పుడు వచ్చే శబ్దం మరియు రుచి అద్భుతం."
+    },
+    "hi": {
+      "name": "सिज़लिंग चॉकलेट ब्राउनी",
+      "category": "मिठाई",
+      "famousFor": "गर्म लोहे की सिज़लर प्लेट पर अखरोट वाली ब्राउनी, वनीला आइसक्रीम और खौलता हुआ चॉकलेट सॉस।",
+      "description": "रेस्तरां का सबसे लोकप्रिय शानदार डेजर्ट। गर्म प्लेट पर रखी डार्क चॉकलेट ब्राउनी जिस पर ठंडी आइसक्रीम और गरमा-गरम चॉकलेट फज सॉस डाला जाता है।"
+    }
+  },
+  blr_crispy_corn: {
+    "en": {
+      "name": "Crispy Corn Pepper Salt",
+      "category": "Snack",
+      "famousFor": "Tender sweet corn kernels batter-fried super crispy and tossed with cracked black pepper, garlic, and fresh spring onions.",
+      "description": "A top starter in breweries and restaurants. Golden sweet corn kernels coated in a crisp cornstarch shell, flash-fried and tossed with chopped garlic, green chilies, cracked black pepper, and lemon juice."
+    },
+    "te": {
+      "name": "క్రిస్పీ కార్న్ పెప్పర్ సాల్ట్",
+      "category": "స్నాక్స్",
+      "famousFor": "కరకరలాడే స్వీట్ కార్న్ గింజలు, మిరియాల పొడి, వెల్లుల్లి మరియు ఉల్లికాడలతో టాస్ చేసిన స్టార్టర్.",
+      "description": "రెస్టారెంట్లలో పాపులర్ వెజ్ స్టార్టర్. స్వీట్ కార్న్‌ను క్రిస్పీగా వేయించి మిరియాల పొడి, వెల్లుల్లి మరియు నిమ్మరసంతో రుచికరంగా చేస్తారు."
+    },
+    "hi": {
+      "name": "क्रिस्पी कॉर्न पेपर साल्ट",
+      "category": "स्नैक्स",
+      "famousFor": "कुरकुरा तला हुआ स्वीट कॉर्न, कुटी हुई काली मिर्च, लहसुन और हरे प्याज का चटपटा स्वाद।",
+      "description": "रेस्टोरेंट और पब का सबसे लोकप्रिय स्टार्टर। कुरकुरे सुनहरे मकई के दानों को काली मिर्च, हरी मिर्च और नींबू के रस के साथ गरमा-गरम परोसा जाता है।"
+    }
+  },
+  mum_paneer_tikka_roll: {
+    "en": {
+      "name": "Paneer Tikka Kathi Franky",
+      "category": "Snack",
+      "famousFor": "Tandoor-charred spiced paneer cubes wrapped in layered flaky paratha with mint chutney and crunchy pickled onions.",
+      "description": "Mumbai's famous street wrap. Fresh cubes of cottage cheese marinated in hung curd and tandoori spices, charcoal-grilled, and wrapped in a hot buttery paratha layered with pudina chutney and chaat masala."
+    },
+    "te": {
+      "name": "పన్నీర్ టిక్కా రోల్",
+      "category": "స్నాక్స్",
+      "famousFor": "తందూరి పన్నీర్ ముక్కలు, పుదీనా చట్నీ మరియు ఉల్లిపాయలతో పొరల పరోటాలో చుట్టిన రోల్.",
+      "description": "ముంబై ప్రసిద్ధ కాఠీ ఫ్రాంకీ. కాల్చిన మసాలా పన్నీర్ ముక్కలను నేతి పరోటాలో పుదీనా చట్నీతో చుట్టి అందిస్తారు."
+    },
+    "hi": {
+      "name": "पनीर टिक्का काठी रोल",
+      "category": "स्नैक्स",
+      "famousFor": "तंदूरी पनीर टिक्का, पुदीना चटनी और लच्छेदार प्याज को परतदार पराठे में लपेटा हुआ रोल।",
+      "description": "मुंबई का प्रसिद्ध स्ट्रीट रैप। तंदूर में भुने हुए रसीले पनीर के टुकड़ों को हरी चटनी और चाट मसाले के साथ गर्म पराठे में रोल किया जाता है।"
+    }
+  },
+  blr_crispy_chicken_burger: {
+    "en": {
+      "name": "Crispy Fried Chicken Burger",
+      "category": "Dinner",
+      "famousFor": "Ultra-crispy buttermilk-fried chicken breast, creamy garlic mayo, cheddar cheese, and pickles in a toasted brioche bun.",
+      "description": "The fast-food staple ordered by burger lovers. Tender chicken breast steeped in spiced buttermilk, dredged in crunchy seasoned flour, fried to golden perfection, and served in buttery brioche with melted cheddar."
+    },
+    "te": {
+      "name": "క్రిస్పీ చికెన్ బర్గర్",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "క్రిస్పీగా వేయించిన చికెన్ ప్యాటీ, చెడ్డార్ చీజ్ మరియు గార్లిక్ మయోనీస్‌తో బర్గర్ బన్.",
+      "description": "ఫాస్ట్ ఫుడ్ ప్రియుల అభిమాన బర్గర్. బటర్‌మిల్క్‌లో నానబెట్టి క్రిస్పీగా వేయించిన చికెన్ ముక్క, చీజ్ మరియు సాస్‌తో సాఫ్ట్ బన్‌లో సర్వ్ చేస్తారు."
+    },
+    "hi": {
+      "name": "क्रिस्पी चिकन बर्गर",
+      "category": "रात का भोजन",
+      "famousFor": "कुरकुरा तला हुआ चिकन पैटी, पिघला हुआ चेद्दार चीज़ और गार्लिक मायोनीज से भरा ब्रियोश बर्गर।",
+      "description": "स्विगी और जोमैटो पर युवाओं का पसंदीदा बर्गर। कुरकुरी फ्राइड चिकन पैटी, लेट्यूस पत्ता और चीज स्लाइस के साथ टोस्टेड बन में परोसा जाता है।"
+    }
+  },
+  hyd_mutton_marag: {
+    "en": {
+      "name": "Royal Hyderabadi Mutton Marag",
+      "category": "Dinner",
+      "famousFor": "Rich, velvety, spicy mutton bone-marrow soup cooked with tender meat, cashew-almond paste, and whole Deccan spices.",
+      "description": "A royal Hyderabadi wedding banquet specialty. A thin yet intensely rich soup of bone-in tender mutton slow-simmered with cashews, almonds, green chilies, mint, and pure ghee, eaten with warm sheermal bread."
+    },
+    "te": {
+      "name": "హైదరాబాదీ మటన్ మరగ్",
+      "category": "రాత్రి భోజనం",
+      "famousFor": "మటన్ ఎముకల సూప్, జీడిపప్పు-బాదం పేస్ట్ మరియు దక్కన్ మసాలాలతో తయారుచేసిన రాయల్ సూప్.",
+      "description": "హైదరాబాదీ నవాబుల కాలం నాటి వివాహాల స్పెషల్ సూప్. నెయ్యి, జీడిపప్పు పేస్ట్ మరియు ఘాటైన మిరియాలతో మెత్తని మటన్ ముక్కలను ఉడికించి తయారుచేసే అద్భుతమైన సూప్."
+    },
+    "hi": {
+      "name": "शाही हैदराबादी मटन मरग",
+      "category": "रात का भोजन",
+      "famousFor": "मटन की नल्ली, काजू-बादाम पेस्ट और खड़े मसालों से बना गाढ़ा व तीखा नवाबी सूप।",
+      "description": "हैदराबादी शादियों की सबसे खास डिश। देसी घी, काजू पेस्ट और हरी मिर्च के साथ धीमी आंच पर पकी हुई मटन की हड्डियों का बेहद स्वादिष्ट और पौष्टिक सूप।"
+    }
+  },
+  del_tandoori_soya_chaap: {
+    "en": {
+      "name": "Malai Tandoori Soya Chaap",
+      "category": "Snack",
+      "famousFor": "Charcoal-tandoor roasted soya chaap skewers smothered in heavy dairy cream, melted butter, and aromatic kasuri methi.",
+      "description": "Delhi's most loved vegetarian protein delight. Succulent soya skewers marinated in creamy hung yogurt, cashew paste, and mild spices, roasted over charcoal tandoor and tossed in melted butter and cream."
+    },
+    "te": {
+      "name": "మలై తందూరి సోయా చాప్",
+      "category": "స్నాక్స్",
+      "famousFor": "తందూర్‌లో కాల్చిన సోయా చాప్ ముక్కలు, చిక్కటి క్రీమ్, వెన్న మరియు కసూరి మేథీతో టాస్ చేసిన స్నాక్.",
+      "description": "ఢిల్లీ ప్రసిద్ధ వెజ్ ప్రోటీన్ రుచికరమైన వంటకం. పెరుగు, జీడిపప్పు పేస్ట్‌తో నానబెట్టి తందూర్‌లో కాల్చిన సోయా చాప్‌ను వెన్న మరియు ఫ్రెష్ క్రీమ్‌తో సర్వ్ చేస్తారు."
+    },
+    "hi": {
+      "name": "मलाई तंदूरी सोया चाप",
+      "category": "स्नैक्स",
+      "famousFor": "तंदूर में भुनी हुई सोया चाप, मलाईदार काजू पेस्ट, ढेर सारा मक्खन और कसूरी मेथी।",
+      "description": "दिल्ली का सबसे पसंदीदा शाकाहारी स्टार्टर। रसीली सोया चाप को गाढ़े दही और काजू की मैरिनेशन में तंदूर पर भूनकर ताजी मलाई और मक्खन में लपेटा जाता है।"
+    }
+  },
 };
 
 // City Translation Data

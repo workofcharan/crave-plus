@@ -1986,9 +1986,991 @@ const DISHES_DATA = [
       { step: 4, name: "Soft Serve & Garnish", duration: 3, desc: "Swirl velvety Uji matcha soft serve, arrange shiratama dango, matcha wafer roll, and a dusting of fine matcha powder." }
     ]
   }
+,
+  {
+    "id": "hyd_chicken_mandi",
+    "name": "Arabian Chicken Mandi",
+    "cityId": "hyderabad",
+    "cityName": "Hyderabad",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 98,
+    "category": "Dinner",
+    "mealTimes": [
+      "lunch",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Aromatic",
+      "Savory",
+      "Smoky",
+      "Tender"
+    ],
+    "spiceLevel": 2,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg",
+      "Halal"
+    ],
+    "price": 380,
+    "rating": 4.9,
+    "reviewsCount": 3420,
+    "calories": 780,
+    "prepTime": "40 mins",
+    "famousFor": "Slow-roasted tender chicken over fragrant mandi rice topped with fried cashews, almonds and tomato salsa.",
+    "description": "A beloved Middle Eastern delicacy transformed by Hyderabad's culinary masters. Long-grain fragrant rice cooked in rich stock and aromatic spices, crowned with tender char-roasted chicken, crispy fried onions, and dry fruits.",
+    "ingredients": [
+      "Long-grain Mandi Rice",
+      "Whole Roasted Chicken",
+      "Cardamom & Cloves Stock",
+      "Fried Cashews & Almonds",
+      "Tomato Dakkoos Salsa"
+    ],
+    "iconicSpots": [
+      "Mataam Al Arabi (Barkas)",
+      "Spice 6 (Banjara Hills)",
+      "Yum Yum Tree",
+      "Mandi 36"
+    ],
+    "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Boil chicken with whole spices to create aromatic stock. Cook basmati rice in the flavored stock. Roast spiced chicken until skin is crispy and golden. Serve over rice with fried nuts, sultanas, and fiery tomato dakkoos salsa."
+  },
+  {
+    "id": "hyd_chicken_65",
+    "name": "Hyderabadi Chicken 65",
+    "cityId": "hyderabad",
+    "cityName": "Hyderabad",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 97,
+    "category": "Snack",
+    "mealTimes": [
+      "snack",
+      "dinner",
+      "lunch"
+    ],
+    "tasteProfile": [
+      "Spicy",
+      "Crispy",
+      "Tangy",
+      "Savory"
+    ],
+    "spiceLevel": 3,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg",
+      "Halal"
+    ],
+    "price": 240,
+    "rating": 4.8,
+    "reviewsCount": 4890,
+    "calories": 420,
+    "prepTime": "25 mins",
+    "famousFor": "Crispy fried boneless chicken tossed with fresh curry leaves, crushed garlic, slit green chilies, and fiery red masala.",
+    "description": "Hyderabad's most ordered bar and dinner starter. Bite-sized boneless chicken cubes marinated in ginger, garlic, Kashmiri chili, and egg-cornstarch batter, deep-fried to crisp perfection and flash-tossed in temper of curry leaves and green chilies.",
+    "ingredients": [
+      "Boneless Chicken Cubes",
+      "Curry Leaves",
+      "Green Chilies & Garlic",
+      "Kashmiri Red Chili Paste",
+      "Yogurt & Egg Batter"
+    ],
+    "iconicSpots": [
+      "Bawarchi (RTC X Roads)",
+      "Hotel Shadab",
+      "Paradise Food Court",
+      "4M Biryani House"
+    ],
+    "image": "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Marinate chicken in spiced ginger-garlic and chili-cornstarch batter. Deep fry until golden and crisp. Sauté curry leaves, garlic, and green chilies in hot oil, add spiced yogurt mix, and toss fried chicken until coated."
+  },
+  {
+    "id": "del_paneer_butter_masala",
+    "name": "Paneer Butter Masala",
+    "cityId": "delhi",
+    "cityName": "Delhi",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 99,
+    "category": "Dinner",
+    "mealTimes": [
+      "lunch",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Creamy",
+      "Rich",
+      "Mildly Sweet",
+      "Aromatic"
+    ],
+    "spiceLevel": 1,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian"
+    ],
+    "price": 290,
+    "rating": 4.9,
+    "reviewsCount": 6540,
+    "calories": 520,
+    "prepTime": "30 mins",
+    "famousFor": "Velvety, creamy tomato and cashew nut gravy enriched with butter, kasuri methi, and melt-in-mouth cottage cheese cubes.",
+    "description": "India's highest ordered vegetarian curry on Swiggy and Zomato. Fresh paneer cubes simmered in a silky-smooth gravy of vine-ripened tomatoes, soaked cashew cream, butter, and fragrant crushed fenugreek leaves.",
+    "ingredients": [
+      "Fresh Malai Paneer Cubes",
+      "Vine Tomatoes & Cashew Paste",
+      "Amul Salted Butter",
+      "Fresh Dairy Cream",
+      "Kasuri Methi (Fenugreek)"
+    ],
+    "iconicSpots": [
+      "Gulati (Pandara Road)",
+      "Havemore",
+      "Kwality Restaurant",
+      "Pind Balluchi"
+    ],
+    "image": "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Simmer pureed tomatoes and soaked cashews into a smooth paste. Temper in butter with whole garam masala and red chili powder. Stir in fresh cream, paneer cubes, and kasuri methi. Garnish with a melting butter dollop."
+  },
+  {
+    "id": "del_dal_makhani",
+    "name": "Shahi Dal Makhani",
+    "cityId": "delhi",
+    "cityName": "Delhi",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 96,
+    "category": "Dinner",
+    "mealTimes": [
+      "lunch",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Earthy",
+      "Creamy",
+      "Smoky",
+      "Rich"
+    ],
+    "spiceLevel": 1,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "price": 260,
+    "rating": 4.9,
+    "reviewsCount": 5120,
+    "calories": 460,
+    "prepTime": "60 mins",
+    "famousFor": "Slow-cooked whole black urad lentils and kidney beans simmered for over 12 hours with fresh butter and cream.",
+    "description": "The crown jewel of Punjabi cuisine. Whole black lentils and rajma slow-simmered over low charcoal embers with tomato reduction, white butter, and aromatic spices until velvety smooth and soul-satisfying.",
+    "ingredients": [
+      "Whole Black Urad Lentils",
+      "Rajma (Red Kidney Beans)",
+      "Desi Butter & Fresh Cream",
+      "Pureed Ripe Tomatoes",
+      "Smoky Charcoal Dhungar Infusion"
+    ],
+    "iconicSpots": [
+      "Bukhara (ITC Maurya)",
+      "Moti Mahal (Daryaganj)",
+      "Kake Di Hatti",
+      "Punjab Grill"
+    ],
+    "image": "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Soak black lentils overnight and boil until tender. Simmer gently with pureed tomatoes, ginger, and butter for several hours. Finish with heavy cream, fenugreek, and a smoky charcoal dhungar."
+  },
+  {
+    "id": "hyd_chicken_shawarma",
+    "name": "Chicken Shawarma Roll",
+    "cityId": "hyderabad",
+    "cityName": "Hyderabad",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 97,
+    "category": "Snack",
+    "mealTimes": [
+      "snack",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Savory",
+      "Garlicky",
+      "Juicy",
+      "Smoky"
+    ],
+    "spiceLevel": 2,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg",
+      "Halal"
+    ],
+    "price": 150,
+    "rating": 4.8,
+    "reviewsCount": 7120,
+    "calories": 490,
+    "prepTime": "15 mins",
+    "famousFor": "Slow-roasted vertical spit chicken rolled in thin rumali roti or pita with creamy garlic toum and crispy French fries.",
+    "description": "The ultimate late-night craving food. Thin shavings of marinated spit-roasted chicken packed inside warm bread with silky garlic toum, pickled veggies, and spicy jalapeño sauce.",
+    "ingredients": [
+      "Spit-Roasted Chicken Breast",
+      "Warm Rumali Roti or Pita",
+      "Fluffy Garlic Toum Mayo",
+      "Pickled Cucumbers",
+      "Crispy French Fries"
+    ],
+    "iconicSpots": [
+      "Feel in Saudia (Charminar)",
+      "Grill 9 (Secunderabad)",
+      "Mohammedia Shawarma",
+      "Al Taza"
+    ],
+    "image": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Shave thinly sliced spit-roasted spiced chicken. Spread garlic toum generously on warm rumali roti. Add chicken, pickled cucumbers, and crispy fries. Roll tightly and toast on griddle."
+  },
+  {
+    "id": "del_steamed_momos",
+    "name": "Steamed Chicken & Veg Momos",
+    "cityId": "delhi",
+    "cityName": "Delhi",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 98,
+    "category": "Snack",
+    "mealTimes": [
+      "snack",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Juicy",
+      "Savory",
+      "Fiery",
+      "Delicate"
+    ],
+    "spiceLevel": 3,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg"
+    ],
+    "price": 160,
+    "rating": 4.8,
+    "reviewsCount": 8930,
+    "calories": 320,
+    "prepTime": "20 mins",
+    "famousFor": "Delicate thin-skinned steamed dumplings served with incendiary red chili-garlic chutney and creamy mayo.",
+    "description": "India's undisputed king of evening street food. Paper-thin flour casings filled with juicy spiced minced chicken, scallions, and ginger, steamed to translucent perfection.",
+    "ingredients": [
+      "Refined Flour Wrapper",
+      "Minced Chicken / Crisp Veggies",
+      "Ginger & Spring Onions",
+      "Fiery Red Chili Garlic Dip",
+      "Creamy Dip"
+    ],
+    "iconicSpots": [
+      "Majnu Ka Tilla Tibetan Market",
+      "Dolma Aunty Momos (Lajpat Nagar)",
+      "Hunger Strike",
+      "QD's Restaurant"
+    ],
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Roll dough into ultra-thin circles. Place seasoned filling in center and pleat into crescents. Steam in bamboo steamer for 10 minutes until glossy. Serve steaming hot with fiery chili garlic chutney."
+  },
+  {
+    "id": "mum_hakka_noodles",
+    "name": "Indo-Chinese Hakka Noodles",
+    "cityId": "mumbai",
+    "cityName": "Mumbai",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 95,
+    "category": "Dinner",
+    "mealTimes": [
+      "lunch",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Savory",
+      "Umami",
+      "Crispy-Tender",
+      "Peppery"
+    ],
+    "spiceLevel": 2,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian"
+    ],
+    "price": 190,
+    "rating": 4.7,
+    "reviewsCount": 4320,
+    "calories": 410,
+    "prepTime": "20 mins",
+    "famousFor": "Wok-tossed noodles with shredded cabbage, bell peppers, carrots, spring onions, and savory soy-garlic seasoning.",
+    "description": "Born in Kolkata's Chinatown and loved across all Indian metros. Springy noodles flash-fried over roaring wok flames with crunchy julienned vegetables, dark soy sauce, white pepper, and green chili vinegar.",
+    "ingredients": [
+      "Springy Hakka Noodles",
+      "Julienned Cabbage & Carrots",
+      "Crisp Bell Peppers",
+      "Dark Soy & Green Chilli Sauce",
+      "Crushed White Pepper & Garlic"
+    ],
+    "iconicSpots": [
+      "5 Spice (Mumbai)",
+      "Ling's Pavilion",
+      "Mainland China",
+      "China Gate"
+    ],
+    "image": "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Boil noodles al dente and toss in sesame oil. Heat wok to smoking point, flash-fry garlic, sliced onions, and julienned vegetables. Add noodles, soy sauce, vinegar, and pepper, tossing vigorously over high flame."
+  },
+  {
+    "id": "mum_schezwan_fried_rice",
+    "name": "Schezwan Chicken Fried Rice",
+    "cityId": "mumbai",
+    "cityName": "Mumbai",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 97,
+    "category": "Dinner",
+    "mealTimes": [
+      "lunch",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Fiery",
+      "Garlicky",
+      "Savory",
+      "Smoky"
+    ],
+    "spiceLevel": 3,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg"
+    ],
+    "price": 220,
+    "rating": 4.8,
+    "reviewsCount": 5670,
+    "calories": 540,
+    "prepTime": "25 mins",
+    "famousFor": "Wok-tossed long grain rice with shredded chicken, scrambled eggs, and spicy homemade red Schezwan sauce.",
+    "description": "A fiery Indo-Chinese favorite ordered millions of times daily. Cooked basmati rice flash-tossed in high-flame woks with spicy homemade red chili-garlic paste, chicken pieces, crunchy carrots, bell peppers, and scallions.",
+    "ingredients": [
+      "Long-grain Cooked Basmati Rice",
+      "Shredded Tender Chicken",
+      "Homemade Fiery Schezwan Sauce",
+      "Scrambled Farm Egg",
+      "Spring Onions & Celery"
+    ],
+    "iconicSpots": [
+      "Yauatcha",
+      "Stir Fry Grill",
+      "Red Turtle",
+      "Uncle's Kitchen (Malad)"
+    ],
+    "image": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Sauté garlic, celery, and chicken in smoking wok. Add fiery Schezwan sauce and stir-fry. Add cold cooked rice and scrambled egg, toss continuously on maximum heat until grains are coated and fragrant."
+  },
+  {
+    "id": "ccu_chilli_chicken",
+    "name": "Tangra Chilli Chicken Dry",
+    "cityId": "kolkata",
+    "cityName": "Kolkata",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 98,
+    "category": "Snack",
+    "mealTimes": [
+      "snack",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Spicy",
+      "Savory",
+      "Tangy",
+      "Crunchy"
+    ],
+    "spiceLevel": 3,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg"
+    ],
+    "price": 250,
+    "rating": 4.9,
+    "reviewsCount": 6210,
+    "calories": 440,
+    "prepTime": "25 mins",
+    "famousFor": "Crispy fried boneless chicken tossed with diced capsicum, onions, green chillies, dark soy sauce and vinegar.",
+    "description": "The birthplace creation of Indian-Chinese food from Kolkata's Tangra Chinatown. Batter-fried succulent chicken morsels tossed in a sizzling pan with garlic, slit green chilies, onions, and umami soy glaze.",
+    "ingredients": [
+      "Crispy Boneless Chicken Morsels",
+      "Diced Onions & Green Bell Peppers",
+      "Slit Fresh Green Chilies",
+      "Dark Soy & Chili Sauce",
+      "Chinese 5-Spice & Vinegar"
+    ],
+    "iconicSpots": [
+      "Kim Ling (Tangra)",
+      "Golden Joy (Kolkata)",
+      "Beijing Restaurant",
+      "Tung Fong"
+    ],
+    "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Marinate chicken in soy, egg, and cornstarch, then deep-fry till golden crisp. Sauté diced onions, capsicum, and green chillies. Add soy sauce, chilli paste, vinegar, and toss fried chicken until glossy."
+  },
+  {
+    "id": "blr_farmhouse_pizza",
+    "name": "Farmhouse Cheesy Loaded Pizza",
+    "cityId": "bangalore",
+    "cityName": "Bengaluru",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": false,
+    "trendingScore": 96,
+    "category": "Dinner",
+    "mealTimes": [
+      "lunch",
+      "dinner",
+      "snack"
+    ],
+    "tasteProfile": [
+      "Cheesy",
+      "Herby",
+      "Savory",
+      "Crispy"
+    ],
+    "spiceLevel": 1,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian"
+    ],
+    "price": 349,
+    "rating": 4.8,
+    "reviewsCount": 7800,
+    "calories": 680,
+    "prepTime": "25 mins",
+    "famousFor": "Hand-tossed crust loaded with gooey melted mozzarella, sliced mushrooms, crisp capsicum, golden corn, and olives.",
+    "description": "The top comfort pizza across delivery apps. Stone-baked crust slathered with rich Italian herbed marinara sauce, smothered in stretchy mozzarella and loaded generously with fresh garden vegetables.",
+    "ingredients": [
+      "Hand-Stretched Pizza Dough",
+      "Herbed Tomato Pizza Sauce",
+      "100% Mozzarella Cheese",
+      "Sliced Button Mushrooms",
+      "Sweet Corn, Capsicum & Olives"
+    ],
+    "iconicSpots": [
+      "Toscano (UB City)",
+      "Brik Oven (Indiranagar)",
+      "Chianti",
+      "Pizza Bakery"
+    ],
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Stretch fresh dough into a 10-inch round. Spread rich herbed marinara evenly. Top with copious shredded mozzarella, sliced mushrooms, capsicum, corn, and black olives. Bake at 260°C until bubbling and golden."
+  },
+  {
+    "id": "mum_peri_peri_fries",
+    "name": "Crispy Peri-Peri French Fries",
+    "cityId": "mumbai",
+    "cityName": "Mumbai",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": false,
+    "trendingScore": 95,
+    "category": "Snack",
+    "mealTimes": [
+      "snack"
+    ],
+    "tasteProfile": [
+      "Crispy",
+      "Zesty",
+      "Spicy",
+      "Salty"
+    ],
+    "spiceLevel": 2,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegan",
+      "Gluten-Free"
+    ],
+    "price": 130,
+    "rating": 4.7,
+    "reviewsCount": 6540,
+    "calories": 360,
+    "prepTime": "15 mins",
+    "famousFor": "Golden double-fried potato fingers tossed generously in spicy, zesty African Bird's Eye chili peri-peri seasoning.",
+    "description": "The most popular side order in delivery carts nationwide. Golden, piping-hot crispy potato fries tossed in a shaker bag with tangy African peri-peri spice blend and served with garlic dip.",
+    "ingredients": [
+      "Double-Fried Golden Potato Fries",
+      "Zesty Peri-Peri Spice Mix",
+      "African Bird's Eye Chili Powder",
+      "Garlic Herb Dip",
+      "Cracked Rock Salt"
+    ],
+    "iconicSpots": [
+      "The J (Churchgate)",
+      "Fries Bistro",
+      "Burger Craft",
+      "Candies (Bandra)"
+    ],
+    "image": "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Cut potatoes into batons, soak in ice water, double fry until super crispy. Immediately toss in a warm metal bowl with peri-peri chili mix and sea salt. Serve hot with garlic mayo."
+  },
+  {
+    "id": "blr_ghee_podi_idli",
+    "name": "Ghee Podi Thatte Idlis",
+    "cityId": "bangalore",
+    "cityName": "Bengaluru",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 98,
+    "category": "Breakfast",
+    "mealTimes": [
+      "breakfast",
+      "snack"
+    ],
+    "tasteProfile": [
+      "Savory",
+      "Nutty",
+      "Buttery",
+      "Spicy"
+    ],
+    "spiceLevel": 2,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian",
+      "Gluten-Free"
+    ],
+    "price": 120,
+    "rating": 4.9,
+    "reviewsCount": 8200,
+    "calories": 380,
+    "prepTime": "15 mins",
+    "famousFor": "Pillow-soft giant plate idlis drenched in hot melted cow ghee and generously coated in spicy roasted lentil gunpowder podi.",
+    "description": "Bengaluru's iconic breakfast pride. Massive, ultra-fluffy steamed rice-lentil Thatte idlis drenched in pure steaming Desi ghee and dusted with crunchy, spicy roasted dal podi, served with fresh coconut chutney.",
+    "ingredients": [
+      "Fermented Rice-Urad Batter",
+      "Pure Melted Desi Cow Ghee",
+      "Spicy Gunpowder Lentil Podi",
+      "Fresh Ground Coconut Chutney",
+      "Tangy Piping Drumstick Sambar"
+    ],
+    "iconicSpots": [
+      "Taaza Thindi (Jayanagar)",
+      "CTR Shri Sagar (Malleshwaram)",
+      "Brahmin's Coffee Bar",
+      "Vidyarthi Bhavan"
+    ],
+    "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Steam fermented batter in wide flat Thatte moulds until soft and pillowy. Unmould hot idlis, pour steaming hot melted ghee on both sides, coat lavishly with spicy gunpowder podi, and serve with chutney."
+  },
+  {
+    "id": "del_pani_puri",
+    "name": "Crispy Street Pani Puri / Golgappe",
+    "cityId": "delhi",
+    "cityName": "Delhi",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 99,
+    "category": "Snack",
+    "mealTimes": [
+      "snack"
+    ],
+    "tasteProfile": [
+      "Tangy",
+      "Crispy",
+      "Spicy",
+      "Refreshing"
+    ],
+    "spiceLevel": 3,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegan",
+      "Street Food"
+    ],
+    "price": 90,
+    "rating": 4.9,
+    "reviewsCount": 10450,
+    "calories": 220,
+    "prepTime": "10 mins",
+    "famousFor": "Crisp hollow semolina spheres filled with spiced mashed potatoes, black chickpeas, sweet tamarind chutney, and chilled mint-coriander water.",
+    "description": "India's greatest street food sensation. Crispy puris cracked open on top, stuffed with spicy potato and chickpea mixture, dipped in chilled, tangy mint-cumin water and sweet date-tamarind chutney.",
+    "ingredients": [
+      "Crispy Suji & Atta Puris",
+      "Boiled Potato & Chickpea Filling",
+      "Chilled Mint-Coriander Spicy Water",
+      "Sweet Tamarind-Date Chutney",
+      "Black Salt & Roasted Cumin"
+    ],
+    "iconicSpots": [
+      "Prabhu Chaat Bhandar (UPSC Delhi)",
+      "Shree Balaji Chaat",
+      "Vaishno Chaat Bhandar",
+      "Elco Pani Puri (Mumbai)"
+    ],
+    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Crack open crispy puri with thumb. Add a spoonful of mashed spiced potato-chickpea filling. Add a splash of sweet tamarind chutney, then dunk into ice-cold spicy mint water and eat in one bite."
+  },
+  {
+    "id": "lko_gulab_jamun_rabdi",
+    "name": "Warm Gulab Jamun with Shahi Rabdi",
+    "cityId": "lucknow",
+    "cityName": "Lucknow",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 97,
+    "category": "Dessert",
+    "mealTimes": [
+      "dinner",
+      "lunch"
+    ],
+    "tasteProfile": [
+      "Sweet",
+      "Rich",
+      "Cardamom-scented",
+      "Melt-in-mouth"
+    ],
+    "spiceLevel": 0,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian",
+      "Dessert"
+    ],
+    "price": 150,
+    "rating": 4.9,
+    "reviewsCount": 4980,
+    "calories": 450,
+    "prepTime": "20 mins",
+    "famousFor": "Piping-hot soft khoya dumplings soaked in saffron-rose syrup topped with chilled, slow-reduced malai rabdi and slivered pistachios.",
+    "description": "The royal Awadhi dessert marriage of temperatures. Steaming hot, soft khoya jamuns steeped in fragrant saffron syrup, paired harmoniously with chilled, thick, creamy layered rabdi.",
+    "ingredients": [
+      "Soft Mawa (Khoya) Dumplings",
+      "Saffron & Cardamom Sugar Syrup",
+      "Slow-Reduced Malai Rabdi",
+      "Slivered Pistachios & Almonds",
+      "Edible Silver Foil (Vark)"
+    ],
+    "iconicSpots": [
+      "Chhappan Bhog (Lucknow)",
+      "Ram Asrey (Established 1805)",
+      "Moti Mahal",
+      "Radhey Lal Sweets"
+    ],
+    "image": "https://images.unsplash.com/photo-1593798605673-455b57f0f622?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Knead mawa and chenna into smooth balls, deep-fry in desi ghee on gentle heat until mahogany brown. Soak in warm saffron-cardamom syrup. Place in bowl and pour chilled malai rabdi on top."
+  },
+  {
+    "id": "blr_sizzling_brownie",
+    "name": "Sizzling Chocolate Walnut Brownie",
+    "cityId": "bangalore",
+    "cityName": "Bengaluru",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": false,
+    "trendingScore": 98,
+    "category": "Dessert",
+    "mealTimes": [
+      "dinner",
+      "snack"
+    ],
+    "tasteProfile": [
+      "Chocolatey",
+      "Decadent",
+      "Warm & Cold",
+      "Sweet"
+    ],
+    "spiceLevel": 0,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Dessert"
+    ],
+    "price": 240,
+    "rating": 4.9,
+    "reviewsCount": 6890,
+    "calories": 590,
+    "prepTime": "15 mins",
+    "famousFor": "Fudgy walnut brownie placed on a red-hot iron sizzler plate, topped with vanilla ice cream and bubbling chocolate sauce.",
+    "description": "The ultimate restaurant dessert spectacle. A warm, dense Belgian chocolate walnut brownie served on a smoking iron cast pan, crowned with rich vanilla ice cream, and drenched table-side with bubbling hot chocolate fudge sauce.",
+    "ingredients": [
+      "Dense Dark Chocolate Walnut Brownie",
+      "Vanilla Bean Ice Cream",
+      "Hot Bubbling Chocolate Fudge Sauce",
+      "Toasted Walnuts & Chocolate Chips"
+    ],
+    "iconicSpots": [
+      "Corner House (Bengaluru)",
+      "Yoko Sizzlers",
+      "Kobe Sizzlers",
+      "Mocha Cafe"
+    ],
+    "image": "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Heat iron sizzler pan until smoking. Place warm walnut brownie in center, top with a large round scoop of vanilla ice cream. Pour hot chocolate fudge sauce all over to create instant dramatic sizzle."
+  },
+  {
+    "id": "blr_crispy_corn",
+    "name": "Crispy Corn Pepper Salt",
+    "cityId": "bangalore",
+    "cityName": "Bengaluru",
+    "country": "India",
+    "isGlobalIcon": false,
+    "isLocalLegend": true,
+    "trendingScore": 94,
+    "category": "Snack",
+    "mealTimes": [
+      "snack",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Crispy",
+      "Peppery",
+      "Savory",
+      "Sweet"
+    ],
+    "spiceLevel": 2,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian"
+    ],
+    "price": 180,
+    "rating": 4.8,
+    "reviewsCount": 3820,
+    "calories": 340,
+    "prepTime": "20 mins",
+    "famousFor": "Tender sweet corn kernels batter-fried super crispy and tossed with cracked black pepper, garlic, and fresh spring onions.",
+    "description": "A top starter in breweries and restaurants. Golden sweet corn kernels coated in a crisp cornstarch shell, flash-fried and tossed with chopped garlic, green chilies, cracked black pepper, and lemon juice.",
+    "ingredients": [
+      "Sweet Corn Kernels",
+      "Cornstarch & Rice Flour Batter",
+      "Fresh Garlic & Green Chilies",
+      "Cracked Black Pepper",
+      "Chopped Spring Onions & Lemon"
+    ],
+    "iconicSpots": [
+      "Toit Brewpub (Indiranagar)",
+      "Arbor Brewing Company",
+      "Windmills Craftworks",
+      "Prost"
+    ],
+    "image": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Boil sweet corn kernels, drain, and coat in seasoned cornflour. Deep-fry until crispy golden nuggets form. Sauté minced garlic, green chilies, and scallions; toss fried corn with salt, black pepper, and lemon juice."
+  },
+  {
+    "id": "mum_paneer_tikka_roll",
+    "name": "Paneer Tikka Kathi Franky",
+    "cityId": "mumbai",
+    "cityName": "Mumbai",
+    "country": "India",
+    "isGlobalIcon": false,
+    "isLocalLegend": true,
+    "trendingScore": 96,
+    "category": "Snack",
+    "mealTimes": [
+      "snack",
+      "lunch",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Smoky",
+      "Tangy",
+      "Savory",
+      "Spicy"
+    ],
+    "spiceLevel": 2,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian"
+    ],
+    "price": 170,
+    "rating": 4.8,
+    "reviewsCount": 5310,
+    "calories": 460,
+    "prepTime": "15 mins",
+    "famousFor": "Tandoor-charred spiced paneer cubes wrapped in layered flaky paratha with mint chutney and crunchy pickled onions.",
+    "description": "Mumbai's famous street wrap. Fresh cubes of cottage cheese marinated in hung curd and tandoori spices, charcoal-grilled, and wrapped in a hot buttery paratha layered with pudina chutney and chaat masala.",
+    "ingredients": [
+      "Tandoori Spiced Paneer Cubes",
+      "Flaky Layered Paratha",
+      "Pudina Mint-Coriander Chutney",
+      "Sliced Pickled Red Onions",
+      "Special Franky Masala"
+    ],
+    "iconicSpots": [
+      "Tibbs Frankie (Bandra)",
+      "Ayub's (Kala Ghoda)",
+      "Bademiya",
+      "Hangla's Kolkata Rolls"
+    ],
+    "image": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Grill marinated paneer cubes on skewers until lightly charred. Warm a layered paratha on a buttered tawa. Spread mint chutney, arrange paneer tikka, top with sliced onions and franky spice mix, roll tightly."
+  },
+  {
+    "id": "blr_crispy_chicken_burger",
+    "name": "Crispy Fried Chicken Burger",
+    "cityId": "bangalore",
+    "cityName": "Bengaluru",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": false,
+    "trendingScore": 97,
+    "category": "Dinner",
+    "mealTimes": [
+      "lunch",
+      "dinner",
+      "snack"
+    ],
+    "tasteProfile": [
+      "Crispy",
+      "Juicy",
+      "Cheesy",
+      "Savory"
+    ],
+    "spiceLevel": 2,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg"
+    ],
+    "price": 280,
+    "rating": 4.9,
+    "reviewsCount": 6140,
+    "calories": 620,
+    "prepTime": "20 mins",
+    "famousFor": "Ultra-crispy buttermilk-fried chicken breast, creamy garlic mayo, cheddar cheese, and pickles in a toasted brioche bun.",
+    "description": "The fast-food staple ordered by burger lovers. Tender chicken breast steeped in spiced buttermilk, dredged in crunchy seasoned flour, fried to golden perfection, and served in buttery brioche with melted cheddar.",
+    "ingredients": [
+      "Buttermilk Marinated Chicken Breast",
+      "Toasted Brioche Sesame Bun",
+      "Melted Sharp Cheddar Slice",
+      "Crispy Pickled Gherkins",
+      "Garlic Herb Aioli Mayo"
+    ],
+    "iconicSpots": [
+      "Truffles (Koramangala)",
+      "Plan B",
+      "Burger Seigneur",
+      "Leon's Burgers & Wings"
+    ],
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Dip marinated chicken in seasoned flour, egg wash, and breadcrumbs. Deep-fry until crispy and cooked through. Toast brioche buns with butter, apply garlic mayo, lay shredded lettuce, chicken patty, cheese slice, and pickles."
+  },
+  {
+    "id": "hyd_mutton_marag",
+    "name": "Royal Hyderabadi Mutton Marag",
+    "cityId": "hyderabad",
+    "cityName": "Hyderabad",
+    "country": "India",
+    "isGlobalIcon": true,
+    "isLocalLegend": true,
+    "trendingScore": 96,
+    "category": "Dinner",
+    "mealTimes": [
+      "dinner",
+      "snack"
+    ],
+    "tasteProfile": [
+      "Spicy",
+      "Rich",
+      "Aromatic",
+      "Nutty"
+    ],
+    "spiceLevel": 3,
+    "diet": "Non-Veg",
+    "dietaryTags": [
+      "Non-Veg",
+      "Halal"
+    ],
+    "price": 320,
+    "rating": 4.9,
+    "reviewsCount": 3950,
+    "calories": 490,
+    "prepTime": "45 mins",
+    "famousFor": "Rich, velvety, spicy mutton bone-marrow soup cooked with tender meat, cashew-almond paste, and whole Deccan spices.",
+    "description": "A royal Hyderabadi wedding banquet specialty. A thin yet intensely rich soup of bone-in tender mutton slow-simmered with cashews, almonds, green chilies, mint, and pure ghee, eaten with warm sheermal bread.",
+    "ingredients": [
+      "Bone-in Tender Mutton & Nalli",
+      "Cashew & Almond Rich Paste",
+      "Fresh Mint & Green Chilies",
+      "Whole Spices & Pure Desi Ghee",
+      "Black Peppercorns & Cream"
+    ],
+    "iconicSpots": [
+      "Hotel Sohail (Malakpet)",
+      "Shah Ghouse",
+      "Pista House",
+      "Fanoos Restaurant"
+    ],
+    "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Pressure cook mutton bones and meat with whole spices and ginger-garlic until meat falls off bone. Add ground cashew-almond paste, yogurt, and crushed green chillies. Simmer into silky aromatic soup, finish with desi ghee."
+  },
+  {
+    "id": "del_tandoori_soya_chaap",
+    "name": "Malai Tandoori Soya Chaap",
+    "cityId": "delhi",
+    "cityName": "Delhi",
+    "country": "India",
+    "isGlobalIcon": false,
+    "isLocalLegend": true,
+    "trendingScore": 95,
+    "category": "Snack",
+    "mealTimes": [
+      "snack",
+      "dinner"
+    ],
+    "tasteProfile": [
+      "Smoky",
+      "Creamy",
+      "Savory",
+      "Herby"
+    ],
+    "spiceLevel": 1,
+    "diet": "Veg",
+    "dietaryTags": [
+      "Veg",
+      "Vegetarian"
+    ],
+    "price": 210,
+    "rating": 4.8,
+    "reviewsCount": 5210,
+    "calories": 410,
+    "prepTime": "25 mins",
+    "famousFor": "Charcoal-tandoor roasted soya chaap skewers smothered in heavy dairy cream, melted butter, and aromatic kasuri methi.",
+    "description": "Delhi's most loved vegetarian protein delight. Succulent soya skewers marinated in creamy hung yogurt, cashew paste, and mild spices, roasted over charcoal tandoor and tossed in melted butter and cream.",
+    "ingredients": [
+      "Fresh Layered Soya Chaap",
+      "Hung Curd & Cashew Cream Marinade",
+      "Tandoori Spices & Cardamom",
+      "Melted Butter & Heavy Cream",
+      "Kasuri Methi & Lemon Juice"
+    ],
+    "iconicSpots": [
+      "Veer Ji Malai Chaap Wale (Geeta Colony)",
+      "Sardarji Malai Chaap Wale",
+      "Chawla's Tandoori",
+      "Kake Da Hotel"
+    ],
+    "image": "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=900&auto=format&fit=crop&q=80",
+    "recipeOverview": "Marinate boiled soya chaap in hung curd, cashew paste, cardamom, and white pepper. Thread onto skewers and roast in tandoor until lightly charred. Cut into pieces and toss in heavy cream and butter."
+  }
 ];
 
-// Moods and Craving Filters metadata
 const CRAVING_MOODS = [
   { id: "all", label: "✨ All Cravings", icon: "sparkles", description: "Discover top dishes across all styles" },
   { id: "comfort", label: "🍲 Comfort Food", icon: "heart", description: "Hearty, soul-warming delicacies" },
