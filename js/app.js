@@ -345,6 +345,27 @@
     return text;
   }
 
+  function isDishVeg(dish) {
+    if (!dish) return false;
+    if (dish.category === 'Dessert') return true;
+    const dietStr = Array.isArray(dish.diet)
+      ? dish.diet.join(' ').toLowerCase()
+      : (typeof dish.diet === 'string' ? dish.diet.toLowerCase() : '');
+    const tagsStr = Array.isArray(dish.dietaryTags) ? dish.dietaryTags.join(' ').toLowerCase() : '';
+    const combined = `${dietStr} ${tagsStr}`;
+    return combined.includes('veg') && !combined.includes('non-veg');
+  }
+
+  function isDishNonVeg(dish) {
+    if (!dish) return false;
+    const dietStr = Array.isArray(dish.diet)
+      ? dish.diet.join(' ').toLowerCase()
+      : (typeof dish.diet === 'string' ? dish.diet.toLowerCase() : '');
+    const tagsStr = Array.isArray(dish.dietaryTags) ? dish.dietaryTags.join(' ').toLowerCase() : '';
+    const combined = `${dietStr} ${tagsStr}`;
+    return combined.includes('non-veg') || combined.includes('meat') || combined.includes('chicken') || combined.includes('seafood') || combined.includes('mutton') || combined.includes('egg') || combined.includes('fish');
+  }
+
   function getLocalizedDish(dish) {
     if (!dish) return dish;
     const lang = state.currentLang || 'en';
@@ -925,7 +946,7 @@
       const matchDesc = locDish.description.toLowerCase().includes(q);
 
       if (matchLocName || matchRawName || matchCity || matchCategory || matchDesc) {
-        const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
+        const isVeg = isDishVeg(rawDish);
         const isLocal = rawDish.cityId === state.currentCityId;
         suggestions.push({
           type: 'dish',
@@ -1188,13 +1209,12 @@
   function matchesFilter(dish, filterDiet = state.selectedDiet, filterMood = state.selectedMood, query = state.searchQuery) {
     if (filterDiet && filterDiet !== 'all') {
       if (filterDiet === 'veg') {
-        const isVeg = dish.diet && (dish.diet.includes('veg') || dish.diet.includes('vegan') || dish.category === 'Dessert');
-        if (!isVeg) return false;
+        if (!isDishVeg(dish)) return false;
       } else if (filterDiet === 'non-veg') {
-        const isNonVeg = dish.diet && (dish.diet.includes('non-veg') || dish.diet.includes('meat') || dish.diet.includes('chicken') || dish.diet.includes('seafood'));
-        if (!isNonVeg) return false;
+        if (!isDishNonVeg(dish)) return false;
       } else {
-        if (!dish.diet || !dish.diet.includes(filterDiet)) {
+        const dLow = (dish.diet || '').toLowerCase();
+        if (!dLow.includes(filterDiet.toLowerCase())) {
           return false;
         }
       }
@@ -1270,7 +1290,7 @@
 
     const isFav = state.favorites.includes(rawDish.id);
     const isTasted = state.tastedDishes.includes(rawDish.id);
-    const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
+    const isVeg = isDishVeg(rawDish);
 
     // Spice flames
     let spiceHtml = '';
@@ -1641,7 +1661,7 @@
     elements.modalDishNative.textContent = '';
     elements.modalDishRating.innerHTML = `<i data-lucide="star" style="width:16px;height:16px;fill:#f59e0b;"></i> ${rawDish.rating} (${(rawDish.reviewsCount || 1000).toLocaleString()})`;
 
-    const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
+    const isVeg = isDishVeg(rawDish);
     if (elements.modalDishBadges) {
       elements.modalDishBadges.innerHTML = `
         <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}" style="font-size:0.8rem; padding:4px 10px;">
@@ -1796,7 +1816,7 @@
       elements.deliveryModalDishSub.textContent = `${dish.category} • ${dish.cityName} • ~₹${rawDish.price}`;
     }
 
-    const isVeg = rawDish.diet && (rawDish.diet.includes('veg') || rawDish.diet.includes('vegan') || rawDish.category === 'Dessert');
+    const isVeg = isDishVeg(rawDish);
     if (elements.deliveryModalDishBadges) {
       elements.deliveryModalDishBadges.innerHTML = `
         <span class="badge ${isVeg ? 'badge-diet-veg' : 'badge-diet-nonveg'}" style="font-size:0.75rem; padding:2px 8px;">
