@@ -166,6 +166,7 @@
     modalSaveFavBtn: document.getElementById('modalSaveFavBtn'),
     modalWatchRecipeBtn: document.getElementById('modalWatchRecipeBtn'),
     modalAudioNarrateBtn: document.getElementById('modalAudioNarrateBtn'),
+    modalAudioBtn: document.getElementById('modalAudioNarrateBtn'),
     modalAudioIcon: document.getElementById('modalAudioIcon'),
     modalAudioLabel: document.getElementById('modalAudioLabel'),
     modalMarkTastedBtn: document.getElementById('modalMarkTastedBtn'),
@@ -470,6 +471,15 @@
     updatePassportUI();
     setupBattleArenaSelectors();
     renderMealPlanner();
+
+    // Reset / synchronize active audio narration and modal
+    stopAudioNarration();
+    if (elements.dishDetailModal && elements.dishDetailModal.classList.contains('active') && state.activeModalDish) {
+      openDishDetailModal(state.activeModalDish);
+    }
+    if (elements.cookAlongModal && elements.cookAlongModal.classList.contains('active') && state.activeCookDish) {
+      renderCookAlongStep();
+    }
 
     if (elements.langDropdown) {
       elements.langDropdown.classList.remove('active');
@@ -1837,6 +1847,42 @@
   }
 
   // --- WEB SPEECH AUDIO NARRATION ---
+  function getBestSpeechVoice(targetLang) {
+    if (!('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    if (!voices.length) return null;
+
+    if (targetLang === 'te') {
+      // Telugu: search for te, te-IN, or voices containing telugu/mohan/shruthi
+      const teVoice = voices.find(v => 
+        (v.lang && (v.lang.toLowerCase().startsWith('te') || v.lang.toLowerCase() === 'te-in')) ||
+        (v.name && v.name.toLowerCase().includes('telugu')) ||
+        (v.name && v.name.toLowerCase().includes('mohan')) ||
+        (v.name && v.name.toLowerCase().includes('chitra'))
+      );
+      if (teVoice) return teVoice;
+    } else if (targetLang === 'hi') {
+      // Hindi: search for hi, hi-IN, or voices containing hindi/hemant/kalpana/swara/madhur
+      const hiVoice = voices.find(v => 
+        (v.lang && (v.lang.toLowerCase().startsWith('hi') || v.lang.toLowerCase() === 'hi-in')) ||
+        (v.name && v.name.toLowerCase().includes('hindi')) ||
+        (v.name && v.name.toLowerCase().includes('hemant')) ||
+        (v.name && v.name.toLowerCase().includes('kalpana')) ||
+        (v.name && v.name.toLowerCase().includes('swara')) ||
+        (v.name && v.name.toLowerCase().includes('madhur')) ||
+        (v.name && v.name.toLowerCase().includes('neerja'))
+      );
+      if (hiVoice) return hiVoice;
+    } else {
+      // English: search for en-IN or en-US or en-GB
+      const enVoice = voices.find(v => 
+        (v.lang && (v.lang.toLowerCase() === 'en-in' || v.lang.toLowerCase() === 'en-us' || v.lang.toLowerCase().startsWith('en')))
+      );
+      if (enVoice) return enVoice;
+    }
+    return null;
+  }
+
   function toggleAudioNarration() {
     if (!('speechSynthesis' in window)) {
       showToast('Speech synthesis not supported in this browser.');
@@ -1851,25 +1897,64 @@
     const rawDish = state.activeModalDish;
     if (!rawDish) return;
     const dish = getLocalizedDish(rawDish);
+    const lang = state.currentLang || 'en';
 
-    const speechText = `${dish.name}. ${dish.description}.`;
+    // Build rich, localized narration in the selected language
+    let speechText = '';
+    if (lang === 'te') {
+      speechText = `${dish.name}. ${dish.cityName} ప్రాంతీయ ప్రసిద్ధ వంటకం. ${dish.famousFor} ${dish.description}`;
+    } else if (lang === 'hi') {
+      speechText = `${dish.name}. ${dish.cityName} का मशहूर और लजीज व्यंजन. ${dish.famousFor} ${dish.description}`;
+    } else {
+      speechText = `${dish.name}. An iconic delicacy from ${dish.cityName}. ${dish.famousFor} ${dish.description}`;
+    }
+
+    // Cancel any previous speech
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+    }
+
     const utterance = new SpeechSynthesisUtterance(speechText);
-    utterance.lang = state.currentLang === 'te' ? 'te-IN' : (state.currentLang === 'hi' ? 'hi-IN' : 'en-US');
-    utterance.rate = 0.95;
+    
+    // Set appropriate language tag & speaking rate
+    if (lang === 'te') {
+      utterance.lang = 'te-IN';
+      utterance.rate = 0.88;
+      utterance.pitch = 1.0;
+    } else if (lang === 'hi') {
+      utterance.lang = 'hi-IN';
+      utterance.rate = 0.90;
+      utterance.pitch = 1.0;
+    } else {
+      utterance.lang = 'en-US';
+      utterance.rate = 0.95;
+      utterance.pitch = 1.0;
+    }
+
+    // Match best available browser voice
+    const voice = getBestSpeechVoice(lang);
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    const audioBtn = elements.modalAudioNarrateBtn || elements.modalAudioBtn;
 
     utterance.onstart = () => {
       state.speechSynthSpeaking = true;
-      elements.modalAudioBtn.classList.add('speaking');
-      elements.modalAudioLabel.textContent = t('narrating_story');
-      elements.modalAudioIcon.setAttribute('data-lucide', 'square');
-      refreshLucideIcons();
+      if (audioBtn) audioBtn.classList.add('speaking');
+      if (elements.modalAudioLabel) elements.modalAudioLabel.textContent = t('narrating_story');
+      if (elements.modalAudioIcon) {
+        elements.modalAudioIcon.setAttribute('data-lucide', 'square');
+        refreshLucideIcons();
+      }
     };
 
     utterance.onend = () => {
       stopAudioNarration();
     };
 
-    utterance.onerror = () => {
+    utterance.onerror = (e) => {
+      console.warn('Speech synthesis playback ended/interrupted:', e);
       stopAudioNarration();
     };
 
@@ -1877,13 +1962,18 @@
   }
 
   function stopAudioNarration() {
-    if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+    if ('speechSynthesis' in window && (window.speechSynthesis.speaking || window.speechSynthesis.pending)) {
       window.speechSynthesis.cancel();
     }
     state.speechSynthSpeaking = false;
-    if (elements.modalAudioBtn) {
-      elements.modalAudioBtn.classList.remove('speaking');
+    const audioBtn = elements.modalAudioNarrateBtn || elements.modalAudioBtn;
+    if (audioBtn) {
+      audioBtn.classList.remove('speaking');
+    }
+    if (elements.modalAudioLabel) {
       elements.modalAudioLabel.textContent = t('listen_story');
+    }
+    if (elements.modalAudioIcon) {
       elements.modalAudioIcon.setAttribute('data-lucide', 'volume-2');
       refreshLucideIcons();
     }
@@ -3025,13 +3115,30 @@
   function renderCookAlongStep() {
     const rawDish = state.activeCookDish;
     if (!rawDish) return;
-    const steps = [
-      { title: 'Aromatic Prep & Mise en Place', desc: 'Prepare and measure whole spices, chop fresh ingredients, and set everything ready.', duration: 10 },
-      { title: 'Sautéing & Base Creation', desc: 'Heat ghee/oil, bloom whole spices, and sauté aromatics to golden perfection.', duration: 15 },
-      { title: 'Layering & Slow Dum Cooking', desc: 'Combine key elements, seal with tight lid, and slow-cook on gentle dum heat until aromatic steam escapes.', duration: 25 },
-      { title: 'Garnish & Plating', desc: 'Garnish with fresh herbs and serve piping hot in authentic regional style.', duration: 5 }
-    ];
+    const lang = state.currentLang || 'en';
+    
+    const stepsMap = {
+      en: [
+        { title: 'Aromatic Prep & Mise en Place', desc: 'Prepare and measure whole spices, chop fresh ingredients, and set everything ready.', duration: 10 },
+        { title: 'Sautéing & Base Creation', desc: 'Heat ghee/oil, bloom whole spices, and sauté aromatics to golden perfection.', duration: 15 },
+        { title: 'Layering & Slow Dum Cooking', desc: 'Combine key elements, seal with tight lid, and slow-cook on gentle dum heat until aromatic steam escapes.', duration: 25 },
+        { title: 'Garnish & Plating', desc: 'Garnish with fresh herbs and serve piping hot in authentic regional style.', duration: 5 }
+      ],
+      te: [
+        { title: 'మసాలా & పదార్థాల తయారీ', desc: 'కావాల్సిన అన్ని తాజా దినుసులు, సుగంధ ద్రవ్యాలను శుభ్రం చేసి సిద్ధంగా ఉంచుకోండి.', duration: 10 },
+        { title: 'వేపుడు & గ్రేవీ బేస్', desc: 'నెయ్యి లేదా నూనె వేడి చేసి, మసాలా దినుసులు బంగారు రంగు వచ్చేవరకు వేయించండి.', duration: 15 },
+        { title: 'దమ్ కుకింగ్', desc: 'అన్నింటినీ చేర్చి, గిన్నెపై మూత పెట్టి సన్నని సెగపై సువాసన వచ్చేలా నెమ్మదిగా ఉడికించండి.', duration: 25 },
+        { title: 'గార్నిష్ & వడ్డన', desc: 'తాజా కొత్తిమీర, వేయించిన ఉల్లిపాయలతో అలంకరించి వేడివేడిగా వడ్డించండి.', duration: 5 }
+      ],
+      hi: [
+        { title: 'मसाला व सामग्री की तैयारी', desc: 'सभी आवश्यक सामग्री और खड़े मसालों को नापकर और काटकर तैयार रखें।', duration: 10 },
+        { title: 'तड़का और भुनाई', desc: 'घी या तेल गरम करें, खड़े मसाले डालें और खुशबू आने तक धीमी आंच पर भूनें।', duration: 15 },
+        { title: 'परत लगाना और दम पर पकाना', desc: 'सभी सामग्री को मिलाकर भारी बर्तन में ढककर धीमी आंच पर दम दें।', duration: 25 },
+        { title: 'सजावट और परोसना', desc: 'ताजे धनिए और भुने प्याज से सजाकर गरमा-गरम परोसें।', duration: 5 }
+      ]
+    };
 
+    const steps = stepsMap[lang] || stepsMap['en'];
     const cur = steps[state.currentCookStepIndex] || steps[0];
     elements.cookStepBadge.textContent = t('step_n_of_m', { step: state.currentCookStepIndex + 1, total: steps.length });
     elements.cookStepName.textContent = cur.title;
@@ -3051,6 +3158,40 @@
       });
     }
     refreshLucideIcons();
+  }
+
+  function speakCookAlongStep() {
+    if (!('speechSynthesis' in window)) {
+      showToast('Speech synthesis not supported in this browser.');
+      return;
+    }
+    const stepName = elements.cookStepName ? elements.cookStepName.textContent : '';
+    const stepDesc = elements.cookStepDesc ? elements.cookStepDesc.textContent : '';
+    const speechText = `${stepName}. ${stepDesc}`;
+
+    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+      window.speechSynthesis.cancel();
+    }
+
+    const lang = state.currentLang || 'en';
+    const utterance = new SpeechSynthesisUtterance(speechText);
+    if (lang === 'te') {
+      utterance.lang = 'te-IN';
+      utterance.rate = 0.88;
+    } else if (lang === 'hi') {
+      utterance.lang = 'hi-IN';
+      utterance.rate = 0.90;
+    } else {
+      utterance.lang = 'en-US';
+      utterance.rate = 0.95;
+    }
+
+    const voice = getBestSpeechVoice(lang);
+    if (voice) {
+      utterance.voice = voice;
+    }
+
+    window.speechSynthesis.speak(utterance);
   }
 
   function updateCookTimerUI() {
@@ -3405,6 +3546,9 @@
       elements.closeCookAlongBtn.addEventListener('click', () => {
         elements.cookAlongModal.classList.remove('active');
       });
+    }
+    if (elements.cookVoiceSpeakBtn) {
+      elements.cookVoiceSpeakBtn.addEventListener('click', speakCookAlongStep);
     }
 
     // Story Card Poster Triggers
