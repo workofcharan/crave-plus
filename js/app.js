@@ -1870,27 +1870,53 @@
     elements.dishDetailModal.classList.remove('active');
   }
 
-  // --- WEB SPEECH AUDIO NARRATION ---
+  // --- ROBUST UNIVERSAL MULTILINGUAL SPEECH SYNTHESIZER ---
   let activeUtterance = null;
+  let cachedVoices = [];
+
+  function loadSpeechVoices() {
+    if (!('speechSynthesis' in window)) return [];
+    try {
+      const v = window.speechSynthesis.getVoices();
+      if (v && v.length) cachedVoices = v;
+    } catch(e) {}
+    return cachedVoices;
+  }
+
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    loadSpeechVoices();
+    try {
+      window.speechSynthesis.onvoiceschanged = () => {
+        loadSpeechVoices();
+      };
+    } catch(e) {}
+  }
 
   function getBestSpeechVoice(targetLang) {
-    if (!('speechSynthesis' in window)) return null;
-    const voices = window.speechSynthesis.getVoices() || [];
-    if (!voices.length) return null;
+    const voices = loadSpeechVoices();
+    if (!voices || !voices.length) return null;
 
     if (targetLang === 'te') {
-      // Telugu: search for te, te-IN, or voices containing telugu/mohan/shruthi
+      // 1. Native Telugu voice
       const teVoice = voices.find(v => 
-        (v.lang && (v.lang.toLowerCase().startsWith('te') || v.lang.toLowerCase() === 'te-in')) ||
+        (v.lang && (v.lang.toLowerCase() === 'te-in' || v.lang.toLowerCase().startsWith('te'))) ||
         (v.name && v.name.toLowerCase().includes('telugu')) ||
         (v.name && v.name.toLowerCase().includes('mohan')) ||
-        (v.name && v.name.toLowerCase().includes('chitra'))
+        (v.name && v.name.toLowerCase().includes('chitra')) ||
+        (v.name && v.name.toLowerCase().includes('shruthi'))
       );
-      if (teVoice) return teVoice;
+      if (teVoice) return { voice: teVoice, langCode: 'te-IN', isNative: true };
+
+      // 2. Indian English voice as fallback
+      const inVoice = voices.find(v => 
+        (v.lang && v.lang.toLowerCase() === 'en-in') ||
+        (v.name && (v.name.toLowerCase().includes('india') || v.name.toLowerCase().includes('heera') || v.name.toLowerCase().includes('ravi') || v.name.toLowerCase().includes('neerja')))
+      );
+      if (inVoice) return { voice: inVoice, langCode: 'en-IN', isNative: false };
     } else if (targetLang === 'hi') {
-      // Hindi: search for hi, hi-IN, or voices containing hindi/hemant/kalpana/swara/madhur
+      // 1. Native Hindi voice
       const hiVoice = voices.find(v => 
-        (v.lang && (v.lang.toLowerCase().startsWith('hi') || v.lang.toLowerCase() === 'hi-in')) ||
+        (v.lang && (v.lang.toLowerCase() === 'hi-in' || v.lang.toLowerCase().startsWith('hi'))) ||
         (v.name && v.name.toLowerCase().includes('hindi')) ||
         (v.name && v.name.toLowerCase().includes('hemant')) ||
         (v.name && v.name.toLowerCase().includes('kalpana')) ||
@@ -1898,15 +1924,24 @@
         (v.name && v.name.toLowerCase().includes('madhur')) ||
         (v.name && v.name.toLowerCase().includes('neerja'))
       );
-      if (hiVoice) return hiVoice;
+      if (hiVoice) return { voice: hiVoice, langCode: 'hi-IN', isNative: true };
+
+      // 2. Indian English voice as fallback
+      const inVoice = voices.find(v => 
+        (v.lang && v.lang.toLowerCase() === 'en-in') ||
+        (v.name && (v.name.toLowerCase().includes('india') || v.name.toLowerCase().includes('heera') || v.name.toLowerCase().includes('ravi')))
+      );
+      if (inVoice) return { voice: inVoice, langCode: 'en-IN', isNative: false };
     } else {
-      // English: search for en-IN or en-US or en-GB
+      // English voice
       const enVoice = voices.find(v => 
         (v.lang && (v.lang.toLowerCase() === 'en-in' || v.lang.toLowerCase() === 'en-us' || v.lang.toLowerCase().startsWith('en')))
       );
-      if (enVoice) return enVoice;
+      if (enVoice) return { voice: enVoice, langCode: enVoice.lang || 'en-US', isNative: true };
     }
-    return null;
+
+    // Default fallback
+    return voices.length > 0 ? { voice: voices[0], langCode: voices[0].lang || 'en-US', isNative: false } : null;
   }
 
   function stopAudioNarration() {
@@ -1955,26 +1990,49 @@
     }
     const dish = getLocalizedDish(rawDish);
     const lang = state.currentLang || 'en';
+    const voiceMatch = getBestSpeechVoice(lang);
 
-    // Build rich, localized narration in the selected language
+    // Build speech text tailored to native voice availability
     let speechText = '';
+    let targetLangCode = 'en-US';
+    let targetRate = 0.95;
+
     if (lang === 'te') {
-      speechText = `${dish.name}. ${dish.cityName} ప్రాంతీయ ప్రసిద్ధ వంటకం. ${dish.famousFor} ${dish.description}`;
+      if (voiceMatch && voiceMatch.isNative) {
+        speechText = `${dish.name}. ${dish.cityName} ప్రాంతీయ ప్రసిద్ధ వంటకం. ${dish.famousFor} ${dish.description}`;
+        targetLangCode = 'te-IN';
+        targetRate = 0.88;
+      } else {
+        // Fallback for systems without native Telugu TTS package (e.g. standard Windows)
+        speechText = `${dish.name}. An iconic delicacy from ${dish.cityName}. ${rawDish.famousFor || dish.famousFor}. ${rawDish.description || dish.description}`;
+        targetLangCode = voiceMatch ? voiceMatch.langCode : 'en-IN';
+        targetRate = 0.92;
+      }
     } else if (lang === 'hi') {
-      speechText = `${dish.name}. ${dish.cityName} का मशहूर और लजीज व्यंजन. ${dish.famousFor} ${dish.description}`;
+      if (voiceMatch && voiceMatch.isNative) {
+        speechText = `${dish.name}. ${dish.cityName} का मशहूर और लजीज व्यंजन. ${dish.famousFor} ${dish.description}`;
+        targetLangCode = 'hi-IN';
+        targetRate = 0.90;
+      } else {
+        speechText = `${dish.name}. Famous regional delicacy from ${dish.cityName}. ${rawDish.famousFor || dish.famousFor}. ${rawDish.description || dish.description}`;
+        targetLangCode = voiceMatch ? voiceMatch.langCode : 'en-IN';
+        targetRate = 0.92;
+      }
     } else {
-      speechText = `${dish.name}. An iconic regional dish from ${dish.cityName}. ${dish.famousFor} ${dish.description}`;
+      speechText = `${dish.name}. An iconic delicacy from ${dish.cityName}. ${dish.famousFor} ${dish.description}`;
+      targetLangCode = 'en-US';
+      targetRate = 0.95;
     }
 
     // Clean text of emojis / symbols
     speechText = speechText.replace(/[\u{1F600}-\u{1F6FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
 
-    // Cancel old speech safely
+    // Cancel any previous speech
     try {
       window.speechSynthesis.cancel();
     } catch(e) {}
 
-    // Short timeout avoids Chrome speech cancellation race condition
+    // Short timeout avoids Chrome cancellation race condition
     setTimeout(() => {
       try {
         if ('speechSynthesis' in window && window.speechSynthesis.paused) {
@@ -1985,23 +2043,12 @@
         activeUtterance = utterance; // Prevent garbage collection bug in Chrome/Edge
         window.__activeUtterance = utterance;
 
-        if (lang === 'te') {
-          utterance.lang = 'te-IN';
-          utterance.rate = 0.88;
-          utterance.pitch = 1.0;
-        } else if (lang === 'hi') {
-          utterance.lang = 'hi-IN';
-          utterance.rate = 0.90;
-          utterance.pitch = 1.0;
-        } else {
-          utterance.lang = 'en-US';
-          utterance.rate = 0.95;
-          utterance.pitch = 1.0;
-        }
+        utterance.lang = targetLangCode;
+        utterance.rate = targetRate;
+        utterance.pitch = 1.0;
 
-        const voice = getBestSpeechVoice(lang);
-        if (voice) {
-          utterance.voice = voice;
+        if (voiceMatch && voiceMatch.voice) {
+          utterance.voice = voiceMatch.voice;
         }
 
         const modalAudioBtn = elements.modalAudioNarrateBtn || elements.modalAudioBtn;
@@ -2028,7 +2075,18 @@
 
         utterance.onerror = (e) => {
           if (e.error !== 'canceled' && e.error !== 'interrupted') {
-            console.warn('Speech synthesis playback ended/interrupted:', e);
+            console.warn('Primary TTS playback interrupted, trying universal fallback:', e);
+            // Universal fallback to ensure speech plays under any OS
+            if (lang !== 'en' && !voiceMatch?.isNative) {
+              const fallbackText = `${dish.name}. Famous dish from ${dish.cityName}. ${rawDish.description || dish.description}`;
+              const fbUtterance = new SpeechSynthesisUtterance(fallbackText);
+              fbUtterance.lang = 'en-US';
+              fbUtterance.rate = 0.95;
+              fbUtterance.onend = () => stopAudioNarration();
+              fbUtterance.onerror = () => stopAudioNarration();
+              window.speechSynthesis.speak(fbUtterance);
+              return;
+            }
           }
           stopAudioNarration();
         };
@@ -3229,31 +3287,49 @@
     }
     const stepName = elements.cookStepName ? elements.cookStepName.textContent : '';
     const stepDesc = elements.cookStepDesc ? elements.cookStepDesc.textContent : '';
-    const speechText = `${stepName}. ${stepDesc}`;
+    const speechText = `${stepName}. ${stepDesc}`.replace(/[\u{1F600}-\u{1F6FF}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
 
-    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+    try {
       window.speechSynthesis.cancel();
-    }
+    } catch(e) {}
 
-    const lang = state.currentLang || 'en';
-    const utterance = new SpeechSynthesisUtterance(speechText);
-    if (lang === 'te') {
-      utterance.lang = 'te-IN';
-      utterance.rate = 0.88;
-    } else if (lang === 'hi') {
-      utterance.lang = 'hi-IN';
-      utterance.rate = 0.90;
-    } else {
-      utterance.lang = 'en-US';
-      utterance.rate = 0.95;
-    }
+    setTimeout(() => {
+      try {
+        if ('speechSynthesis' in window && window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        }
 
-    const voice = getBestSpeechVoice(lang);
-    if (voice) {
-      utterance.voice = voice;
-    }
+        const lang = state.currentLang || 'en';
+        const voiceMatch = getBestSpeechVoice(lang);
+        const utterance = new SpeechSynthesisUtterance(speechText);
+        activeUtterance = utterance;
 
-    window.speechSynthesis.speak(utterance);
+        if (lang === 'te' && voiceMatch && voiceMatch.isNative) {
+          utterance.lang = 'te-IN';
+          utterance.rate = 0.88;
+        } else if (lang === 'hi' && voiceMatch && voiceMatch.isNative) {
+          utterance.lang = 'hi-IN';
+          utterance.rate = 0.90;
+        } else {
+          utterance.lang = voiceMatch ? voiceMatch.langCode : 'en-US';
+          utterance.rate = 0.95;
+        }
+
+        if (voiceMatch && voiceMatch.voice) {
+          utterance.voice = voiceMatch.voice;
+        }
+
+        utterance.onerror = (e) => {
+          if (e.error !== 'canceled' && e.error !== 'interrupted') {
+            console.warn('Cook along TTS fallback triggered:', e);
+          }
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } catch(err) {
+        console.error('Cook along TTS error:', err);
+      }
+    }, 60);
   }
 
   function updateCookTimerUI() {
