@@ -269,7 +269,7 @@ const DISHES_DATA = [
     description: "A legendary slow-cooked dish prepared with wheat, barley, lentils, and meat, enriched with copious ghee, rose petals, cashews, and fried onions. It offers an incomparably velvety texture and hearty depth.",
     ingredients: ["Mutton / Goat Meat", "Broken Wheat (Dalia)", "Chana & Masoor Dal", "Pure Desi Ghee", "Almonds & Cashews", "Fried Golden Onions", "Rose Petals & Cardamom"],
     iconicSpots: ["Pista House (Charminar & across city)", "555 Haleem (Masab Tank)", "Sarvi Restaurant (Banjara Hills)", "Shah Ghouse"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Hyderabadi_Mutton_Haleem.jpg",
+    image: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Meat, soaked lentils, and wheat are slow simmered for 7-8 hours, then rigorously pounded with large wooden mashers (ghotni) with copious ghee until smooth and stringy."
   },
   {
@@ -327,7 +327,7 @@ const DISHES_DATA = [
     description: "Double roti (milk bread) fried to golden amber in pure desi ghee, soaked in fragrant saffron syrup, and garnished with thick reduced milk (rabri), roasted almonds, pistachios, and silver vark.",
     ingredients: ["Milk Bread Loaf", "Pure Desi Ghee", "Rabri (Reduced Milk)", "Saffron & Cardamom", "Pistachios & Almonds", "Silver Leaf"],
     iconicSpots: ["Nimrah Bakery (Charminar)", "Pista House", "Shah Ghouse", "Paradise"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/7/7d/Double_ka_meetha_with_a_big_spoon.jpg",
+    image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Cut bread slices into triangles, deep fry in ghee till golden crisp. Dip into warm cardamom syrup, pour thick condensed rabri over top, and garnish with sliced nuts."
   },
   {
@@ -720,7 +720,7 @@ const DISHES_DATA = [
     description: "The legendary pride of Bengal sweetmakers. Freshly made soft chenna (cottage cheese) kneaded to silkiness, rolled into delicate spheres, and boiled in bubbling hot sugar syrup until springy and juicy.",
     ingredients: ["Fresh Cow Milk Chenna (Cottage Cheese)", "Refined Sugar Syrup", "Cardamom & Rose Water", "Pistachio Garnish"],
     iconicSpots: ["K.C. Das (Esplanade)", "Balaram Mullick & Radharaman Mullick (Bhawanipore)", "Nobin Chandra Das", "Girish Chandra Dey"],
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/39/Rasgulla.jpg",
+    image: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Curdle fresh cow milk with whey, drain and knead chenna until non-sticky. Form into smooth balls, boil in simmering light cardamom sugar syrup for 15 minutes."
   },
 
@@ -1249,7 +1249,7 @@ const DISHES_DATA = [
     description: "The ancient Roman shepherd dish. Fresh hand-cut Tonnarelli pasta emulsified with freshly grated aged Pecorino Romano and freshly toasted cracked black peppercorns using hot starchy cooking water into a luxuriant, velvety sauce without butter or oil.",
     ingredients: ["Fresh Tonnarelli Pasta / Spaghetti", "Pecorino Romano DOP (Finely Grated)", "Whole Black Peppercorns (Toasted & Coarse)", "Starchy Pasta Cooking Water"],
     iconicSpots: ["Felice a Testaccio (Testaccio)", "Flavio al Velavevodetto (Testaccio)", "Da Francesco (Piazza del Fico)"],
-    image: "https://images.unsplash.com/photo-1621996346565-e3d5d6281514?w=900&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Toast cracked pepper in dry skillet until fragrant. Whisk Pecorino with warm pasta water into a thick paste. Toss hot drained tonnarelli pasta in skillet, add cheese paste and vigorously stir off heat until velvety cream forms."
   },
 
@@ -1813,7 +1813,7 @@ const DISHES_DATA = [
     description: "A monumental feast of luscious mud crab bathed in a thick, velvety gravy blending sambal chili, tomato purée, shallots, garlic, and ribbons of beaten egg, devoured with crispy deep-fried Chinese mantou buns.",
     ingredients: ["Live Mud Crab (Cracked)", "Shallots, Garlic & Red Chili Paste", "Tomato Purée & Rice Vinegar", "Whisked Farm Egg Ribbons", "Deep Fried Golden Mantou Buns"],
     iconicSpots: ["Jumbo Seafood (East Coast / Riverside)", "Long Beach Seafood", "No Signboard Seafood (Geylang)", "Red House Seafood"],
-    image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=900&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Wok-fry cracked mud crab until red. Stir-fry chili-shallot paste, add tomato stock, simmer crab, swirl in beaten egg to form velvety ribbons. Serve piping hot with fried mantou.",
     cookingSteps: [
       { step: 1, name: "Crab Prep & Flash Fry", duration: 10, desc: "Clean and crack live mud crab claws. Flash fry in high-heat oil for 2 minutes until shells turn bright orange-red." },
@@ -1854,7 +1854,7 @@ const DISHES_DATA = [
     description: "The quintessential coastal San Francisco comfort icon. Rich cream, tender ocean clams, diced potatoes, and savory smoked bacon poured piping hot into Boudin's legendary naturally fermented sour dough bowl.",
     ingredients: ["Fresh Chopped Ocean Clams & Nectar", "Yukon Gold Diced Potatoes", "Heavy Cream & Butter Roux", "Smoked Applewood Bacon", "Boudin Fermented Sourdough Boule"],
     iconicSpots: ["Boudin Bakery (Fisherman's Wharf)", "Hog Island Oyster Co. (Ferry Building)", "Swan Oyster Depot (Nob Hill)", "Fog Harbor Fish House"],
-    image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=900&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1588702547919-26089e690ecc?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Render bacon, cook onions, celery, and potatoes in clam broth until soft. Whisk in heavy cream roux, fold tender clams, and ladle into a hollowed warm sourdough loaf.",
     cookingSteps: [
       { step: 1, name: "Render Bacon & Aromatics", duration: 8, desc: "Crisp diced bacon in heavy pot. Sauté diced onions, celery, and garlic in the rendered bacon fat." },
@@ -1895,7 +1895,7 @@ const DISHES_DATA = [
     description: "The heartbeat of post-war Berlin street gastronomy invented in 1949 by Herta Heuwer. Golden pan-fried pork sausage bathed in a rich, spiced ketchup-curry sauce, generously dusted with Madras curry powder, and served alongside golden Belgian-style fries.",
     ingredients: ["German Pork Bratwurst Sausage", "Spiced Tomato Ketchup & Worcestershire", "Madras Curry Powder & Cayenne", "Double Fried Golden French Fries", "Creamy Mayonnaise"],
     iconicSpots: ["Curry 36 (Mehringdamm, Kreuzberg)", "Konnopke's Imbiß (Prenzlauer Berg)", "Witty's (Schöneberg)", "Curry 61 (Mitte)"],
-    image: "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=900&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=900&auto=format&fit=crop&q=80",
     recipeOverview: "Fry seasoned bratwurst until blistered and browned. Simmer tomato purée, apple cider vinegar, Worcestershire, and curry spices. Slice sausage, drench in warm sauce, sprinkle extra curry powder, serve with fries.",
     cookingSteps: [
       { step: 1, name: "Sear Bratwurst", duration: 8, desc: "Fry bratwurst sausages on a cast-iron skillet with butter until blistered, crisp, and golden brown on all sides." },
@@ -2033,7 +2033,7 @@ const DISHES_DATA = [
       "Yum Yum Tree",
       "Mandi 36"
     ],
-    "image": "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Boil chicken with whole spices to create aromatic stock. Cook basmati rice in the flavored stock. Roast spiced chicken until skin is crispy and golden. Serve over rice with fried nuts, sultanas, and fiery tomato dakkoos salsa."
   },
   {
@@ -2083,7 +2083,7 @@ const DISHES_DATA = [
       "Paradise Food Court",
       "4M Biryani House"
     ],
-    "image": "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Marinate chicken in spiced ginger-garlic and chili-cornstarch batter. Deep fry until golden and crisp. Sauté curry leaves, garlic, and green chilies in hot oil, add spiced yogurt mix, and toss fried chicken until coated."
   },
   {
@@ -2474,7 +2474,7 @@ const DISHES_DATA = [
       "Chianti",
       "Pizza Bakery"
     ],
-    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Stretch fresh dough into a 10-inch round. Spread rich herbed marinara evenly. Top with copious shredded mozzarella, sliced mushrooms, capsicum, corn, and black olives. Bake at 260°C until bubbling and golden."
   },
   {
@@ -2523,7 +2523,7 @@ const DISHES_DATA = [
       "Burger Craft",
       "Candies (Bandra)"
     ],
-    "image": "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Cut potatoes into batons, soak in ice water, double fry until super crispy. Immediately toss in a warm metal bowl with peri-peri chili mix and sea salt. Serve hot with garlic mayo."
   },
   {
@@ -2622,7 +2622,7 @@ const DISHES_DATA = [
       "Vaishno Chaat Bhandar",
       "Elco Pani Puri (Mumbai)"
     ],
-    "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Crack open crispy puri with thumb. Add a spoonful of mashed spiced potato-chickpea filling. Add a splash of sweet tamarind chutney, then dunk into ice-cold spicy mint water and eat in one bite."
   },
   {
@@ -2672,7 +2672,7 @@ const DISHES_DATA = [
       "Moti Mahal",
       "Radhey Lal Sweets"
     ],
-    "image": "https://images.unsplash.com/photo-1593798605673-455b57f0f622?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Knead mawa and chenna into smooth balls, deep-fry in desi ghee on gentle heat until mahogany brown. Soak in warm saffron-cardamom syrup. Place in bowl and pour chilled malai rabdi on top."
   },
   {
@@ -2819,7 +2819,7 @@ const DISHES_DATA = [
       "Bademiya",
       "Hangla's Kolkata Rolls"
     ],
-    "image": "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Grill marinated paneer cubes on skewers until lightly charred. Warm a layered paratha on a buttered tawa. Spread mint chutney, arrange paneer tikka, top with sliced onions and franky spice mix, roll tightly."
   },
   {
@@ -2868,7 +2868,7 @@ const DISHES_DATA = [
       "Burger Seigneur",
       "Leon's Burgers & Wings"
     ],
-    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Dip marinated chicken in seasoned flour, egg wash, and breadcrumbs. Deep-fry until crispy and cooked through. Toast brioche buns with butter, apply garlic mayo, lay shredded lettuce, chicken patty, cheese slice, and pickles."
   },
   {
@@ -2966,7 +2966,7 @@ const DISHES_DATA = [
       "Chawla's Tandoori",
       "Kake Da Hotel"
     ],
-    "image": "https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=900&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop&q=80",
     "recipeOverview": "Marinate boiled soya chaap in hung curd, cashew paste, cardamom, and white pepper. Thread onto skewers and roast in tandoor until lightly charred. Cut into pieces and toss in heavy cream and butter."
   }
 ];

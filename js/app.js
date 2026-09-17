@@ -1028,7 +1028,7 @@
 
       let mediaHtml = '';
       if (item.image) {
-        mediaHtml = `<img src="${item.image}" alt="" class="autocomplete-img" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">`;
+        mediaHtml = `<img src="${item.image}" alt="" class="autocomplete-img" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">`;
       } else {
         mediaHtml = `<div class="autocomplete-icon-box"><i data-lucide="${item.icon || 'utensils'}"></i></div>`;
       }
@@ -1330,7 +1330,7 @@
 
     card.innerHTML = `
       <div class="dish-media">
-        <img src="${rawDish.image}" alt="${dish.name}" class="dish-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+        <img src="${rawDish.image}" alt="${dish.name}" class="dish-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
         <div class="dish-badges">
           ${badgeHtml}
         </div>
@@ -2228,7 +2228,7 @@
       const item = document.createElement('div');
       item.className = 'fav-item';
       item.innerHTML = `
-        <img src="${rawDish.image}" alt="${dish.name}" class="fav-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+        <img src="${rawDish.image}" alt="${dish.name}" class="fav-thumb" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
         <div class="fav-info">
           <div class="fav-title">${dish.name}</div>
           <div class="fav-city">${dish.cityName} • ${dish.category} • <strong style="color:var(--emerald);">₹${rawDish.price}</strong></div>
@@ -2532,7 +2532,7 @@
       <div class="arena-grid-split">
         <!-- Contender A -->
         <div class="arena-col">
-          <img src="${rawDishA.image}" alt="${dishA.name}" class="arena-dish-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+          <img src="${rawDishA.image}" alt="${dishA.name}" class="arena-dish-thumb" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
           <div>
             <h3 style="font-size:1.25rem;">${dishA.name}</h3>
             <span style="font-size:0.85rem; color:var(--text-muted);"><i data-lucide="map-pin" style="width:12px;height:12px;display:inline;"></i> ${dishA.cityName}, ${dishA.country}</span>
@@ -2564,7 +2564,7 @@
 
         <!-- Contender B -->
         <div class="arena-col">
-          <img src="${rawDishB.image}" alt="${dishB.name}" class="arena-dish-thumb" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+          <img src="${rawDishB.image}" alt="${dishB.name}" class="arena-dish-thumb" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
           <div>
             <h3 style="font-size:1.25rem;">${dishB.name}</h3>
             <span style="font-size:0.85rem; color:var(--text-muted);"><i data-lucide="map-pin" style="width:12px;height:12px;display:inline;"></i> ${dishB.cityName}, ${dishB.country}</span>
@@ -3105,7 +3105,7 @@
 
         contentEl.innerHTML = `
           <div class="planned-dish-card" style="display:flex; gap:10px; align-items:center;">
-            <img src="${rawDish.image}" alt="${dish.name}" style="width:52px; height:52px; border-radius:var(--radius-sm); object-fit:cover;" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+            <img src="${rawDish.image}" alt="${dish.name}" style="width:52px; height:52px; border-radius:var(--radius-sm); object-fit:cover;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
             <div style="flex:1;">
               <h4 style="font-size:0.95rem; margin-bottom:2px;">${dish.name}</h4>
               <div style="font-size:0.75rem; color:var(--text-muted);">${dish.cityName} • <strong style="color:var(--emerald-dark);">₹${rawDish.price}</strong> • ${rawDish.calories} kcal</div>
@@ -3220,7 +3220,7 @@
       res.innerHTML = `
         <div style="background:var(--bg-card); padding:20px; border-radius:var(--radius-lg); border:2px solid var(--emerald); text-align:center;">
           <span class="badge badge-emerald" style="margin-bottom:8px;">${t('unboxed_success')}</span>
-          <img src="${rawDish.image}" alt="${dish.name}" style="width:100%; height:180px; object-fit:cover; border-radius:var(--radius-md); margin:8px 0;" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
+          <img src="${rawDish.image}" alt="${dish.name}" style="width:100%; height:180px; object-fit:cover; border-radius:var(--radius-md); margin:8px 0;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=900&auto=format&fit=crop&q=80'">
           <h3 style="font-size:1.4rem;">${dish.name}</h3>
           <div style="color:var(--emerald-dark); font-weight:700; font-size:0.95rem; margin-bottom:8px;">₹${rawDish.price} • ${dish.cityName}, ${dish.country}</div>
           <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:14px;">${dish.description}</p>
